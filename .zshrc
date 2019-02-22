@@ -119,7 +119,6 @@ ee () {
 
 alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
-alias parallel='parallel --will-cite'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -162,6 +161,6 @@ eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 export MANPATH=$HOME/perl5/man:$MANPATH
 source ~/pydev/bin/activate
 
-how_in() { where="$1"; shift IFS=+ curl "https://cht.sh/$where/$*" }
-
-translate(){ wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=$2&dt=t&q=$(echo $1 | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | awk -F'"' '{print $2, $6}'; }
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi

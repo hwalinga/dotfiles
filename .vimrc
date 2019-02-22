@@ -1,6 +1,9 @@
 set background=light
 colorscheme PaperColor
-set term=screen-256color
+if !has('nvim')
+    set term=screen-256color
+endif
+set guicursor=
 
 syntax enable
 set colorcolumn=80 
@@ -47,3 +50,5 @@ inoremap <CR> <C-G>u<CR>
 
 packloadall
 silent! helptags ALL
+
+let g:ale_virtualenv_dir_names = []
