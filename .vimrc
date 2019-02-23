@@ -4,6 +4,9 @@ if !has('nvim')
     set term=screen-256color
 endif
 set guicursor=
+set nocompatible
+
+set clipboard=unnamedplus 
 
 syntax enable
 set colorcolumn=80 
@@ -18,6 +21,7 @@ set expandtab
 :inoremap # X<BS>#
 
 filetype indent on
+filetype plugin on 
 
 set number 
 set cursorline
