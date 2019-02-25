@@ -112,7 +112,6 @@ else
   export EDITOR='vim'
 fi
 
-
 ee () {
     "$@" &! exit;
 }
@@ -164,3 +163,5 @@ source ~/pydev/bin/activate
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+setopt cdablevars
