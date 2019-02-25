@@ -112,6 +112,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [[ -f ~/.utrechtrc ]]; then 
+alias ta='tmux attach -t $1'
+_ta() {
+    TMUX_SESSIONS=$(tmux ls -F '#S' | xargs)
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "$TMUX_SESSIONS" -- $cur) )
+}
+complete -F _ta ta
+
+shopt -s cdable_vars
+
+if [[ -f ~/.utrechtrc ]]; then
     . ~/.utrechtrc
 fi
