@@ -123,5 +123,5 @@ complete -F _ta ta
 shopt -s cdable_vars
 
 if [[ -f ~/.utrechtrc ]]; then
-    . ~/.utrechtrc
+    . ~/.localrc
 fi
