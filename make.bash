@@ -6,7 +6,7 @@ folders=(.vim/{backupfiles,colors,pack,swapfiles,undodir,pack/git-plugins/start}
          .oh-my-zsh/custom/themes)
 
 for folder in "${folders[@]}"; do 
-    mkdir -p $folder
+    mkdir -p ~/$folder
 done
 
 mkdir ~/old_dotfiles
