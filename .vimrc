@@ -58,6 +58,9 @@ inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
 inoremap jk <esc>
 
+set fo+=o
+set fo-=r
+
 packloadall
 silent! helptags ALL
 
