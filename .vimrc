@@ -87,3 +87,5 @@ map <leader><leader> <Esc>/<++><Enter>"_c4l
 
 autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" run %:p Enter'<Bar>redraw!<C-M>
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
+
+nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
