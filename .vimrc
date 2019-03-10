@@ -13,6 +13,9 @@ Plug 'tpope/vim-repeat'
 Plug 'losingkeys/vim-niji'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
+Plug 'Yggdroot/indentLine'
+Plug 'romainl/vim-cool'
+Plug 'wellle/targets.vim'
 call plug#end()
 
 set background=light
