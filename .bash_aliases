@@ -33,7 +33,7 @@ dgrep() {
 }
 
 revs() {
-    [[ -n $1 ]] && { revs <<< $1; exit 0; }
+    [[ -n $1 ]] && { revs <<< $1; return; }
     revseq /dev/stdin /dev/stdout 2>/dev/null | tail -n+2 |
         awk 1 ORS="" && echo
 }

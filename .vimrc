@@ -1,3 +1,20 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/bundle')
+Plug 'junegunn/vim-plug'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'losingkeys/vim-niji'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'w0rp/ale'
+call plug#end()
+
 set background=light
 colorscheme PaperColor
 if !has('nvim')
@@ -65,6 +82,13 @@ packloadall
 silent! helptags ALL
 
 let g:ale_virtualenv_dir_names = []
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['isort', 'black'],
+\}
+let g:ale_fix_on_save = 1
+" Remove trailing space on safe.
+" autocmd BufWritePre * %s/\s\+$//e
 
 set path+=**
 set wildmenu
@@ -82,8 +106,6 @@ nnoremap S :%s//g<Left><Left>
 
 vnoremap <C-c> "+y
 map <C-p> "+P
-" Remove trailing space on safe.
-autocmd BufWritePre * %s/\s\+$//e
 
 vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 map <leader><leader> <Esc>/<++><Enter>"_c4l
