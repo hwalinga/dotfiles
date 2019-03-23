@@ -84,6 +84,7 @@ plugins=(
   zsh-completions
   zsh-autosuggestions
   tmux
+  extract
 )
 
 export PATH="$HOME/bin:$PATH"
@@ -160,8 +161,12 @@ eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 export MANPATH=$HOME/perl5/man:$MANPATH
 source ~/pydev/bin/activate
 
+# export PATH="$PATH:$HOME/.cargo/bin/"
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 setopt cdablevars
+
+alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"

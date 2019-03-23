@@ -10,12 +10,14 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-capslock'
 Plug 'losingkeys/vim-niji'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/indentLine'
 Plug 'romainl/vim-cool'
 Plug 'wellle/targets.vim'
+Plug 'aldantas/vim-custom-surround'
 call plug#end()
 
 set background=light
@@ -30,6 +32,7 @@ set clipboard=unnamedplus
 
 syntax enable
 set colorcolumn=80
+set linebreak
 set hlsearch
 set incsearch
 
@@ -67,6 +70,10 @@ endfor
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
+call customsurround#map('<leader>b', '\fB', '\fP')
+call customsurround#map('<leader>i', '\fI', '\fP')
+
+
 " Clear highlighting on escape in normal mode
 " This can cause errors
 " nnoremap <esc> :noh<return><esc>
@@ -77,9 +84,11 @@ nnoremap <leader>j :noh<CR>
 inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
 inoremap jk <esc>
+nmap ; :
 
 set fo+=o
 set fo-=r
+set fo-=t
 
 packloadall
 silent! helptags ALL
@@ -89,9 +98,9 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'black'],
 \}
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 " Remove trailing space on safe.
-" autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * %s/\s\+$//e
 
 set path+=**
 set wildmenu
@@ -113,7 +122,7 @@ map <C-p> "+P
 vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 map <leader><leader> <Esc>/<++><Enter>"_c4l
 
-autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" run %:p Enter'<Bar>redraw!<C-M>
+autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
 nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
