@@ -169,4 +169,5 @@ fi
 
 setopt cdablevars
 
-alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
+alias ssh="ssh -o IPQoS=0"
+alias clusterlogin="ssh -o IPQoS=0 -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"

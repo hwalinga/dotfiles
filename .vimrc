@@ -5,20 +5,30 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/bundle')
+
 Plug 'junegunn/vim-plug'
+
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-capslock'
-Plug 'losingkeys/vim-niji'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-repeat'
+
+Plug 'romainl/vim-cool'
+
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
+
+Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
-Plug 'romainl/vim-cool'
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
 call plug#end()
+
+let g:rainbow_active = 1
+let g:rainbow_conf = {'ctermfgs': [238, 200, 150]}
 
 set background=light
 colorscheme PaperColor
@@ -27,6 +37,13 @@ if !has('nvim')
 endif
 set guicursor=
 set nocompatible
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': { 'highlight_builtins' : 1 },
+  \     'cpp': { 'highlight_standard_library': 1 },
+  \     'c': { 'highlight_builtins' : 1 }
+  \   }
+  \ }
 
 set clipboard=unnamedplus
 
@@ -93,12 +110,15 @@ set fo-=t
 packloadall
 silent! helptags ALL
 
+let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
+
 let g:ale_virtualenv_dir_names = []
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'black'],
 \}
 let g:ale_fix_on_save = 0
+"
 " Remove trailing space on safe.
 autocmd BufWritePre * %s/\s\+$//e
 
