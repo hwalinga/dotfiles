@@ -4,6 +4,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
 call plug#begin('~/.vim/bundle')
 
 Plug 'junegunn/vim-plug'
@@ -15,6 +16,7 @@ Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-scriptease'
 
 Plug 'romainl/vim-cool'
 
@@ -25,10 +27,17 @@ Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
+
 call plug#end()
 
+
+so $VIMRUNTIME/defaults.vim
+" Remove autocmd 'jump to last known cursor position'
+" augroup vimStartup | au! | augroup END
+autocmd BufEnter * set mouse=
+
 let g:rainbow_active = 1
-let g:rainbow_conf = {'ctermfgs': [238, 200, 150]}
+let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
 
 set background=light
 colorscheme PaperColor
@@ -47,27 +56,28 @@ let g:PaperColor_Theme_Options = {
 
 set clipboard=unnamedplus
 
-syntax enable
+" syntax enable
 set colorcolumn=80
 set linebreak
 set hlsearch
-set incsearch
+set number! relativenumber!
+" set incsearch
 
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set smarttab
+" set smarttab
 set expandtab
 
-filetype indent plugin on
+" filetype indent plugin on
 
 set number
 set cursorline
 set showcmd
 set signcolumn=yes
 
-set autoindent
+" set autoindent
 set smartindent
 set hidden
 
@@ -90,18 +100,12 @@ nmap <expr> <bslash> mapleader
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
 
-
-" Clear highlighting on escape in normal mode
-" This can cause errors
-" nnoremap <esc> :noh<return><esc>
-" nnoremap <esc>^[ <esc>^[
-" nnoremap <CR> :noh<CR>
-nnoremap <leader>j :noh<CR>
-
-inoremap <CR> <C-G>u<CR>
+" inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
 inoremap jk <esc>
 nmap ; :
+" map End key to end of line in command mode
+cm OF 
 
 set fo+=o
 set fo-=r
@@ -117,13 +121,13 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'black'],
 \}
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 "
 " Remove trailing space on safe.
 autocmd BufWritePre * %s/\s\+$//e
 
 set path+=**
-set wildmenu
+" set wildmenu
 set wildmode=list:longest,full
 set dictionary+=/usr/share/dict/words
 set complete=.,w,b,u,t

@@ -5,6 +5,7 @@ alias matlab='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmu
 alias tawk="awk -F '\t' -v OFS='\t'"
 alias mtawk="mawk -F '\t' -v OFS='\t'"
 alias les="less -S -N -#2"
+alias vimrc="$EDITOR ~/.vimrc"
 
 alias neofetch="neofetch; sleep 1d"
 
