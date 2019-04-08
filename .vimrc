@@ -31,10 +31,6 @@ Plug 'aldantas/vim-custom-surround'
 call plug#end()
 
 
-so $VIMRUNTIME/defaults.vim
-" Remove autocmd 'jump to last known cursor position'
-" augroup vimStartup | au! | augroup END
-autocmd BufEnter * set mouse=
 
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
@@ -43,7 +39,14 @@ set background=light
 colorscheme PaperColor
 if !has('nvim')
     set term=screen-256color
+    so $VIMRUNTIME/defaults.vim
+else
+    so ~/dotfiles/defaults.vim
 endif
+" Remove autocmd 'jump to last known cursor position'
+" augroup vimStartup | au! | augroup END
+autocmd BufEnter * set mouse=
+
 set guicursor=
 set nocompatible
 let g:PaperColor_Theme_Options = {
