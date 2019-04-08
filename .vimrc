@@ -27,6 +27,7 @@ Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
+Plug 'tmux-plugins/vim-tmux'
 
 call plug#end()
 
@@ -103,7 +104,7 @@ call customsurround#map('<leader>i', '\fI', '\fP')
 " inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
 inoremap jk <esc>
-nmap ; :
+" nmap ; :
 " map End key to end of line in command mode
 cm OF 
 

@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -66,19 +67,19 @@ HYPHEN_INSENSITIVE="true"
 
 
 plugins=(
-  git
+  # git
   command-not-found
-  web-search
-  sudo
-  python
-  history
-  debian
-  dircycle
-  dirhistory
+  # web-search
+  # sudo
+  # python
+  # history
+  # debian
+  # dircycle
+  # dirhistory
   common-aliases
   colored-man-pages
   z
-  apply
+  # apply
   zsh-syntax-highlighting
   history-substring-search
   zsh-completions
@@ -86,6 +87,7 @@ plugins=(
   tmux
   extract
 )
+# [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
 export PATH="$HOME/bin:$PATH"
 
@@ -139,6 +141,8 @@ export PATH="$PATH:$HOME/npm/bin"
 export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 
+export PATH="$PATH:$HOME/programs/Xidel"
+
 remove-safely () {
         mount_path=${1:0:${#mount_point}-1}
         mount_point=$(mount | grep $mount_path | cut -d" " -f1)
@@ -171,3 +175,8 @@ setopt cdablevars
 
 alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -o IPQoS=0 -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux
+fi
+# zprof
