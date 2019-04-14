@@ -1,3 +1,6 @@
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux
+fi
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -72,10 +75,10 @@ plugins=(
   # web-search
   # sudo
   # python
-  # history
+  history
   # debian
-  # dircycle
-  # dirhistory
+  dircycle
+  dirhistory
   common-aliases
   colored-man-pages
   z
@@ -121,6 +124,7 @@ ee () {
 
 alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
+alias ssh='xdotool key F9; ssh'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -173,10 +177,7 @@ fi
 
 setopt cdablevars
 
-alias ssh="ssh -o IPQoS=0"
-alias clusterlogin="ssh -o IPQoS=0 -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
+# alias ssh="ssh -o IPQoS=0"
+alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
-fi
 # zprof
