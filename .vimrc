@@ -28,6 +28,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'ap/vim-css-color'
 
 call plug#end()
 
@@ -46,7 +47,7 @@ else
 endif
 " Remove autocmd 'jump to last known cursor position'
 " augroup vimStartup | au! | augroup END
-autocmd BufEnter * set mouse=
+" autocmd BufEnter * set mouse=
 
 set guicursor=
 set nocompatible

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 files=(".tmux.conf" ".zshrc" ".bashrc-user" ".vimrc" ".bash_aliases"
-    ".config/nvim/init.vim" ".bashrc")
+    ".config/nvim/init.vim" ".bashrc" ".Xdefaults)
 folders=(.vim/{backupfiles,colors,pack,swapfiles,undodir,pack/git-plugins/start}
          .oh-my-zsh/custom/themes .tmux-panes)
 
