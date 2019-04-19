@@ -179,6 +179,7 @@ setopt cdablevars
 
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
+alias mawk="/home/hielke/.linuxbrew/bin/mawk"
 export LESS="--mouse -XFMiX"
 
 # zprof
