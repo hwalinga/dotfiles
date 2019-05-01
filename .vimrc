@@ -4,6 +4,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let mapleader = " "
+nmap <expr> <bslash> mapleader
+
+filetype indent plugin on
+
 
 call plug#begin('~/.vim/bundle')
 
@@ -24,6 +29,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
 
 Plug 'luochen1990/rainbow'
+" , { 'on': 'LoadRainbow' }
 Plug 'Yggdroot/indentLine'
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
@@ -33,9 +39,49 @@ Plug 'ap/vim-css-color'
 call plug#end()
 
 
+" command LoadRainbow
+" fun! SetRainbow()
+"     if &ft =~ 'html'
+"         return
+"     endif
+"     LoadRainbow
+"     let g:rainbow_active = 1
+"     let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
+" endfun
+" autocmd BufWritePre * call SetRainbow()
 
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
+
+" autocmd BufEnter * call s:toggle_rainbow()
+" fun! s:toggle_rainbow()
+"     if &ft != 'html'
+"         echo &ft
+"     endif
+" endfun
+
+" autocmd BufEnter *.html RainbowToggle
+map <leader>r :RainbowToggle<enter>
+
+augroup reset_rainbow_in_html
+    au!
+    au BufEnter * call s:reset_rainbow_in_html()
+augroup END
+fu! s:reset_rainbow_in_html() abort
+    if &ft ==# 'html'
+        RainbowToggleOff
+    endif
+endfu
+
+" autocmd FileType html RainbowToggle
+" autocmd BufEnter * if &ft == 'html' | RainbowToggle | endif
+
+" autocmd BufEnter * call s:toggle_rainbow()
+" fun! s:toggle_rainbow()
+"     if &ft == 'html'
+"         RainbowToggle
+"     endif
+" endfun
 
 set background=light
 colorscheme PaperColor
@@ -99,9 +145,6 @@ for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
     execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
 endfor
 
-let mapleader = " "
-nmap <expr> <bslash> mapleader
-
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
 
@@ -127,7 +170,7 @@ let g:ale_fixers = {
 \   'python': ['isort', 'black'],
 \}
 let g:ale_fix_on_save = 1
-"
+
 " Remove trailing space on safe.
 autocmd BufWritePre * %s/\s\+$//e
 

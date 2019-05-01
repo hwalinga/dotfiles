@@ -6,6 +6,8 @@ alias tawk="awk -F '\t' -v OFS='\t'"
 alias mtawk="mawk -F '\t' -v OFS='\t'"
 alias les="less -S -N -#2"
 alias vimrc="$EDITOR ~/.vimrc"
+alias lower="tr '[:upper:]' '[:lower:]'"
+alias upper="tr '[:lower:]' '[:upper:]'"
 
 alias neofetch="neofetch; sleep 1d"
 

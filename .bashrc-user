@@ -121,6 +121,7 @@ _ta() {
 complete -F _ta ta
 
 shopt -s cdable_vars
+stty -ixon
 
 if [[ -f ~/.localrc ]]; then
     . ~/.localrc
