@@ -19,6 +19,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-ragtag'
+
+Plug 'mattn/emmet-vim'
 
 Plug 'romainl/vim-cool'
 
@@ -32,6 +35,7 @@ Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'ap/vim-css-color'
+Plug 'mustache/vim-mustache-handlebars'
 
 call plug#end()
 
@@ -45,6 +49,9 @@ au BufRead,StdinReadPost * if getline(1) =~ '<html>' | setlocal ft=html | endif
 au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
+let g:html_indent_script1 = "inc"
+" Map shift enter
+inoremap [13;2u <CR><ESC>O
 
 
 set background=light
@@ -123,6 +130,9 @@ inoremap kj <esc>
 " nmap ; :
 " map End key to end of line in command mode
 cm OF 
+
+nnoremap <leader>o }o<esc>O
+nnoremap <leader>O {O<esc>o
 
 set fo+=o
 set fo-=r
