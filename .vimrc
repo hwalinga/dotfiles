@@ -7,9 +7,6 @@ endif
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
-filetype indent plugin on
-
-
 call plug#begin('~/.vim/bundle')
 
 Plug 'junegunn/vim-plug'
@@ -39,49 +36,16 @@ Plug 'ap/vim-css-color'
 call plug#end()
 
 
-" command LoadRainbow
-" fun! SetRainbow()
-"     if &ft =~ 'html'
-"         return
-"     endif
-"     LoadRainbow
-"     let g:rainbow_active = 1
-"     let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
-" endfun
-" autocmd BufWritePre * call SetRainbow()
-
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
 
-" autocmd BufEnter * call s:toggle_rainbow()
-" fun! s:toggle_rainbow()
-"     if &ft != 'html'
-"         echo &ft
-"     endif
-" endfun
-
-" autocmd BufEnter *.html RainbowToggle
 map <leader>r :RainbowToggle<enter>
 
-augroup reset_rainbow_in_html
-    au!
-    au BufEnter * call s:reset_rainbow_in_html()
-augroup END
-fu! s:reset_rainbow_in_html() abort
-    if &ft ==# 'html'
-        RainbowToggleOff
-    endif
-endfu
+au BufRead,StdinReadPost * if getline(1) =~ '<html>' | setlocal ft=html | endif
+au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 
-" autocmd FileType html RainbowToggle
-" autocmd BufEnter * if &ft == 'html' | RainbowToggle | endif
+au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 
-" autocmd BufEnter * call s:toggle_rainbow()
-" fun! s:toggle_rainbow()
-"     if &ft == 'html'
-"         RainbowToggle
-"     endif
-" endfun
 
 set background=light
 colorscheme PaperColor
@@ -98,12 +62,12 @@ endif
 set guicursor=
 set nocompatible
 let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'python': { 'highlight_builtins' : 1 },
-  \     'cpp': { 'highlight_standard_library': 1 },
-  \     'c': { 'highlight_builtins' : 1 }
-  \   }
-  \ }
+\   'language': {
+\    'python': { 'highlight_builtins' : 1 },
+\    'cpp': { 'highlight_standard_library': 1 },
+\    'c': { 'highlight_builtins' : 1 }
+\   }
+\}
 
 set clipboard=unnamedplus
 
@@ -114,14 +78,19 @@ set hlsearch
 set number! relativenumber!
 " set incsearch
 
+" indentLine uses conceal, disable for markdown and json.
+let g:indentLine_fileTypeExclude = ['markdown', 'json']
+
+set tabstop=8
+
 set softtabstop=4
 set shiftwidth=4
-set tabstop=4
-set softtabstop=4
 " set smarttab
 set expandtab
+let g:vim_indent_cont = 0
 
-" filetype indent plugin on
+au FileType javascript set softtabstop=2
+au FileType javascript set shiftwidth=2
 
 set number
 set cursorline
@@ -165,10 +134,15 @@ silent! helptags ALL
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 
 let g:ale_virtualenv_dir_names = []
+let g:ale_linters = {
+\   'javascript': ['eslint']
+\}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'black'],
+\   'javascript': ['eslint', 'standard', 'prettier_standard', 'prettier_eslint'],
 \}
+" , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
 
 " Remove trailing space on safe.
