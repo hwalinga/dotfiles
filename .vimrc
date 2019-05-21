@@ -4,12 +4,29 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" VIM/NVIM -- SANE DEFAULTS
+if !has('nvim')
+    " set term=screen-256color
+    " set t_Co=256
+    set term=rxvt-unicode-256color
+    so $VIMRUNTIME/defaults.vim
+else
+    so ~/dotfiles/defaults.vim
+endif
+" Remove autocmd 'jump to last known cursor position'
+" augroup vimStartup | au! | augroup END
+" autocmd BufEnter * set mouse=
+
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
 call plug#begin('~/.vim/bundle')
 
 Plug 'junegunn/vim-plug'
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+" vim-easy-align
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -20,26 +37,35 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-ragtag'
+" tbone?
 
 Plug 'mattn/emmet-vim'
-
-Plug 'romainl/vim-cool'
-
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'w0rp/ale'
-
-Plug 'luochen1990/rainbow'
-" , { 'on': 'LoadRainbow' }
-Plug 'Yggdroot/indentLine'
-Plug 'wellle/targets.vim'
-Plug 'aldantas/vim-custom-surround'
-Plug 'tmux-plugins/vim-tmux'
 Plug 'ap/vim-css-color'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'vimwiki/vimwiki'
 
-call plug#end()
+" Plug 'romainl/vim-cool'
+Plug 'jiangmiao/auto-pairs'
 
+Plug 'luochen1990/rainbow'
+" , { 'on': 'LoadRainbow' }
+Plug 'Yggdroot/indentLine'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'w0rp/ale'
+
+Plug 'wellle/targets.vim'
+Plug 'aldantas/vim-custom-surround'
+
+Plug 'tmux-plugins/vim-tmux'
+
+Plug 'Houl/repmo-vim'
+
+" Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
+
+Plug 'drmikehenry/vim-fixkey'
+
+call plug#end()
 
 " RAINBOW
 let g:rainbow_active = 1
@@ -52,10 +78,19 @@ au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 
+" Latex
+" let g:tex_flavor='latex'
+
 " HTML
 let g:html_indent_script1 = "inc"
 " Map shift enter
-inoremap [13;2u <CR><ESC>O
+" inoremap [13;2u <CR><ESC>O
+inoremap <M-Enter> <CR><ESC>O
+
+
+let g:user_emmet_mode='a'
+imap <C-y>, <esc>$<Plug>(emmet-expand-abbr)
+nmap <C-y>, $<Plug>(emmet-expand-abbr)
 
 " THEME
 set background=light
@@ -69,17 +104,6 @@ let g:PaperColor_Theme_Options = {
 \    'c': { 'highlight_builtins' : 1 }
 \   }
 \}
-
-" VIM/NVIM -- SANE DEFAULTS
-if !has('nvim')
-    set term=screen-256color
-    so $VIMRUNTIME/defaults.vim
-else
-    so ~/dotfiles/defaults.vim
-endif
-" Remove autocmd 'jump to last known cursor position'
-" augroup vimStartup | au! | augroup END
-" autocmd BufEnter * set mouse=
 
 " FILE DIRS
 set dir=~/.vim/swapfiles
@@ -119,11 +143,7 @@ let g:indentLine_fileTypeExclude = ['markdown', 'json']
 " GENERAL
 set encoding=utf8
 set ffs=unix,dos,mac
-set clipboard=unnamedplus
-
-set fo+=o
-set fo-=r
-set fo-=t
+set clipboard^=unnamed,unnamedplus
 
 packloadall
 silent! helptags ALL
@@ -136,12 +156,30 @@ set complete=.,w,b,u,t
 
 " MAPPINGS
 " nvim behave like normal command line.
-for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
-    execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
-endfor
+" for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
+"     execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
+" endfor
 
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
+
+" map a motion and its reverse motion:
+:noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
+:noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
+
+" if you like `:noremap j gj', you can keep that:
+:map <expr> j repmo#Key('gj', 'gk')|sunmap j
+:map <expr> k repmo#Key('gk', 'gj')|sunmap k
+
+" repeat the last [count]motion or the last zap-key:
+:map <expr> ; repmo#LastKey(';')|sunmap ;
+:map <expr> , repmo#LastRevKey(',')|sunmap ,
+
+" add these mappings when repeating with `;' or `,':
+:noremap <expr> f repmo#ZapKey('f')|sunmap f
+:noremap <expr> F repmo#ZapKey('F')|sunmap F
+:noremap <expr> t repmo#ZapKey('t')|sunmap t
+:noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
@@ -150,8 +188,17 @@ inoremap kj <esc>
 " map End key to end of line in command mode
 cm OF 
 
-nnoremap <leader>o }o<esc>O
-nnoremap <leader>O {O<esc>o
+map <leader>h :noh<CR>
+
+map <m-a> ggVG
+
+vnoremap // y/<C-R>"<CR>
+
+nnoremap <leader>o }ko<CR>
+nnoremap <leader>O {ko<CR>
+
+" nnoremap <expr> <Leader>o line('.') == line('$') ? '}o<CR>' : '}O<CR>'
+" nnoremap <expr> <Leader>O line('.') == 1 ? '{O<CR><Esc>ki' : '{O<CR>''}'}'
 
 set splitbelow splitright
 map <C-h> <C-w>h
@@ -192,3 +239,11 @@ autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(ca
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults ~xrdb %
+
+set fo+=o
+set fo-=r
+set fo-=t
+set isfname-==
+
+" Multiple byte characters (like alt)
+set ttimeoutlen=5

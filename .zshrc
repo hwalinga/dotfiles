@@ -6,7 +6,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/hielke/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -124,7 +124,7 @@ ee () {
 
 alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
-alias ssh='xdotool key F9; ssh'
+alias ssh='xdotool key F10; ssh'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -162,7 +162,7 @@ remove-safely () {
 #PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
 
-export PATH="$PATH:/home/hielke/programs/CRISPRCasFinder/bin"
+export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
 #export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
 
 eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
@@ -179,9 +179,15 @@ setopt cdablevars
 
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
-alias mawk="/home/hielke/.linuxbrew/bin/mawk"
-export LESS="--mouse -RXFMiX"
+alias mawk="$HOME/.linuxbrew/bin/mawk"
+export LESS="-RXFMiX"
 alias rg="rg -N"
+
+# WOW, I need to this stupid shit here, because systemd:
+# $HOME/.keys
 
 # zprof
 cat ~/Important
+export BAT_THEME="GitHub"
+
+source /home/hielke/.config/broot/launcher/bash/br

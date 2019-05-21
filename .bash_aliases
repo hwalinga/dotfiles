@@ -9,7 +9,7 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
 
-alias neofetch="neofetch; sleep 1d"
+alias neofetch="neofetch; sleep infinity;"
 
 function xcl() {
     column -n -t -s $'\t' $1 | less -S -N -#2

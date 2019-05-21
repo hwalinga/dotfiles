@@ -12,3 +12,5 @@ fi
 if [ -f ${HOME}/.bashrc-user ]; then
     . ${HOME}/.bashrc-user
 fi
+
+source /home/hielke/.config/broot/launcher/bash/br

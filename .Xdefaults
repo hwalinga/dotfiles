@@ -74,9 +74,11 @@ URxvt.url-launcher: /usr/bin/xdg-open
 !! middle mouse button:
 URxvt.matcher.button: 2
 URxvt.keysym.F11: perl:fullscreen:switch
+
+
 !! Sending the by vim expected key codes for Shift Enter and control Enter.
-URxvt.keysym.S-Return: \033[13;2u
-URxvt.keysym.C-Return: \033[13;5u
+/* URxvt.keysym.S-Return: \033[13;2u */
+/* URxvt.keysym.C-Return: \033[13;5u */
 
 /* !! brogrammer: */
 /* *.foreground:  #d6dbe5 */
