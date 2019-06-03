@@ -38,6 +38,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-ragtag'
 " tbone?
+Plug 'adelarsq/vim-matchit'
 
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
@@ -64,6 +65,7 @@ Plug 'Houl/repmo-vim'
 Plug 'lervag/vimtex'
 
 Plug 'drmikehenry/vim-fixkey'
+" Plug 'zhou13/vim-easyescape'
 
 call plug#end()
 
@@ -134,6 +136,9 @@ let g:vim_indent_cont = 0
 set smartindent
 set hidden
 
+set ignorecase
+set smartcase
+
 au FileType javascript set softtabstop=2
 au FileType javascript set shiftwidth=2
 
@@ -188,7 +193,16 @@ inoremap kj <esc>
 " map End key to end of line in command mode
 cm OF 
 
+" let g:easyescape_chars = { "j": 1, "k": 1  }
+" let g:easyescape_timeout = 100
+" cnoremap kj <ESC>
+
 map <leader>h :noh<CR>
+
+nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
+nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 map <m-a> ggVG
 
@@ -231,6 +245,8 @@ let g:ale_fixers = {
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
 
+let g:ale_completion_enabled = 1
+
 " Remove trailing space on safe.
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -240,9 +256,17 @@ autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(ca
 
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults ~xrdb %
 
-set fo+=o
-set fo-=r
-set fo-=t
+" set fo+=o
+" set fo-=r
+
+" set fo-=o
+" set fo+=r
+" set fo-=t
+
+autocmd FileType * set formatoptions-=o
+autocmd FileType * set formatoptions-=t
+autocmd FileType * set formatoptions+=r
+
 set isfname-==
 
 " Multiple byte characters (like alt)

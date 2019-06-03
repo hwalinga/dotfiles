@@ -10,6 +10,7 @@ alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
 
 alias neofetch="neofetch; sleep infinity;"
+alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
 
 function xcl() {
     column -n -t -s $'\t' $1 | less -S -N -#2
