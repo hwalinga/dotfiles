@@ -11,6 +11,17 @@ alias upper="tr '[:lower:]' '[:upper:]'"
 
 alias neofetch="neofetch; sleep infinity;"
 alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
+alias noti="yes FINISHED | head | xargs figlet"
+
+alias mountbulk="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/staff-bulk/tnw/BN/SB/Shared/ /data1/bulk/hwalinga/shared"
+alias unmountbulk="fusermount -u /data1/bulk/hwalinga/shared"
+alias autobulk="unmountbulk;mountbulk"
+alias forceautomountbulk="pkill sshfs;autobulk"
+
+alias mountbulkhome="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/student-homes/w/hwalinga /data1/bulk/hwalinga/home"
+alias unmountbulkhome="fusermount -u /data1/bulk/hwalinga/home"
+alias autobulkhome="unmountbulkhome;mountbulkhome"
+alias forceautomountbulkhome="pkill sshfs;autobulkhome"
 
 function xcl() {
     column -n -t -s $'\t' $1 | less -S -N -#2
