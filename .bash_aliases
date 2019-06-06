@@ -18,10 +18,11 @@ alias unmountbulk="fusermount -u /data1/bulk/hwalinga/shared"
 alias autobulk="unmountbulk;mountbulk"
 alias forceautomountbulk="pkill sshfs;autobulk"
 
-alias mountbulkhome="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/student-homes/w/hwalinga /data1/bulk/hwalinga/home"
-alias unmountbulkhome="fusermount -u /data1/bulk/hwalinga/home"
-alias autobulkhome="unmountbulkhome;mountbulkhome"
-alias forceautomountbulkhome="pkill sshfs;autobulkhome"
+alias localmountbulkhome="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/student-homes/w/hwalinga /home/hielke/bulkhome"
+alias localunmountbulkhome="fusermount -u /home/hielke/bulkhome"
+alias localautobulkhome="localunmountbulkhome;localmountbulkhome"
+alias localforceautomountbulkhome="pkill sshfs;localautobulkhome"
+alias tudmount="localautobulkhome"
 
 function xcl() {
     column -n -t -s $'\t' $1 | less -S -N -#2
