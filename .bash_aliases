@@ -13,6 +13,8 @@ alias neofetch="neofetch; sleep infinity;"
 alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
 alias noti="yes FINISHED | head | xargs figlet"
 
+alias parallize="xargs -P `nproc` -0 -n1 -I {} bash -c"
+
 alias mountbulk="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/staff-bulk/tnw/BN/SB/Shared/ /data1/bulk/hwalinga/shared"
 alias unmountbulk="fusermount -u /data1/bulk/hwalinga/shared"
 alias autobulk="unmountbulk;mountbulk"
