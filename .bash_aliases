@@ -27,7 +27,7 @@ alias localforceautomountbulkhome="pkill sshfs;localautobulkhome"
 alias tudmount="localautobulkhome"
 
 function xcl() {
-    column -n -t -s $'\t' $1 | less -S -N -#2
+    /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
 }
 
 vimpipe() {

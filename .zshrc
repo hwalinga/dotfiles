@@ -143,7 +143,13 @@ alias ssh='xdotool key F10; ssh'
 
 export PATH="$PATH:$HOME/npm/bin"
 export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
-export PATH="$PATH:$HOME/.linuxbrew/bin"
+
+export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
+export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
+export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
+export PATH="/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin:$PATH"
+export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
 
 export PATH="$PATH:$HOME/programs/Xidel"
 
@@ -156,11 +162,11 @@ remove-safely () {
         udisksctl power-off -b $mount_point
 }
 
-#PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
-#PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
+PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
 
 export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
 #export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
@@ -179,7 +185,7 @@ setopt cdablevars
 
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
-alias clusterloginx="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
+alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N"
@@ -191,4 +197,10 @@ alias rg="rg -N"
 cat ~/Important
 export BAT_THEME="GitHub"
 
-source /home/hielke/.config/broot/launcher/bash/br
+# source /home/hielke/.config/broot/launcher/bash/br
+export PATH="$PATH:/home/hielke/programs/mummer/bin"
+
+bindkey '^[[1;2D' insert-cycledleft
+bindkey '^[[1;2C' insert-cycledright
+
+export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
