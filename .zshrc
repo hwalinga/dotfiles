@@ -171,7 +171,7 @@ PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
 export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
 #export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
 
-eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
+# eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 export MANPATH=$HOME/perl5/man:$MANPATH
 source ~/pydev/bin/activate
 
@@ -203,4 +203,4 @@ export PATH="$PATH:/home/hielke/programs/mummer/bin"
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright
 
-export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
+# export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
