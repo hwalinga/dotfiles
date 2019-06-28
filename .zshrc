@@ -147,9 +147,11 @@ export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
 export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
 export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
-export PATH="/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin:$PATH"
 export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
+
+export PATH="/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin:$PATH"
+# export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 export PATH="$PATH:$HOME/programs/Xidel"
 
