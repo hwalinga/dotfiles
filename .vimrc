@@ -9,6 +9,7 @@ if !has('nvim')
     " set term=screen-256color
     " set t_Co=256
     set term=rxvt-unicode-256color
+    " Should get rid of this one.
     so $VIMRUNTIME/defaults.vim
 else
     so ~/dotfiles/defaults.vim
@@ -62,12 +63,17 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'Houl/repmo-vim'
 
 " Plug 'vim-latex/vim-latex'
+" A better latex alternative ??
 Plug 'lervag/vimtex'
 
-Plug 'drmikehenry/vim-fixkey'
-" Plug 'zhou13/vim-easyescape'
+Plug 'drmikehenry/vim-fixkey', { 'for': [] }
+" Plug 'zhou13/vim-easyescape'  " Not yet working as I want, pending issue
 
 call plug#end()
+
+if !has('nvim')
+    call plug#load('vim-fixkey')
+endif
 
 " RAINBOW
 let g:rainbow_active = 1
@@ -81,6 +87,7 @@ au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 
 " Latex
+" Not yet fully writing any Latex.
 " let g:tex_flavor='latex'
 
 " HTML
@@ -89,10 +96,12 @@ let g:html_indent_script1 = "inc"
 " inoremap [13;2u <CR><ESC>O
 inoremap <M-Enter> <CR><ESC>O
 
-
 let g:user_emmet_mode='a'
 imap <C-y>, <esc>$<Plug>(emmet-expand-abbr)
 nmap <C-y>, $<Plug>(emmet-expand-abbr)
+
+" indentLine uses conceal, disable for markdown and json.
+let g:indentLine_fileTypeExclude = ['markdown', 'json']
 
 " THEME
 set background=light
@@ -141,9 +150,6 @@ set smartcase
 
 au FileType javascript set softtabstop=2
 au FileType javascript set shiftwidth=2
-
-" indentLine uses conceal, disable for markdown and json.
-let g:indentLine_fileTypeExclude = ['markdown', 'json']
 
 " GENERAL
 set encoding=utf8
