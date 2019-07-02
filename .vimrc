@@ -4,15 +4,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" VIM/NVIM -- SANE DEFAULTS
 if !has('nvim')
     " set term=screen-256color
     " set t_Co=256
     set term=rxvt-unicode-256color
-    " Should get rid of this one.
-    so $VIMRUNTIME/defaults.vim
-else
-    so ~/dotfiles/defaults.vim
 endif
 " Remove autocmd 'jump to last known cursor position'
 " augroup vimStartup | au! | augroup END
@@ -124,12 +119,17 @@ set undofile
 set undodir=~/.vim/undodir
 
 " NUMBERS AND SUCH
+set history=200
 set colorcolumn=80
 set linebreak
-set hlsearch
 set number! relativenumber!
-" set incsearch
+set ruler
 set cursorline
+set hlsearch
+if has('reltime')
+    set incsearch
+endif
+map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
 
@@ -141,8 +141,10 @@ set shiftwidth=4
 set expandtab
 let g:vim_indent_cont = 0
 
-" set autoindent
-set smartindent
+" no clue what would work best.
+set autoindent
+" set smartindent
+
 set hidden
 
 set ignorecase
@@ -160,10 +162,11 @@ packloadall
 silent! helptags ALL
 
 set path+=**
-" set wildmenu
+set wildmenu
 set wildmode=list:longest,full
 set dictionary+=/usr/share/dict/words
 set complete=.,w,b,u,t
+set display=truncate
 
 " MAPPINGS
 " nvim behave like normal command line.
@@ -175,22 +178,24 @@ call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
 
 " map a motion and its reverse motion:
-:noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
-:noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
+noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
+noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
 
 " if you like `:noremap j gj', you can keep that:
-:map <expr> j repmo#Key('gj', 'gk')|sunmap j
-:map <expr> k repmo#Key('gk', 'gj')|sunmap k
+map <expr> j repmo#Key('gj', 'gk')|sunmap j
+map <expr> k repmo#Key('gk', 'gj')|sunmap k
+
+set scrolloff=5
 
 " repeat the last [count]motion or the last zap-key:
-:map <expr> ; repmo#LastKey(';')|sunmap ;
-:map <expr> , repmo#LastRevKey(',')|sunmap ,
+map <expr> ; repmo#LastKey(';')|sunmap ;
+map <expr> , repmo#LastRevKey(',')|sunmap ,
 
 " add these mappings when repeating with `;' or `,':
-:noremap <expr> f repmo#ZapKey('f')|sunmap f
-:noremap <expr> F repmo#ZapKey('F')|sunmap F
-:noremap <expr> t repmo#ZapKey('t')|sunmap t
-:noremap <expr> T repmo#ZapKey('T')|sunmap T
+noremap <expr> f repmo#ZapKey('f')|sunmap f
+noremap <expr> F repmo#ZapKey('F')|sunmap F
+noremap <expr> t repmo#ZapKey('t')|sunmap t
+noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
@@ -203,12 +208,12 @@ cm OF 
 " let g:easyescape_timeout = 100
 " cnoremap kj <ESC>
 
-map <leader>h :noh<CR>
-
 nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <C-U> <C-G>u<C-U>
 
 map <m-a> ggVG
 
@@ -236,6 +241,43 @@ map <leader><leader> <Esc>/<++><Enter>"_c4l
 
 nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
 
+if has('autocmd')
+  " Put these in an autocmd group, so that you can revert them with:
+  " ":augroup vimStartup | au! | augroup END"
+  augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+  augroup END
+endif
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+" autocmd sets these preferences with force.
+autocmd FileType * set formatoptions-=o
+autocmd FileType * set formatoptions-=t
+autocmd FileType * set formatoptions+=r
+set backspace=indent,eol,start
+set isfname-==
+
+" Multiple byte characters (like alt)
+set ttimeout
+set ttimeoutlen=5
+
 " LINTING/FIXING
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 
@@ -261,19 +303,3 @@ autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(ca
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults ~xrdb %
-
-" set fo+=o
-" set fo-=r
-
-" set fo-=o
-" set fo+=r
-" set fo-=t
-
-autocmd FileType * set formatoptions-=o
-autocmd FileType * set formatoptions-=t
-autocmd FileType * set formatoptions+=r
-
-set isfname-==
-
-" Multiple byte characters (like alt)
-set ttimeoutlen=5
