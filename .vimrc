@@ -182,8 +182,10 @@ noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
 noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
 
 " if you like `:noremap j gj', you can keep that:
-map <expr> j repmo#Key('gj', 'gk')|sunmap j
-map <expr> k repmo#Key('gk', 'gj')|sunmap k
+" map <expr> j repmo#Key('gj', 'gk')|sunmap j
+" map <expr> k repmo#Key('gk', 'gj')|sunmap k
+" noremap j gj
+" noremap k gk
 
 set scrolloff=5
 
