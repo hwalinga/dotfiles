@@ -12,6 +12,7 @@ alias upper="tr '[:lower:]' '[:upper:]'"
 alias neofetch="neofetch; sleep infinity;"
 alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
 alias noti="yes FINISHED | head | xargs figlet"
+alias which="type -a"
 
 alias parallize="xargs -P `nproc` -0 -n1 -I {} bash -c"
 alias freeproc="ps -eo pcpu --no-headers | awk -v P=`nproc` '{S+=\$1}END{print P-S/100}'"
