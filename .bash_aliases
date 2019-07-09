@@ -15,6 +15,7 @@ alias noti="yes FINISHED | head | xargs figlet"
 
 alias parallize="xargs -P `nproc` -0 -n1 -I {} bash -c"
 alias freeproc="ps -eo pcpu --no-headers | awk -v P=`nproc` '{S+=\$1}END{print P-S/100}'"
+alias freemem="free --giga | sed -n 2p | awk '{print \$NF}'"
 
 alias mountbulk="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/staff-bulk/tnw/BN/SB/Shared/ /data1/bulk/hwalinga/shared"
 alias unmountbulk="fusermount -u /data1/bulk/hwalinga/shared"
