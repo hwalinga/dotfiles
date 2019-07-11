@@ -33,6 +33,7 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-eunuch'
 " tbone?
 Plug 'adelarsq/vim-matchit'
 
@@ -292,6 +293,7 @@ let g:ale_fixers = {
 \   'python': ['isort', 'black'],
 \   'javascript': ['eslint', 'standard', 'prettier_standard', 'prettier_eslint'],
 \}
+" \   'pyton': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
 
