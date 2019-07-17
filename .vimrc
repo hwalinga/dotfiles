@@ -22,6 +22,7 @@ Plug 'junegunn/vim-plug'
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-peekaboo'
 " vim-easy-align
 
 Plug 'tpope/vim-sensible'
@@ -51,8 +52,21 @@ Plug 'Yggdroot/indentLine'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
 
+" Text objects:
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
+
+Plug 'michaeljsmith/vim-indent-object'
+
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'saaguero/vim-textobj-pastedtext'
+
+Plug 'christoomey/vim-titlecase'
+
+" Other stuff
+
+Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'tmux-plugins/vim-tmux'
 
