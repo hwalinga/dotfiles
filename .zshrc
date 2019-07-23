@@ -192,12 +192,8 @@ alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N"
 
-# WOW, I need to this stupid shit here, because systemd:
-# $HOME/.keys
-
 # zprof
 cat ~/Important
-export BAT_THEME="GitHub"
 
 # source /home/hielke/.config/broot/launcher/bash/br
 export PATH="$PATH:/home/hielke/programs/mummer/bin"

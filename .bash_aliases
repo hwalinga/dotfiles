@@ -29,6 +29,8 @@ alias localautobulkhome="localunmountbulkhome;localmountbulkhome"
 alias localforceautomountbulkhome="pkill sshfs;localautobulkhome"
 alias tudmount="localautobulkhome"
 
+export BAT_THEME="GitHub"
+
 function xcl() {
     /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
 }
