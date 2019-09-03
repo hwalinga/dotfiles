@@ -196,6 +196,12 @@ call customsurround#map('<leader>i', '\fI', '\fP')
 noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
 noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
 
+noremap <expr> j repmo#SelfKey('j', 'k')|sunmap j
+noremap <expr> k repmo#SelfKey('k', 'j')|sunmap k
+
+noremap <expr> gj repmo#SelfKey('gj', 'gk')|sunmap gj
+noremap <expr> gk repmo#SelfKey('gk', 'gj')|sunmap gk
+
 " if you like `:noremap j gj', you can keep that:
 " map <expr> j repmo#Key('gj', 'gk')|sunmap j
 " map <expr> k repmo#Key('gk', 'gj')|sunmap k
@@ -300,12 +306,12 @@ let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
-\   'javascript': ['eslint']
+\   'javascript': ['eslint', 'standard']
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'black'],
-\   'javascript': ['eslint', 'standard', 'prettier_standard', 'prettier_eslint'],
+\   'javascript': ['eslint', 'standard'],
 \}
 " \   'pyton': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],

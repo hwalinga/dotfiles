@@ -72,7 +72,7 @@ HYPHEN_INSENSITIVE="true"
 plugins=(
   # git
   command-not-found
-  # web-search
+  web-search
   # sudo
   # python
   history
