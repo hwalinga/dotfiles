@@ -309,7 +309,7 @@ let g:ale_linters = {
 \   'javascript': ['eslint', 'standard']
 \}
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   '*': ['remove_trailing_lines'],
 \   'python': ['isort', 'black'],
 \   'javascript': ['eslint', 'standard'],
 \}
@@ -320,7 +320,7 @@ let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 
 " Remove trailing space on safe.
-autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 
 " EXECUTERS/COMPILERS
 autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>

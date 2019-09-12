@@ -197,6 +197,7 @@ cat ~/Important
 
 # source /home/hielke/.config/broot/launcher/bash/br
 export PATH="$PATH:/home/hielke/programs/mummer/bin"
+export PATH="$PATH:/home/hielke/programs/bin"
 
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright
