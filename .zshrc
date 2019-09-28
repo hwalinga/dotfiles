@@ -203,3 +203,13 @@ bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright
 
 # export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
+
+# GENIUS WEB
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JRE_HOME=$JAVA_HOME
+# export CATALINA_HOME=/usr/share/tomcat8
+# export CATALINA_BASE=/home/hielke/code/genius-web/catalina-home
+
+export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
+
+# export CATALINA_PID="$CATALINA_BASE/tomcat.pid"
