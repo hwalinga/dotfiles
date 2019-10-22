@@ -64,7 +64,11 @@ Plug 'saaguero/vim-textobj-pastedtext'
 
 Plug 'christoomey/vim-titlecase'
 
+" Plug 'tommcdo/vim-express'
+
 " Other stuff
+
+Plug 'derekwyatt/vim-scala'
 
 Plug 'vim-scripts/ReplaceWithRegister'
 
@@ -110,8 +114,8 @@ let g:user_emmet_mode='a'
 imap <C-y>, <esc>$<Plug>(emmet-expand-abbr)
 nmap <C-y>, $<Plug>(emmet-expand-abbr)
 
-" indentLine uses conceal, disable for markdown and json.
-let g:indentLine_fileTypeExclude = ['markdown', 'json']
+" indentLine uses conceal, disable for markdown and json and tex
+let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
 
 " THEME
 set background=light
@@ -300,6 +304,9 @@ set isfname-==
 " Multiple byte characters (like alt)
 set ttimeout
 set ttimeoutlen=5
+
+" set conceallevel=0
+" autocmd FileType * setlocal conceallevel=0
 
 " LINTING/FIXING
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
