@@ -326,6 +326,8 @@ let g:ale_fix_on_save = 1
 
 let g:ale_completion_enabled = 1
 
+autocmd FileType matlab setl cms=%\ %s
+
 " Remove trailing space on safe.
 autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 
