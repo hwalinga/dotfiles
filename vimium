@@ -1,0 +1,3 @@
+# Insert your preferred key mappings here.
+unmapAll
+map w LinkHints.activateMode
