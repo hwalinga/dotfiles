@@ -31,6 +31,11 @@ alias tudmount="localautobulkhome"
 
 export BAT_THEME="GitHub"
 
+function m() {
+    man $1 || help2man $1 | man -l -
+}
+alias man=m
+
 function xcl() {
     /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
 }

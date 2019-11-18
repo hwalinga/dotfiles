@@ -126,6 +126,8 @@ alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
 alias ssh='xdotool key F10; ssh'
 
+unalias fd
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
