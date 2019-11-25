@@ -177,7 +177,6 @@ export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
 
 # eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 export MANPATH=$HOME/perl5/man:$MANPATH
-source ~/.venv/py3/bin/activate
 
 # export PATH="$PATH:$HOME/.cargo/bin/"
 
@@ -203,6 +202,9 @@ export PATH="$PATH:/home/hielke/programs/bin"
 
 export PATH="$PATH:/home/hielke/.local/bin"
 export PATH="$PATH:/home/hielke/.cargo/bin"
+
+# After sourcing Python environment, do not modify PATH
+source ~/.venv/py3/bin/activate
 
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright

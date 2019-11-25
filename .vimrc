@@ -226,7 +226,7 @@ noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
-inoremap kj <esc>
+" inoremap kj <esc>
 " nmap ; :
 " map End key to end of line in command mode
 cm OF 
