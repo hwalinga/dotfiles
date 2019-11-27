@@ -331,8 +331,11 @@ autocmd FileType matlab setl cms=%\ %s
 " Remove trailing space on safe.
 autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 
+" Restart conky on safe
+" autocmd BufWritePost note.txt !bash -c 'pkill -f "conky -c /home/hielke/.conky/MX-Emays/MX-emays"; conky -c /home/hielke/.conky/MX-Emays/MX-emays & echo test23 > /home/hielke/tmp/echotest'
+
 " EXECUTERS/COMPILERS
 autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
-autocmd BufWritePost ~/.Xresources,~/.Xdefaults ~xrdb %
+autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
