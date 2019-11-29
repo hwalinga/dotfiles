@@ -219,4 +219,6 @@ export JRE_HOME=$JAVA_HOME
 
 export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
 
+alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
+
 # export CATALINA_PID="$CATALINA_BASE/tomcat.pid"

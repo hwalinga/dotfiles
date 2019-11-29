@@ -36,8 +36,17 @@ function m() {
 }
 alias man=m
 
-function xcl() {
+xcl() {
     /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
+}
+
+gout() {
+    tmux capture-pane -p -J -S - > /tmp/command-output
+    command=$(grep » /tmp/command-output | sed 's/»//; /^\s*$/d' | fzf | sed 's:/:\\/:g' )
+    # echo $command
+    # echo '/^»'$command'\s*$/,/^»/p'
+    sed -n '/^»'$command'\s*$/,/^»/p' /tmp/command-output |
+        head -n -3 | tail -n +2 | xclip
 }
 
 vimpipe() {

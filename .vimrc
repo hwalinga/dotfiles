@@ -338,4 +338,6 @@ autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
+autocmd BufNewFile *.py .!pystamp.bash
+
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
