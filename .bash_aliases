@@ -36,17 +36,35 @@ function m() {
 }
 alias man=m
 
-xcl() {
-    /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
+glout() {
+    if [[ -t 1 ]]; then
+        # output goes to a terminal
+        out=xclip
+    else
+        # output is redirected
+        out=cat
+    fi
+    tmux capture-pane -p -J -S - | sed 's:\s*$::g' | tac |
+        awk '/»/{f++} f; f>1 {exit}' |
+        tail +4 |
+        tac | tail +2 | perl -pe 'chomp if eof'| $out
 }
-
 gout() {
+    if [[ -t 1 ]]; then
+        # output goes to a terminal
+        out=xclip
+    else
+        # output is redirected
+        out=cat
+    fi
     tmux capture-pane -p -J -S - > /tmp/command-output
     command=$(grep » /tmp/command-output | sed 's/»//; /^\s*$/d' | fzf | sed 's:/:\\/:g' )
-    # echo $command
-    # echo '/^»'$command'\s*$/,/^»/p'
     sed -n '/^»'$command'\s*$/,/^»/p' /tmp/command-output |
-        head -n -3 | tail -n +2 | xclip
+        head -n -3 | tail -n +2 | perl -pe 'chomp if eof' | $out
+}
+
+xcl() {
+    /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
 }
 
 vimpipe() {

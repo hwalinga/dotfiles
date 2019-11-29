@@ -152,7 +152,7 @@ export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
 export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
 
-export PATH="/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin:$PATH"
+export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 # export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 export PATH="$PATH:$HOME/programs/Xidel"
