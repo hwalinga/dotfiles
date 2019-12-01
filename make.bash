@@ -17,6 +17,7 @@ files=(
 folders=(
     .vim/{backupfiles,colors,pack,swapfiles,undodir,pack/git-plugins/start}
      .oh-my-zsh/custom/themes .tmux-panes .urxvt/ext repos old_dotfiles
+     old_bin
 )
 urxvt_plugins=(
     https://raw.githubusercontent.com/effigies/urxvt-perl/master/fullscreen
@@ -40,6 +41,11 @@ for file in "${files[@]}"; do
     fi
     ln -s ~/dotfiles/${file##*/} ~/$file
 done;
+
+echo "Create bin symlink."
+mv -t ~/old_bin ~/bin/*
+rmdir ~/bin
+ln -s ~/dotfiles/bin ~/bin
 
 echo "Configure zsh."
 cd ~/repos

@@ -1,3 +1,5 @@
+export EDITOR='vim'
+
 # tmux panes
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'
 alias matlab='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/matlab; matlab'
@@ -29,12 +31,24 @@ alias localautobulkhome="localunmountbulkhome;localmountbulkhome"
 alias localforceautomountbulkhome="pkill sshfs;localautobulkhome"
 alias tudmount="localautobulkhome"
 
-export BAT_THEME="GitHub"
+alias apt-install="apt-get --yes -t stretch-backports install"
+alias sudo='sudo '
+alias ssh='xdotool key F10; ssh'
 
-function m() {
+unalias fd
+
+export BAT_THEME="GitHub"
+export PATH="$HOME/bin:$PATH"
+export PYTHONBREAKPOINT="pudb.set_trace"
+
+m() {
     man $1 || help2man $1 | man -l -
 }
 alias man=m
+
+ee () {
+    "$@" &! exit;
+}
 
 glout() {
     if [[ -t 1 ]]; then

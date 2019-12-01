@@ -92,7 +92,6 @@ plugins=(
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
-export PATH="$HOME/bin:$PATH"
 
 autoload -U compinit && compinit
 
@@ -112,21 +111,7 @@ bindkey \^U backward-kill-line
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='vim'
-fi
 
-ee () {
-    "$@" &! exit;
-}
-
-alias apt-install="apt-get --yes -t stretch-backports install"
-alias sudo='sudo '
-alias ssh='xdotool key F10; ssh'
-
-unalias fd
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

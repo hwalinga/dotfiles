@@ -32,7 +32,7 @@ Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-eunuch'
 " tbone?
@@ -63,6 +63,8 @@ Plug 'kana/vim-textobj-entire'
 Plug 'saaguero/vim-textobj-pastedtext'
 
 Plug 'christoomey/vim-titlecase'
+" mgedmin/python-imports.vim
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Plug 'tommcdo/vim-express'
 
@@ -82,6 +84,18 @@ Plug 'lervag/vimtex'
 
 Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 " Plug 'zhou13/vim-easyescape'  " Not yet working as I want, pending issue
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'deoplete-plugins/deoplete-jedi'
+
+" Plug 'ncm2/float-preview.nvim'
 
 call plug#end()
 
@@ -116,6 +130,8 @@ nmap <C-y>, $<Plug>(emmet-expand-abbr)
 
 " indentLine uses conceal, disable for markdown and json and tex
 let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
+autocmd FileType markdown set cole=0
+
 
 " THEME
 set background=light
@@ -316,7 +332,6 @@ let g:ale_linters = {
 \   'javascript': ['eslint', 'standard']
 \}
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines'],
 \   'python': ['isort', 'black'],
 \   'javascript': ['eslint', 'standard'],
 \}
@@ -327,9 +342,76 @@ let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 
 autocmd FileType matlab setl cms=%\ %s
+autocmd FileType json setl cms=//\ %s
 
 " Remove trailing space on safe.
 autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
+function TrimEndLines()
+    let save_cursor = getpos(".")
+    :silent! %s#\($\n\s*\)\+\%$##
+    call setpos('.', save_cursor)
+endfunction
+au BufWritePre *.py call TrimEndLines()
+
+" ##############
+" AUTOCOMPLETION
+" ##############
+
+" GENERAL
+
+" DEOPLETE
+
+let g:deoplete#enable_at_startup = 1
+
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+inoremap <silent><expr> <TAB>
+\ pumvisible() ? "\<C-n>" :
+\ <SID>check_back_space() ? "\<TAB>" :
+\ deoplete#manual_complete()
+function! s:check_back_space() abort "{{{
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#statement_length = 1000
+" COC.NVIM
+
+" autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+" inoremap <silent><expr> <Tab>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<Tab>" :
+"       \ coc#refresh()
+
+
+" " Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+" " Highlight symbol under cursor on CursorHold
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
 
 " Restart conky on safe
 " autocmd BufWritePost note.txt !bash -c 'pkill -f "conky -c /home/hielke/.conky/MX-Emays/MX-emays"; conky -c /home/hielke/.conky/MX-Emays/MX-emays & echo test23 > /home/hielke/tmp/echotest'

@@ -54,7 +54,7 @@ ${color2}${membar 4}
 $color${font Open Sans:bold:size=8.5}Used:$alignr$font $mem of $memmax
 $color${font Open Sans:bold:size=8.5}Free:$alignr$font $memeasyfree
 $color${font Open Sans:bold:size=8.5}Buffers / Cached:$alignr$font$buffers / $cached
-$color${font Open Sans:bold:size=8.5}SWAP:$alignr$font ${swap} of ${swapfree}
+$color${font Open Sans:bold:size=8.5}SWAP:$alignr$font ${swap} of ${swapmax}
 
 ${voffset -10}------------------------------------------------- ${font Open Sans:Bold:size=10}${color0}${voffset -2}RAM${color}${font}${voffset -1} ---- ${font Open Sans:Bold:size=10}${color0}${voffset -2}CPU${color}${font}${voffset -1} -
 ${top_mem name 1}${alignr}${top_mem cpu 1} %
