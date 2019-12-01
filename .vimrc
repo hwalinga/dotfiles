@@ -94,6 +94,7 @@ else
 endif
 
 Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'davidhalter/jedi-vim'
 
 " Plug 'ncm2/float-preview.nvim'
 
@@ -103,35 +104,32 @@ if !has('nvim')
     call plug#load('vim-fixkey')
 endif
 
-" RAINBOW
-let g:rainbow_active = 1
-let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
-
-map <leader>r :RainbowToggle<enter>
-
-au BufRead,StdinReadPost * if getline(1) =~ '<html>' | setlocal ft=html | endif
-au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
-
-au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
-
 " Latex
 " Not yet fully writing any Latex.
 " let g:tex_flavor='latex'
 
+" ########
+" WEBSTACK
+" ########
+
 " HTML
 let g:html_indent_script1 = "inc"
 " Map shift enter
-" inoremap [13;2u <CR><ESC>O
+" inoremap <CR><ESC>O
 inoremap <M-Enter> <CR><ESC>O
 
 let g:user_emmet_mode='a'
 imap <C-y>, <esc>$<Plug>(emmet-expand-abbr)
 nmap <C-y>, $<Plug>(emmet-expand-abbr)
 
-" indentLine uses conceal, disable for markdown and json and tex
-let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
-autocmd FileType markdown set cole=0
+au BufRead,StdinReadPost * if getline(1) =~ '<html>' | setlocal ft=html | endif
+au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 
+au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
+
+" #############
+" VISUALIZATION
+" #############
 
 " THEME
 set background=light
@@ -146,6 +144,18 @@ let g:PaperColor_Theme_Options = {
 \   }
 \}
 
+" RAINBOW
+let g:rainbow_active = 1
+let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
+map <leader>r :RainbowToggle<enter>
+au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
+
+" indentLine uses conceal, disable for markdown and json and tex
+let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
+autocmd FileType markdown set cole=0
+
+" ===========
+
 " FILE DIRS
 set dir=~/.vim/swapfiles
 set backup
@@ -154,9 +164,10 @@ set undofile
 set undodir=~/.vim/undodir
 
 " NUMBERS AND SUCH
-set history=200
+set history=1000
 set colorcolumn=80
 set linebreak
+set showbreak=..
 set number! relativenumber!
 set ruler
 set cursorline
@@ -246,15 +257,12 @@ inoremap # X<BS>#
 " nmap ; :
 " map End key to end of line in command mode
 cm OF 
-
 " let g:easyescape_chars = { "j": 1, "k": 1  }
 " let g:easyescape_timeout = 100
 " cnoremap kj <ESC>
 
 nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
-
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 inoremap <C-U> <C-G>u<C-U>
 
@@ -264,6 +272,8 @@ vnoremap // y/<C-R>"<CR>
 
 nnoremap <leader>o }ko<CR>
 nnoremap <leader>O {ko<CR>
+
+" ======
 
 " nnoremap <expr> <Leader>o line('.') == line('$') ? '}o<CR>' : '}O<CR>'
 " nnoremap <expr> <Leader>O line('.') == 1 ? '{O<CR><Esc>ki' : '{O<CR>''}'}'
@@ -275,6 +285,11 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 nnoremap S :%s//g<Left><Left>
+
+" map paste, yank and delete to named register so the content
+" will not be overwritten (I know I should just remember...)
+nnoremap x "_x
+vnoremap x "_x
 
 vnoremap <C-c> "+y
 map <C-p> "+P
@@ -321,12 +336,11 @@ set isfname-==
 set ttimeout
 set ttimeoutlen=5
 
-" set conceallevel=0
-" autocmd FileType * setlocal conceallevel=0
-
+" ##############
 " LINTING/FIXING
-let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
+" ##############
 
+let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
 \   'javascript': ['eslint', 'standard']
@@ -338,7 +352,6 @@ let g:ale_fixers = {
 " \   'pyton': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
-
 let g:ale_completion_enabled = 1
 
 autocmd FileType matlab setl cms=%\ %s
@@ -359,13 +372,30 @@ au BufWritePre *.py call TrimEndLines()
 
 " GENERAL
 
-" DEOPLETE
-
-let g:deoplete#enable_at_startup = 1
-
+set shortmess+=c
+set completeopt=menu,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" JEDI
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
+let g:jedi#show_call_signatures_delay = 0
+
+" DEOPLETE
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#statement_length = 500
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? "\<C-n>" :
 \ <SID>check_back_space() ? "\<TAB>" :
@@ -374,8 +404,7 @@ function! s:check_back_space() abort "{{{
 let col = col('.') - 1
 return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#statement_length = 1000
+
 " COC.NVIM
 
 " autocmd FileType json syntax match Comment +\/\/.\+$+

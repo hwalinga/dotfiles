@@ -1,4 +1,6 @@
-export EDITOR='vim'
+export EDITOR='nvim'
+alias vim="$EDITOR"
+alias vimrc="$EDITOR ~/.vimrc"
 
 # tmux panes
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'
@@ -7,7 +9,6 @@ alias matlab='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmu
 alias tawk="awk -F '\t' -v OFS='\t'"
 alias mtawk="mawk -F '\t' -v OFS='\t'"
 alias les="less -S -N -#2"
-alias vimrc="$EDITOR ~/.vimrc"
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
 
