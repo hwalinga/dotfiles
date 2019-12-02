@@ -97,7 +97,7 @@ endif
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
 
-" Plug 'ncm2/float-preview.nvim'
+Plug 'ncm2/float-preview.nvim'
 
 call plug#end()
 
@@ -168,7 +168,7 @@ set undodir=~/.vim/undodir
 set history=1000
 set colorcolumn=80
 set linebreak
-set showbreak=..
+" set showbreak=..
 set number! relativenumber!
 set ruler
 set cursorline
@@ -279,7 +279,7 @@ nnoremap <leader>O {ko<CR>
 " nnoremap <expr> <Leader>o line('.') == line('$') ? '}o<CR>' : '}O<CR>'
 " nnoremap <expr> <Leader>O line('.') == 1 ? '{O<CR><Esc>ki' : '{O<CR>''}'}'
 
-set splitbelow splitright
+set splitright
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -375,9 +375,11 @@ au BufWritePre *.py call TrimEndLines()
 
 set shortmess+=c
 set completeopt=menu,menuone
+" set completeopt+=preview
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:float_preview#docked = 0
 
 " JEDI
 
@@ -397,6 +399,7 @@ let g:jedi#show_call_signatures_delay = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
+call deoplete#custom#source('jedi', 'max_info_width', 0)
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? "\<C-n>" :
 \ <SID>check_back_space() ? "\<TAB>" :

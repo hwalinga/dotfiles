@@ -1,4 +1,4 @@
-export EDITOR='nvim'
+export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
 alias vim="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
 
