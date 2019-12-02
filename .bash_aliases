@@ -36,8 +36,6 @@ alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
 alias ssh='xdotool key F10; ssh'
 
-unalias fd
-
 export BAT_THEME="GitHub"
 export PATH="$HOME/bin:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"

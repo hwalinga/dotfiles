@@ -177,6 +177,9 @@ alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N"
+unalias fd
+alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
+
 
 # zprof
 cat ~/Important
@@ -203,7 +206,5 @@ export JRE_HOME=$JAVA_HOME
 # export CATALINA_BASE=/home/hielke/code/genius-web/catalina-home
 
 export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
-
-alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
 
 # export CATALINA_PID="$CATALINA_BASE/tomcat.pid"

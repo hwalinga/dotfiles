@@ -88,6 +88,7 @@ Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
+" Currently running this in vim fails on my machine.
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
@@ -288,8 +289,8 @@ nnoremap S :%s//g<Left><Left>
 
 " map paste, yank and delete to named register so the content
 " will not be overwritten (I know I should just remember...)
-nnoremap x "_x
-vnoremap x "_x
+" nnoremap x "_x
+" vnoremap x "_x
 
 vnoremap <C-c> "+y
 map <C-p> "+P
