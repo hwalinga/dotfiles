@@ -24,6 +24,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 " vim-easy-align
+" Plug 'tommcdo/vim-lion'
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -51,11 +52,12 @@ Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
+" Plug 'drmingdrmer/vim-syntax-markdown'
 
 " Text objects:
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
-
+Plug 'chaoren/vim-wordmotion'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'kana/vim-textobj-user'
@@ -63,7 +65,6 @@ Plug 'kana/vim-textobj-entire'
 Plug 'saaguero/vim-textobj-pastedtext'
 
 Plug 'christoomey/vim-titlecase'
-" mgedmin/python-imports.vim
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Plug 'tommcdo/vim-express'
@@ -71,11 +72,12 @@ Plug 'christoomey/vim-titlecase'
 " Other stuff
 
 Plug 'derekwyatt/vim-scala'
-
+Plug 'rhysd/clever-f.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'tmux-plugins/vim-tmux'
-
+Plug 'mhinz/vim-grepper'
+" flygrep?
 Plug 'Houl/repmo-vim'
 
 " Plug 'vim-latex/vim-latex'
@@ -83,10 +85,10 @@ Plug 'Houl/repmo-vim'
 Plug 'lervag/vimtex'
 
 Plug 'drmikehenry/vim-fixkey', { 'for': [] }
-" Plug 'zhou13/vim-easyescape'  " Not yet working as I want, pending issue
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'ncm2/float-preview.nvim'
 else
 " Currently running this in vim fails on my machine.
   Plug 'Shougo/deoplete.nvim'
@@ -97,7 +99,6 @@ endif
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
 
-Plug 'ncm2/float-preview.nvim'
 
 call plug#end()
 
@@ -220,7 +221,9 @@ set display=truncate
 " for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
 "     execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
 " endfor
-
+map , <Plug>(clever-f-repeat-back)
+map ; :
+let g:wordmotion_prefix = '<Leader>'
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
 
@@ -243,21 +246,23 @@ noremap <expr> gk repmo#SelfKey('gk', 'gj')|sunmap gk
 set scrolloff=5
 
 " repeat the last [count]motion or the last zap-key:
-map <expr> ; repmo#LastKey(';')|sunmap ;
-map <expr> , repmo#LastRevKey(',')|sunmap ,
+" map <expr> ; repmo#LastKey(';')|sunmap ;
+" map <expr> , repmo#LastRevKey(',')|sunmap ,
 
-" add these mappings when repeating with `;' or `,':
-noremap <expr> f repmo#ZapKey('f')|sunmap f
-noremap <expr> F repmo#ZapKey('F')|sunmap F
-noremap <expr> t repmo#ZapKey('t')|sunmap t
-noremap <expr> T repmo#ZapKey('T')|sunmap T
+" " add these mappings when repeating with `;' or `,':
+" noremap <expr> f repmo#ZapKey('f')|sunmap f
+" noremap <expr> F repmo#ZapKey('F')|sunmap F
+" noremap <expr> t repmo#ZapKey('t')|sunmap t
+" noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " inoremap <CR> <C-G>u<CR>
 inoremap # X<BS>#
 " inoremap kj <esc>
 " nmap ; :
 " map End key to end of line in command mode
-cm OF 
+if !has('nvim')
+    cm OF 
+endif
 " let g:easyescape_chars = { "j": 1, "k": 1  }
 " let g:easyescape_timeout = 100
 " cnoremap kj <ESC>
@@ -375,11 +380,15 @@ au BufWritePre *.py call TrimEndLines()
 
 set shortmess+=c
 set completeopt=menu,menuone
-" set completeopt+=preview
+if has('nvim')
+    " We use float preview
+    " let g:float_preview#docked = 0
+else
+    set completeopt+=preview
+endif
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-let g:float_preview#docked = 0
 
 " JEDI
 
@@ -399,7 +408,8 @@ let g:jedi#show_call_signatures_delay = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
-call deoplete#custom#source('jedi', 'max_info_width', 0)
+autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
+" call deoplete#custom#source('jedi', 'max_info_width', 40)
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? "\<C-n>" :
 \ <SID>check_back_space() ? "\<TAB>" :

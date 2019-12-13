@@ -6,6 +6,7 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'
 alias matlab='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/matlab; matlab'
 
+alias awk=bioawk
 alias tawk="awk -F '\t' -v OFS='\t'"
 alias mtawk="mawk -F '\t' -v OFS='\t'"
 alias les="less -S -N -#2"
