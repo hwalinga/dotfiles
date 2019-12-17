@@ -53,6 +53,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
 " Plug 'drmingdrmer/vim-syntax-markdown'
+Plug 'plasticboy/vim-markdown'
 
 " Text objects:
 Plug 'wellle/targets.vim'
@@ -109,9 +110,196 @@ endif
 " Latex
 " Not yet fully writing any Latex.
 " let g:tex_flavor='latex'
+let g:vim_markdown_math = 1
+let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_math = 1
+let g:vim_markdown_conceal = 0
+" This is vim config, not vim_markdown
+let g:tex_conceal = "amgs"
+
+" amsmath.vim
+"   Author: Charles E. Campbell
+"   Date:   Jun 29, 2018 - Apr 01, 2019
+"   Version: 1d	ASTRO-ONLY
+"
+"   Useful for \usepackage{amssymb,amsmath}
+" ---------------------------------------------------------------------
+" let b:loaded_amsmath = "v1d"
+" let s:keepcpo        = &cpo
+" set cpo&vim
+
+" ---------------------------------------------------------------------
+"  AMS-Math Package Support: {{{1
+" call TexNewMathZone("E","align",1)
+" call TexNewMathZone("F","alignat",1)
+" call TexNewMathZone("G","equation",1)
+" call TexNewMathZone("H","flalign",1)
+" call TexNewMathZone("I","gather",1)
+" call TexNewMathZone("J","multline",1)
+" call TexNewMathZone("K","xalignat",1)
+" call TexNewMathZone("L","xxalignat",0)
+
+" syn match texBadMath		"\\end\s*{\s*\(align\|alignat\|equation\|flalign\|gather\|multline\|xalignat\|xxalignat\)\*\=\s*}"
+
+" Amsmath [lr][vV]ert  (Holger Mitschke)
+" let s:texMathDelimList=[
+"      \ ['\\lvert'     , '|'] ,
+"      \ ['\\rvert'     , '|'] ,
+"      \ ['\\lVert'     , '‖'] ,
+"      \ ['\\rVert'     , '‖'] ,
+"      \ ]
+" for texmath in s:texMathDelimList
+"     execute "syntax match texMathDelim '\\\\[bB]igg\\=[lr]\\=".texmath[0]."' contained conceal cchar=".texmath[1]
+" endfor
+
+" ---------------------------------------------------------------------
+" AMS-Math and AMS-Symb Package Support: {{{1
+" let s:texMathList=[
+"   \ ['backepsilon'        , '∍'] ,
+"   \ ['backsimeq'          , '≃'] ,
+"   \ ['barwedge'           , '⊼'] ,
+"   \ ['because'            , '∵'] ,
+"   \ ['beth'               , 'ܒ'] ,
+"   \ ['between'            , '≬'] ,
+"   \ ['blacksquare'        , '∎'] ,
+"   \ ['Box'                , '☐'] ,
+"   \ ['boxdot'             , '⊡'] ,
+"   \ ['boxminus'           , '⊟'] ,
+"   \ ['boxplus'            , '⊞'] ,
+"   \ ['boxtimes'           , '⊠'] ,
+"   \ ['bumpeq'             , '≏'] ,
+"   \ ['Bumpeq'             , '≎'] ,
+"   \ ['Cap'                , '⋒'] ,
+"   \ ['circeq'             , '≗'] ,
+"   \ ['circlearrowleft'    , '↺'] ,
+"   \ ['circlearrowright'   , '↻'] ,
+"   \ ['circledast'         , '⊛'] ,
+"   \ ['circledcirc'        , '⊚'] ,
+"   \ ['colon'              , ':'] ,
+"   \ ['complement'         , '∁'] ,
+"   \ ['Cup'                , '⋓'] ,
+"   \ ['curlyeqprec'        , '⋞'] ,
+"   \ ['curlyeqsucc'        , '⋟'] ,
+"   \ ['curlyvee'           , '⋎'] ,
+"   \ ['curlywedge'         , '⋏'] ,
+"   \ ['doteqdot'           , '≑'] ,
+"   \ ['dotplus'            , '∔'] ,
+"   \ ['dotsb'              , '⋯'] ,
+"   \ ['dotsc'              , '…'] ,
+"   \ ['dotsi'              , '⋯'] ,
+"   \ ['dotso'              , '…'] ,
+"   \ ['doublebarwedge'     , '⩞'] ,
+"   \ ['eqcirc'             , '≖'] ,
+"   \ ['eqsim'              , '≂'] ,
+"   \ ['eqslantgtr'         , '⪖'] ,
+"   \ ['eqslantless'        , '⪕'] ,
+"   \ ['eth'                , 'ð'] ,
+"   \ ['fallingdotseq'      , '≒'] ,
+"   \ ['geqq'               , '≧'] ,
+"   \ ['gimel'              , 'ℷ'] ,
+"   \ ['gneqq'              , '≩'] ,
+"   \ ['gtrdot'             , '⋗'] ,
+"   \ ['gtreqless'          , '⋛'] ,
+"   \ ['gtrless'            , '≷'] ,
+"   \ ['gtrsim'             , '≳'] ,
+"   \ ['iiint'              , '∭'] ,
+"   \ ['iint'               , '∬'] ,
+"   \ ['implies'            , '⇒'] ,
+"   \ ['leadsto'            , '↝'] ,
+"   \ ['leftarrowtail'      , '↢'] ,
+"   \ ['leftrightsquigarrow', '↭'] ,
+"   \ ['leftthreetimes'     , '⋋'] ,
+"   \ ['leqq'               , '≦'] ,
+"   \ ['lessdot'            , '⋖'] ,
+"   \ ['lesseqgtr'          , '⋚'] ,
+"   \ ['lesssim'            , '≲'] ,
+"   \ ['lneqq'              , '≨'] ,
+"   \ ['ltimes'             , '⋉'] ,
+"   \ ['measuredangle'      , '∡'] ,
+"   \ ['ncong'              , '≇'] ,
+"   \ ['nexists'            , '∄'] ,
+"   \ ['ngeq'               , '≱'] ,
+"   \ ['ngeqq'              , '≱'] ,
+"   \ ['ngtr'               , '≯'] ,
+"   \ ['nleftarrow'         , '↚'] ,
+"   \ ['nLeftarrow'         , '⇍'] ,
+"   \ ['nLeftrightarrow'    , '⇎'] ,
+"   \ ['nleq'               , '≰'] ,
+"   \ ['nleqq'              , '≰'] ,
+"   \ ['nless'              , '≮'] ,
+"   \ ['nmid'               , '∤'] ,
+"   \ ['nparallel'          , '∦'] ,
+"   \ ['nprec'              , '⊀'] ,
+"   \ ['nrightarrow'        , '↛'] ,
+"   \ ['nRightarrow'        , '⇏'] ,
+"   \ ['nsim'               , '≁'] ,
+"   \ ['nsucc'              , '⊁'] ,
+"   \ ['ntriangleleft'      , '⋪'] ,
+"   \ ['ntrianglelefteq'    , '⋬'] ,
+"   \ ['ntriangleright'     , '⋫'] ,
+"   \ ['ntrianglerighteq'   , '⋭'] ,
+"   \ ['nvdash'             , '⊬'] ,
+"   \ ['nvDash'             , '⊭'] ,
+"   \ ['nVdash'             , '⊮'] ,
+"   \ ['pitchfork'          , '⋔'] ,
+"   \ ['precapprox'         , '⪷'] ,
+"   \ ['preccurlyeq'        , '≼'] ,
+"   \ ['precnapprox'        , '⪹'] ,
+"   \ ['precneqq'           , '⪵'] ,
+"   \ ['precsim'            , '≾'] ,
+"   \ ['rightarrowtail'     , '↣'] ,
+"   \ ['rightsquigarrow'    , '↝'] ,
+"   \ ['rightthreetimes'    , '⋌'] ,
+"   \ ['risingdotseq'       , '≓'] ,
+"   \ ['rtimes'             , '⋊'] ,
+"   \ ['sphericalangle'     , '∢'] ,
+"   \ ['star'               , '✫'] ,
+"   \ ['subset'             , '⊂'] ,
+"   \ ['Subset'             , '⋐'] ,
+"   \ ['subseteqq'          , '⫅'] ,
+"   \ ['subsetneq'          , '⊊'] ,
+"   \ ['subsetneqq'         , '⫋'] ,
+"   \ ['succapprox'         , '⪸'] ,
+"   \ ['succcurlyeq'        , '≽'] ,
+"   \ ['succnapprox'        , '⪺'] ,
+"   \ ['succneqq'           , '⪶'] ,
+"   \ ['succsim'            , '≿'] ,
+"   \ ['Supset'             , '⋑'] ,
+"   \ ['supseteqq'          , '⫆'] ,
+"   \ ['supsetneq'          , '⊋'] ,
+"   \ ['supsetneqq'         , '⫌'] ,
+"   \ ['therefore'          , '∴'] ,
+"   \ ['trianglelefteq'     , '⊴'] ,
+"   \ ['triangleq'          , '≜'] ,
+"   \ ['trianglerighteq'    , '⊵'] ,
+"   \ ['twoheadleftarrow'   , '↞'] ,
+"   \ ['twoheadrightarrow'  , '↠'] ,
+"   \ ['ulcorner'           , '⌜'] ,
+"   \ ['urcorner'           , '⌝'] ,
+"   \ ['varnothing'         , '∅'] ,
+"   \ ['vartriangle'        , '∆'] ,
+"   \ ['vDash'              , '⊨'] ,
+"   \ ['Vdash'              , '⊩'] ,
+"   \ ['veebar'             , '⊻'] ,
+"   \ ['Vvdash'             , '⊪']]
+
+" for texmath in s:texMathList
+"  if texmath[0] =~# '\w$'
+"   exe "syn match texMathSymbol '\\\\".texmath[0]."\\>' contained conceal cchar=".texmath[1]
+"  else
+"   exe "syn match texMathSymbol '\\\\".texmath[0]."' contained conceal cchar=".texmath[1]
+"  endif
+" endfor
+
+
+" ---------------------------------------------------------------------
+"  Restore: {{{1
+" let &cpo= s:keepcpo
+" unlet s:keepcpo
+" vim: ts=4 fdm=marker
 
 " ########
-" WEBSTACK
+" WEBSTACK {{{1
 " ########
 
 " HTML
@@ -130,7 +318,7 @@ au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 
 " #############
-" VISUALIZATION
+" VISUALIZATION {{{1
 " #############
 
 " THEME
@@ -155,17 +343,18 @@ au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 " indentLine uses conceal, disable for markdown and json and tex
 let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
 autocmd FileType markdown set cole=0
+autocmd FileType vim set foldmethod=marker
 
-" ===========
+" =========== UTILS {{{1
 
-" FILE DIRS
+" file dirs
 set dir=~/.vim/swapfiles
 set backup
 set backupdir=~/.vim/backupfiles
 set undofile
 set undodir=~/.vim/undodir
 
-" NUMBERS AND SUCH
+" numbers and such
 set history=1000
 set colorcolumn=80
 set linebreak
@@ -181,7 +370,7 @@ map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
 
-" TABS
+" TABS {{{1
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
@@ -201,7 +390,7 @@ set smartcase
 au FileType javascript set softtabstop=2
 au FileType javascript set shiftwidth=2
 
-" GENERAL
+" GENERAL {{{1
 set encoding=utf8
 set ffs=unix,dos,mac
 set clipboard^=unnamed,unnamedplus
@@ -216,7 +405,7 @@ set dictionary+=/usr/share/dict/words
 set complete=.,w,b,u,t
 set display=truncate
 
-" MAPPINGS
+" MAPPINGS {{{1
 " nvim behave like normal command line.
 " for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
 "     execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
@@ -343,7 +532,7 @@ set ttimeout
 set ttimeoutlen=5
 
 " ##############
-" LINTING/FIXING
+" LINTING/FIXING {{{1
 " ##############
 
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
@@ -373,7 +562,7 @@ endfunction
 au BufWritePre *.py call TrimEndLines()
 
 " ##############
-" AUTOCOMPLETION
+" AUTOCOMPLETION {{{1
 " ##############
 
 " GENERAL
@@ -459,7 +648,7 @@ endfunction"}}}
 " Restart conky on safe
 " autocmd BufWritePost note.txt !bash -c 'pkill -f "conky -c /home/hielke/.conky/MX-Emays/MX-emays"; conky -c /home/hielke/.conky/MX-Emays/MX-emays & echo test23 > /home/hielke/tmp/echotest'
 
-" EXECUTERS/COMPILERS
+" EXECUTERS/COMPILERS {{{1
 autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
 autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
