@@ -575,7 +575,7 @@ if has('nvim')
 else
     set completeopt+=preview
 endif
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> (!pumvisible() <Bar><Bar> get(complete_info(), 'selected', -1) < 0) ? "\<C-g>u\<CR>" : "\<C-y>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
