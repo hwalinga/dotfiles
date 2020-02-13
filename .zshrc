@@ -1,6 +1,6 @@
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
-fi
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#     exec tmux
+# fi
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -140,8 +140,6 @@ export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
 export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 # export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
-export PATH="$PATH:$HOME/programs/Xidel"
-
 remove-safely () {
         mount_path=${1:0:${#mount_point}-1}
         mount_point=$(mount | grep $mount_path | cut -d" " -f1)
@@ -157,13 +155,8 @@ PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
 
-export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
-#export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
-
 # eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 export MANPATH=$HOME/perl5/man:$MANPATH
-
-# export PATH="$PATH:$HOME/.cargo/bin/"
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -180,16 +173,19 @@ alias rg="rg -N"
 unalias fd
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
 
-
-# zprof
 cat ~/Important
 
-# source /home/hielke/.config/broot/launcher/bash/br
-export PATH="$PATH:/home/hielke/programs/mummer/bin"
 export PATH="$PATH:/home/hielke/programs/bin"
 
 export PATH="$PATH:/home/hielke/.local/bin"
 export PATH="$PATH:/home/hielke/.cargo/bin"
+
+# CUSTOM PATHS
+
+# export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
+#export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
+
+export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
 
 # After sourcing Python environment, do not modify PATH
 source ~/.venv/py3/bin/activate
@@ -199,12 +195,13 @@ bindkey '^[[1;2C' insert-cycledright
 
 # export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
 
-# GENIUS WEB
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JRE_HOME=$JAVA_HOME
+
+# CATALINA (TOMCAT)
 # export CATALINA_HOME=/usr/share/tomcat8
 # export CATALINA_BASE=/home/hielke/code/genius-web/catalina-home
 
-export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
+# export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
 
 # export CATALINA_PID="$CATALINA_BASE/tomcat.pid"

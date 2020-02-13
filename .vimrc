@@ -23,6 +23,7 @@ Plug 'junegunn/vim-plug'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-easy-align'
 " vim-easy-align
 " Plug 'tommcdo/vim-lion'
 
@@ -345,6 +346,8 @@ let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
 autocmd FileType markdown set cole=0
 autocmd FileType vim set foldmethod=marker
 
+set scrolloff=5
+
 " =========== UTILS {{{1
 
 " file dirs
@@ -432,8 +435,6 @@ noremap <expr> gk repmo#SelfKey('gk', 'gj')|sunmap gk
 " noremap j gj
 " noremap k gk
 
-set scrolloff=5
-
 " repeat the last [count]motion or the last zap-key:
 " map <expr> ; repmo#LastKey(';')|sunmap ;
 " map <expr> , repmo#LastRevKey(',')|sunmap ,
@@ -491,6 +492,12 @@ map <C-p> "+P
 
 vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 map <leader><leader> <Esc>/<++><Enter>"_c4l
+
+" EASYALIGN
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
 
@@ -553,7 +560,7 @@ autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
 
 " Remove trailing space on safe.
-autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
+" autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 function TrimEndLines()
     let save_cursor = getpos(".")
     :silent! %s#\($\n\s*\)\+\%$##
@@ -594,6 +601,9 @@ let g:jedi#show_call_signatures_delay = 0
 
 " DEOPLETE
 
+" let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
+" let g:deoplete#sources#jedi#python_path = '/home/hielke/.venv/py3/bin/python3'
+let g:neovim_rpc#py = '/home/hielke/.venv/py3/bin/python3'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500

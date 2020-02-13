@@ -60,6 +60,7 @@ st.alpha: 255
 *.color14:#34E2E2
 *.color15:#4d4d4c
 *.colorBD:#4d4d4c
+
 /* URxvt.background: */
 URxvt.font: xft:monospace:size=11
 URxvt.scrollBar: false

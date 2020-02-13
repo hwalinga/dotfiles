@@ -43,6 +43,7 @@ alias r="/usr/bin/r"
 
 export BAT_THEME="GitHub"
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/programs:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
 m() {
