@@ -601,9 +601,8 @@ let g:jedi#show_call_signatures_delay = 0
 
 " DEOPLETE
 
-" let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
-" let g:deoplete#sources#jedi#python_path = '/home/hielke/.venv/py3/bin/python3'
-let g:neovim_rpc#py = '/home/hielke/.venv/py3/bin/python3'
+let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
+let g:deoplete#sources#jedi#python_path = 'python3'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
