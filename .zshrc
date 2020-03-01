@@ -102,6 +102,7 @@ bindkey '^o' forward-word
 bindkey '^b' backword-word
 bindkey \^U backward-kill-line
 
+# setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter
 
 # User configuration
 

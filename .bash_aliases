@@ -46,6 +46,11 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/programs:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
+export PATH="$PATH:$HOME/npm/bin"
+export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
+export GEM_HOME=$HOME/.gem
+export PATH="$GEM_HOME/bin:$PATH"
+
 m() {
     man $1 || help2man $1 | man -l -
 }

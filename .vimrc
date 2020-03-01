@@ -100,6 +100,7 @@ endif
 
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 
 call plug#end()
@@ -304,7 +305,7 @@ let g:tex_conceal = "amgs"
 " ########
 
 " HTML
-let g:html_indent_script1 = "inc"
+" let g:html_indent_script1 = "inc"
 " Map shift enter
 " inoremap <CR><ESC>O
 inoremap <M-Enter> <CR><ESC>O
@@ -373,6 +374,8 @@ map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
 
+autocmd InsertLeave * silent! write
+
 " TABS {{{1
 set tabstop=8
 set softtabstop=4
@@ -390,8 +393,8 @@ set hidden
 set ignorecase
 set smartcase
 
-au FileType javascript set softtabstop=2
-au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=4
+au FileType javascript set shiftwidth=4
 
 " GENERAL {{{1
 set encoding=utf8
@@ -545,11 +548,13 @@ set ttimeoutlen=5
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
-\   'javascript': ['eslint', 'standard']
+\   'javascript': ['eslint'],
+\   'json': ['jsonlint']
 \}
 let g:ale_fixers = {
-\   'python': ['isort', 'black'],
-\   'javascript': ['eslint', 'standard'],
+\   'python': ['isort', 'autopep8'],
+\   'javascript': ['prettier'],
+\   'json': ['prettier']
 \}
 " \   'pyton': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
@@ -602,7 +607,7 @@ let g:jedi#show_call_signatures_delay = 0
 " DEOPLETE
 
 let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
-let g:deoplete#sources#jedi#python_path = 'python3'
+py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
