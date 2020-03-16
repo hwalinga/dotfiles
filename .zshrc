@@ -70,7 +70,7 @@ HYPHEN_INSENSITIVE="true"
 
 
 plugins=(
-  # git
+  git
   command-not-found
   web-search
   # sudo
@@ -180,6 +180,8 @@ export PATH="$PATH:/home/hielke/programs/bin"
 
 export PATH="$PATH:/home/hielke/.local/bin"
 export PATH="$PATH:/home/hielke/.cargo/bin"
+
+export PATH="$PATH:/home/hielke/node_modules/.bin"
 
 # CUSTOM PATHS
 
