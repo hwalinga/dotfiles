@@ -92,6 +92,8 @@ plugins=(
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
+# Being able to load a lot of files
+ulimit -n 2048
 
 autoload -U compinit && compinit
 

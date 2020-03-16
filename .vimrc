@@ -24,7 +24,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-easy-align'
-" vim-easy-align
 " Plug 'tommcdo/vim-lion'
 
 Plug 'tpope/vim-sensible'
@@ -73,7 +72,10 @@ Plug 'christoomey/vim-titlecase'
 
 " Other stuff
 
-Plug 'derekwyatt/vim-scala'
+" Snips
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+
 Plug 'rhysd/clever-f.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 
@@ -82,26 +84,35 @@ Plug 'mhinz/vim-grepper'
 " flygrep?
 Plug 'Houl/repmo-vim'
 
+
+Plug 'drmikehenry/vim-fixkey', { 'for': [] }
+
+" Language specific plugins
+
 " Plug 'vim-latex/vim-latex'
 " A better latex alternative ??
 Plug 'lervag/vimtex'
 
-Plug 'drmikehenry/vim-fixkey', { 'for': [] }
+Plug 'derekwyatt/vim-scala'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'ncm2/float-preview.nvim'
 else
-" Currently running this in vim fails on my machine.
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" Python
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
 Plug 'Vimjas/vim-python-pep8-indent'
 
+" Javascript
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
 
 call plug#end()
 
@@ -621,6 +632,17 @@ function! s:check_back_space() abort "{{{
 let col = col('.') - 1
 return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
+
+" DEOPLETE FOR JAVASCRIPT
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+
+" Use tern_for_vim.
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
 
 " COC.NVIM
 
