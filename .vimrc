@@ -34,12 +34,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-ragtag', { 'for': ['html', 'htmldjango'] }
 Plug 'tpope/vim-eunuch'
-" tbone?
+" tbone? (tmux stuff)
 Plug 'adelarsq/vim-matchit'
 
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
 Plug 'ap/vim-css-color'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'vimwiki/vimwiki'
@@ -53,7 +53,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
 " Plug 'drmingdrmer/vim-syntax-markdown'
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
 " Text objects:
 Plug 'wellle/targets.vim'
@@ -93,7 +93,7 @@ Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 " A better latex alternative ??
 Plug 'lervag/vimtex'
 
-Plug 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -105,9 +105,9 @@ else
 endif
 
 " Python
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
-Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 " Javascript
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
