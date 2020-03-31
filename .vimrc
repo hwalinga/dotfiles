@@ -1,14 +1,15 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
+if !has('win32') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if !has('nvim')
+if !has('win32') && !has('nvim')
     " set term=screen-256color
     " set t_Co=256
     set term=rxvt-unicode-256color
 endif
+
 " Remove autocmd 'jump to last known cursor position'
 " augroup vimStartup | au! | augroup END
 " autocmd BufEnter * set mouse=
@@ -95,28 +96,30 @@ Plug 'lervag/vimtex'
 
 Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'ncm2/float-preview.nvim'
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+if !has('win32')
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'ncm2/float-preview.nvim'
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+  
+  " Python
+  Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+  Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+  Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
+  
+  " Javascript
+  Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+  Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+  Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
 endif
-
-" Python
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
-
-" Javascript
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
 
 call plug#end()
 
-if !has('nvim')
+if !has('win32') && !has('nvim')
     call plug#load('vim-fixkey')
 endif
 
@@ -362,12 +365,14 @@ set scrolloff=5
 
 " =========== UTILS {{{1
 
+if !has('win32')
 " file dirs
-set dir=~/.vim/swapfiles
-set backup
-set backupdir=~/.vim/backupfiles
-set undofile
-set undodir=~/.vim/undodir
+  set dir=~/.vim/swapfiles
+  set backup
+  set backupdir=~/.vim/backupfiles
+  set undofile
+  set undodir=~/.vim/undodir
+endif
 
 " numbers and such
 set history=1000
@@ -710,9 +715,11 @@ let g:tern#arguments = ["--persistent"]
 " autocmd BufWritePost note.txt !bash -c 'pkill -f "conky -c /home/hielke/.conky/MX-Emays/MX-emays"; conky -c /home/hielke/.conky/MX-Emays/MX-emays & echo test23 > /home/hielke/tmp/echotest'
 
 " EXECUTERS/COMPILERS {{{1
-autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
-autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
+if !has('win32')
+    autocmd FileType python map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/ipython3)" \%run\ %:p Enter'<Bar>redraw!<C-M>
+    autocmd FileType matlab map <F5> :w<Bar>execute 'silent !tmux send-keys -t "$(cat $HOME/.tmux-panes/matlab)" "$(basename % .m)" Enter'<Bar>redraw!<C-M>
 
-autocmd BufNewFile *.py .!pystamp.bash
+    autocmd BufNewFile *.py .!pystamp.bash
+endif
 
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
