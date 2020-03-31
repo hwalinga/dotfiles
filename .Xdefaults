@@ -79,8 +79,14 @@ URxvt.matcher.button: 2
 
 
 !! Sending the by vim expected key codes for Shift Enter and control Enter.
-/* URxvt.keysym.S-Return: \033[13;2u */
+URxvt.keysym.S-Return: \033[13;2u
 /* URxvt.keysym.C-Return: \033[13;5u */
+/* Now C-M can be used as a mapping, */
+/* make here a change for C-J to be free */
+/* URxvt.keysym.C-Return: \n */
+/* URxvt.keysym.Return: \n */
+URxvt.keysym.C-m: \n
+URxvt.keysym.C-M: \n
 
 /* !! brogrammer: */
 /* *.foreground:  #d6dbe5 */

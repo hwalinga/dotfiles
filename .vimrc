@@ -476,6 +476,21 @@ nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
+" R
+inoremap <M--> <-<Space>
+inoremap <NL> %>%<Space>
+
+
+
+
+
+" AutoPairs
+let g:AutoPairsCenterLine = 0
+" let g:AutoPairsMapCR = 1
+
+
+
+
 map <m-a> ggVG
 
 vnoremap // y/<C-R>"<CR>
@@ -483,12 +498,17 @@ vnoremap // y/<C-R>"<CR>
 nnoremap <leader>o }ko<CR>
 nnoremap <leader>O {ko<CR>
 
+nnoremap <leader>p `[V`]
+nnoremap <leader>[ `[V`]<
+nnoremap <leader>] `[V`]>
+
 " ======
 
 " nnoremap <expr> <Leader>o line('.') == line('$') ? '}o<CR>' : '}O<CR>'
 " nnoremap <expr> <Leader>O line('.') == 1 ? '{O<CR><Esc>ki' : '{O<CR>''}'}'
 
 set splitright
+
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -590,6 +610,10 @@ au BufWritePre *.py call TrimEndLines()
 
 " GENERAL
 
+" Word boundaries.
+set iskeyword+=-
+
+" How the menu works
 set shortmess+=c
 set completeopt=menu,menuone
 if has('nvim')
@@ -598,7 +622,8 @@ if has('nvim')
 else
     set completeopt+=preview
 endif
-inoremap <expr> <CR> (!pumvisible() <Bar><Bar> get(complete_info(), 'selected', -1) < 0) ? "\<C-g>u\<CR>" : "\<C-y>"
+" Doubly mapped at the moment.
+" inoremap <expr> <CR> (!pumvisible() <Bar><Bar> get(complete_info(), 'selected', -1) < 0) ? "\<C-g>u\<CR>" : "\<C-y>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
