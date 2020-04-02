@@ -10,10 +10,6 @@ if !has('win32') && !has('nvim')
     set term=rxvt-unicode-256color
 endif
 
-" Remove autocmd 'jump to last known cursor position'
-" augroup vimStartup | au! | augroup END
-" autocmd BufEnter * set mouse=
-
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
@@ -27,6 +23,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-easy-align'
 " Plug 'tommcdo/vim-lion'
 
+" From the pope.
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -38,23 +35,16 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-ragtag', { 'for': ['html', 'htmldjango'] }
 Plug 'tpope/vim-eunuch'
 " tbone? (tmux stuff)
-Plug 'adelarsq/vim-matchit'
-
-Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
-Plug 'ap/vim-css-color'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'vimwiki/vimwiki'
 
 " Plug 'romainl/vim-cool'
 Plug 'jiangmiao/auto-pairs'
 
+" Visual
 Plug 'luochen1990/rainbow'
 " , { 'on': 'LoadRainbow' }
 Plug 'Yggdroot/indentLine'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
-" Plug 'drmingdrmer/vim-syntax-markdown'
-Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
 " Text objects:
 Plug 'wellle/targets.vim'
@@ -81,40 +71,57 @@ Plug 'rhysd/clever-f.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'tmux-plugins/vim-tmux'
+
 Plug 'mhinz/vim-grepper'
 " flygrep?
+
 Plug 'Houl/repmo-vim'
+Plug 'machakann/vim-swap'
 
-
+" Only load in Vim (Not NeoVim).
 Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 
-" Language specific plugins
+" Language specific stuff.
 
+" WEBSTACK
+Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
+Plug 'ap/vim-css-color'
+Plug 'adelarsq/vim-matchit'
+
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'vimwiki/vimwiki'
+
+" Plug 'drmingdrmer/vim-syntax-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+
+" LATEX
 " Plug 'vim-latex/vim-latex'
 " A better latex alternative ??
 Plug 'lervag/vimtex'
 
+" Others
 Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
+" Plugins that depend on language servers.
 if !has('win32')
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'ncm2/float-preview.nvim'
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'ncm2/float-preview.nvim'
+    else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
   
-  " Python
-  Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-  Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
-  Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
-  
-  " Javascript
-  Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
-  Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-  Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
+    " Python
+    Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+    Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+
+    " Javascript
+    Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+    Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+    Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
 endif
 
 call plug#end()
@@ -426,6 +433,7 @@ set wildmode=list:longest,full
 set dictionary+=/usr/share/dict/words
 set complete=.,w,b,u,t
 set display=truncate
+
 
 " MAPPINGS {{{1
 " nvim behave like normal command line.
