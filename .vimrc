@@ -1,4 +1,4 @@
-if !has('win32') && empty(glob('~/.vim/autoload/plug.vim'))
+if !has('win32') && empty(glob('~/.vim/autoload/plug.vim'))"{{{
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -42,9 +42,12 @@ Plug 'jiangmiao/auto-pairs'
 " Visual
 Plug 'luochen1990/rainbow'
 " , { 'on': 'LoadRainbow' }
-Plug 'Yggdroot/indentLine'
+
+" Plug 'Yggdroot/indentLine'
+" Plug 'nathanaelkane/vim-indent-guides'
+
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'w0rp/ale'
+Plug 'machakann/vim-highlightedyank'
 
 " Text objects:
 Plug 'wellle/targets.vim'
@@ -82,6 +85,9 @@ Plug 'machakann/vim-swap'
 Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 
 " Language specific stuff.
+
+" General (linters)
+Plug 'w0rp/ale'
 
 " WEBSTACK
 Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
@@ -363,8 +369,20 @@ let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
 map <leader>r :RainbowToggle<enter>
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 
+" View indents
 " indentLine uses conceal, disable for markdown and json and tex
-let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
+" let g:indentLine_fileTypeExclude = ['markdown', 'json', 'tex']
+
+" nathanaelkane/vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=white
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey
+
+let g:highlightedyank_highlight_duration = 250
+
 autocmd FileType markdown set cole=0
 autocmd FileType vim set foldmethod=marker
 
@@ -389,10 +407,6 @@ set linebreak
 set number! relativenumber!
 set ruler
 set cursorline
-set hlsearch
-if has('reltime')
-    set incsearch
-endif
 map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
@@ -416,8 +430,13 @@ set hidden
 set ignorecase
 set smartcase
 
+" File specific tab size
+
 au FileType javascript set softtabstop=4
 au FileType javascript set shiftwidth=4
+
+au FileType r set softtabstop=2
+au FileType r set shiftwidth=2
 
 " GENERAL {{{1
 set encoding=utf8
@@ -442,6 +461,7 @@ set display=truncate
 " endfor
 map , <Plug>(clever-f-repeat-back)
 map ; :
+noremap Y y$
 let g:wordmotion_prefix = '<Leader>'
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
@@ -463,8 +483,8 @@ noremap <expr> gk repmo#SelfKey('gk', 'gj')|sunmap gk
 " noremap k gk
 
 " repeat the last [count]motion or the last zap-key:
-" map <expr> ; repmo#LastKey(';')|sunmap ;
-" map <expr> , repmo#LastRevKey(',')|sunmap ,
+map <expr> m repmo#LastKey('m')|sunmap ;
+map <expr> , repmo#LastRevKey(',')|sunmap ,
 
 " " add these mappings when repeating with `;' or `,':
 " noremap <expr> f repmo#ZapKey('f')|sunmap f
@@ -479,6 +499,12 @@ inoremap # X<BS>#
 " map End key to end of line in command mode
 if !has('nvim')
     cm OF 
+    set hlsearch
+    if has('reltime')
+        set incsearch
+    endif
+else
+    set inccommand=nosplit
 endif
 " let g:easyescape_chars = { "j": 1, "k": 1  }
 " let g:easyescape_timeout = 100
@@ -508,9 +534,11 @@ map <m-a> ggVG
 
 vnoremap // y/<C-R>"<CR>
 
+" Appending paragraphs
 nnoremap <leader>o }ko<CR>
 nnoremap <leader>O {ko<CR>
 
+" Indenting recently pasted text.
 nnoremap <leader>p `[V`]
 nnoremap <leader>[ `[V`]<
 nnoremap <leader>] `[V`]>
@@ -730,4 +758,4 @@ if !has('win32')
     autocmd BufNewFile *.py .!pystamp.bash
 endif
 
-autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %"}}}
