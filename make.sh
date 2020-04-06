@@ -8,7 +8,7 @@ fi
 
 files=(
     ".tmux.conf" ".zshrc" ".bashrc-user" ".vimrc" ".bash_aliases"
-    ".config/nvim/init.vim" ".bashrc" ".Xdefaults"
+    ".config/nvim/init.vim" ".bashrc" ".Xdefaults" ".gitconfig"
 )
 folders=(
     .vim/{backupfiles,colors,pack,swapfiles,undodir,pack/git-plugins/start}

@@ -1,0 +1,9 @@
+[user]
+	email = hielkewalinga@gmail.com
+	name = Hielke Walinga
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+[rerere]
+	enabled = true
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
