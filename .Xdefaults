@@ -98,7 +98,7 @@ URxvt.keysym.C-I:             \033[73;5u
 URxvt.keysym.M-S-Return:      \033[13;4u
 /* URxvt.keysym.C-Return:        \033[13;5u */
 URxvt.keysym.C-S-Return:      \033[13;6u
-URxvt.keysym.C-M-Return:      \033[13;7u
+/* URxvt.keysym.C-M-Return:      \033[13;7u */
 URxvt.keysym.C-M-S-Return:    \033[13;8u
 
 URxvt.keysym.S-Escape:        \033[27;2u

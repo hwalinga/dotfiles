@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey '^ ' autosuggest-accept
 bindkey '^o' forward-word
-bindkey '^b' backword-word
+bindkey '^b' backward-word
 bindkey \^U backward-kill-line
 
 # setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter

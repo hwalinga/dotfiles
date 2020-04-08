@@ -36,7 +36,7 @@ Plug 'tpope/vim-ragtag', { 'for': ['html', 'htmldjango'] }
 Plug 'tpope/vim-eunuch'
 " tbone? (tmux stuff)
 
-" Plug 'romainl/vim-cool'
+Plug 'romainl/vim-cool'
 Plug 'jiangmiao/auto-pairs'
 
 " Visual
@@ -493,12 +493,12 @@ map <expr> , repmo#LastRevKey(',')|sunmap ,
 " noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " inoremap <CR> <C-G>u<CR>
+" Don't reindent #:
 inoremap # X<BS>#
-" inoremap kj <esc>
-" nmap ; :
-" map End key to end of line in command mode
 if !has('nvim')
+    " map End key to end of line in command mode
     cm OF 
+
     set hlsearch
     if has('reltime')
         set incsearch
@@ -506,6 +506,7 @@ if !has('nvim')
 else
     set inccommand=nosplit
 endif
+set gdefault
 " let g:easyescape_chars = { "j": 1, "k": 1  }
 " let g:easyescape_timeout = 100
 " cnoremap kj <ESC>
@@ -688,6 +689,7 @@ py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
+call deoplete#custom#option('auto_complete_delay', 200)
 autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
 " call deoplete#custom#source('jedi', 'max_info_width', 40)
 inoremap <silent><expr> <TAB>
@@ -758,4 +760,7 @@ if !has('win32')
     autocmd BufNewFile *.py .!pystamp.bash
 endif
 
-autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %"}}}
+autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+
+au BufReadPost  bash-fc* :set filetype=sh | :execute "normal! i#!/bin/bash\<Esc>o\<Cr>"
+"}}}
