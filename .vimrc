@@ -34,6 +34,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-ragtag', { 'for': ['html', 'htmldjango'] }
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
 " tbone? (tmux stuff)
 
 Plug 'romainl/vim-cool'
@@ -65,6 +66,8 @@ Plug 'christoomey/vim-titlecase'
 " Plug 'tommcdo/vim-express'
 
 " Other stuff
+
+Plug 'rhysd/vim-grammarous'
 
 " Snips
 " Plug 'SirVer/ultisnips'
@@ -145,6 +148,9 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 " This is vim config, not vim_markdown
 let g:tex_conceal = "amgs"
+
+let g:grammarous#languagetool_cmd = 'languagetool'
+nmap <buffer><leader>g <Plug>(grammarous-move-to-next-error)
 
 " amsmath.vim
 "   Author: Charles E. Campbell
