@@ -3671,7 +3671,6 @@ define help_text
 #        If you wish to omit files without naming them with the special
 #        underscore names, set the following near the top of the Makefile,
 #        or (this is recommended) within a Makefile.ini in the same directory:
-#
 #         includes.tex := file1.tex file2.tex
 #
 #        This will cause the files listed to be considered as include files.

@@ -38,6 +38,11 @@ alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
 alias ssh='xdotool key F10; ssh'
 
+alias please='sudo $(fc -ln -1)'
+alias f='TF_CMD=$(TF_ALIAS=f PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD && print -s $TF_CMD'
+# eval $(thefuck --alias f)
+# alias f='thefuck $(fc -ln -1)'
+
 alias r="/usr/bin/r"
 # unalias fd
 
@@ -46,7 +51,7 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/programs:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
-export PATH="$PATH:$HOME/npm/bin"
+export PATH="$HOME/npm/bin:$PATH"
 export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
 export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"

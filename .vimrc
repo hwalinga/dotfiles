@@ -20,6 +20,8 @@ Plug 'junegunn/vim-plug'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 " Plug 'tommcdo/vim-lion'
 
@@ -103,17 +105,23 @@ Plug 'vimwiki/vimwiki'
 " Plug 'drmingdrmer/vim-syntax-markdown'
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
+" More Markdown
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-rmarkdown'
+Plug 'vim-pandoc/vim-pandoc-syntax' 
+
 " LATEX
 " Plug 'vim-latex/vim-latex'
 " A better latex alternative ??
 Plug 'lervag/vimtex'
+
 
 " Others
 Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 " Plugins that depend on language servers.
-if !has('win32')
+if !has('win32') && has('python3')
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'ncm2/float-preview.nvim'
@@ -394,6 +402,9 @@ autocmd FileType vim set foldmethod=marker
 
 set scrolloff=5
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 " =========== UTILS {{{1
 
 if !has('win32')
@@ -471,6 +482,9 @@ noremap Y y$
 let g:wordmotion_prefix = '<Leader>'
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
+
+" fzf.vim
+command F Files
 
 " map a motion and its reverse motion:
 noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
@@ -674,6 +688,9 @@ endif
 " inoremap <expr> <CR> (!pumvisible() <Bar><Bar> get(complete_info(), 'selected', -1) < 0) ? "\<C-g>u\<CR>" : "\<C-y>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" au VimEnter * inoremap <expr> <C-e> pumvisible() ? "\<C-e>\<C-e>" : "\<C-e>"
+au VimEnter * inoremap <expr> <C-e> "\<End>"
+" inoremap <expr> <C-x> pumvisible() ? "\<C-e>" : "\<C-x>"
 
 " JEDI
 
@@ -708,11 +725,9 @@ return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
 " DEOPLETE FOR JAVASCRIPT
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
+call deoplete#custom#source('omni', 'functions', {
+\ 'javascript': ['tern#Complete', 'jspc#omni']
+\})
 
 " Use tern_for_vim.
 let g:tern#command = ["tern"]

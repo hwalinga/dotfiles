@@ -1,3 +1,7 @@
 # Insert your preferred key mappings here.
 unmapAll
 map w LinkHints.activateMode
+map <c-d> scrollPageDown
+map <c-u> scrollPageUp
+map <c-e> scrollDown
+map <c-y> scrollUp

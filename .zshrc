@@ -68,6 +68,15 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
+export FZF_DEFAULT_COMMAND='fd --type f'
+
+export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
+export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
+export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
+export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
+export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
+# export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 plugins=(
   git
@@ -89,6 +98,7 @@ plugins=(
   zsh-autosuggestions
   tmux
   extract
+  fzf
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
@@ -130,18 +140,6 @@ bindkey \^U backward-kill-line
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export PATH="$PATH:$HOME/npm/bin"
-export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
-
-export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
-export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
-export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
-export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
-
-export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
-# export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 remove-safely () {
         mount_path=${1:0:${#mount_point}-1}
