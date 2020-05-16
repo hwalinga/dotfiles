@@ -99,6 +99,7 @@ plugins=(
   tmux
   extract
   fzf
+  fancy-ctrl-z
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 

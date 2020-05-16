@@ -56,6 +56,8 @@ export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
 export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 
+export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
+
 m() {
     man $1 || help2man $1 | man -l -
 }

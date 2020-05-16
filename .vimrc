@@ -428,6 +428,7 @@ map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
 
+" autosave
 autocmd InsertLeave * silent! write
 
 " TABS {{{1
@@ -649,7 +650,7 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'json': ['prettier']
 \}
-" \   'pyton': ['isort'],
+" \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
@@ -707,8 +708,12 @@ let g:jedi#show_call_signatures_delay = 0
 
 " DEOPLETE
 
+" let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
+" py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
 let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
-py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
+py3 from pathlib import Path
+py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
