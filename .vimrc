@@ -91,6 +91,8 @@ Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 
 " Language specific stuff.
 
+Plug 'sheerun/vim-polyglot'
+
 " General (linters)
 Plug 'w0rp/ale'
 
@@ -102,7 +104,7 @@ Plug 'adelarsq/vim-matchit'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'vimwiki/vimwiki'
 
-" Plug 'drmingdrmer/vim-syntax-markdown'
+Plug 'drmingdrmer/vim-syntax-markdown'
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
 " More Markdown
@@ -117,8 +119,8 @@ Plug 'lervag/vimtex'
 
 
 " Others
-Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
+" Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
+" Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 " Plugins that depend on language servers.
 if !has('win32') && has('python3')
@@ -565,6 +567,9 @@ nnoremap <leader>p `[V`]
 nnoremap <leader>[ `[V`]<
 nnoremap <leader>] `[V`]>
 
+nnoremap <leader>f :% foldo!<CR>
+nnoremap <Leader>yy ^yg_
+nnoremap <Leader>dd ^dg_
 " ======
 
 " nnoremap <expr> <Leader>o line('.') == line('$') ? '}o<CR>' : '}O<CR>'
@@ -717,6 +722,7 @@ py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
+let g:deoplete#buffer#require_same_filetype = 0
 call deoplete#custom#option('auto_complete_delay', 200)
 autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
 " call deoplete#custom#source('jedi', 'max_info_width', 40)
@@ -790,3 +796,5 @@ autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
 au BufReadPost  bash-fc* :set filetype=sh | :execute "normal! i#!/bin/bash\<Esc>o\<Cr>"
 "}}}
+
+

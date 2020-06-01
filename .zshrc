@@ -103,6 +103,8 @@ plugins=(
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
+export DISABLE_FZF_KEY_BINDINGS="true"
+
 # Being able to load a lot of files
 ulimit -n 2048
 
