@@ -116,6 +116,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'vim-latex/vim-latex'
 " A better latex alternative ??
 Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 
 " Others
@@ -161,6 +162,9 @@ let g:tex_conceal = "amgs"
 
 let g:grammarous#languagetool_cmd = 'languagetool'
 nmap <buffer><leader>g <Plug>(grammarous-move-to-next-error)
+
+let g:vimtex_view_method = "zathura"
+let g:livepreview_previewer = 'zathura'
 
 " amsmath.vim
 "   Author: Charles E. Campbell
@@ -404,8 +408,8 @@ autocmd FileType vim set foldmethod=marker
 
 set scrolloff=5
 
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
 
 " =========== UTILS {{{1
 
@@ -430,9 +434,6 @@ map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
 
-" autosave
-autocmd InsertLeave * silent! write
-
 " TABS {{{1
 set tabstop=8
 set softtabstop=4
@@ -449,14 +450,6 @@ set hidden
 
 set ignorecase
 set smartcase
-
-" File specific tab size
-
-au FileType javascript set softtabstop=4
-au FileType javascript set shiftwidth=4
-
-au FileType r set softtabstop=2
-au FileType r set shiftwidth=2
 
 " GENERAL {{{1
 set encoding=utf8
@@ -672,6 +665,21 @@ function TrimEndLines()
 endfunction
 au BufWritePre *.py call TrimEndLines()
 
+" File specific tab size
+
+au FileType javascript set softtabstop=4
+au FileType javascript set shiftwidth=4
+
+au FileType bib set softtabstop=2
+au FileType bib set shiftwidth=2
+
+au FileType r set softtabstop=2
+au FileType r set shiftwidth=2
+
+" autosave
+" too distracting with autocompile.
+au FileType autocmd InsertLeave * if &ft != 'tex' | silent! write | endif
+
 " ##############
 " AUTOCOMPLETION {{{1
 " ##############
@@ -722,8 +730,10 @@ py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
-let g:deoplete#buffer#require_same_filetype = 0
+" let g:deoplete#buffer#require_same_filetype = 0
+call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
 call deoplete#custom#option('auto_complete_delay', 200)
+
 autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
 " call deoplete#custom#source('jedi', 'max_info_width', 40)
 inoremap <silent><expr> <TAB>
@@ -738,6 +748,10 @@ endfunction"}}}
 " DEOPLETE FOR JAVASCRIPT
 call deoplete#custom#source('omni', 'functions', {
 \ 'javascript': ['tern#Complete', 'jspc#omni']
+\})
+" This is new style
+call deoplete#custom#var('omni', 'input_patterns', {
+\ 'tex': g:vimtex#re#deoplete
 \})
 
 " Use tern_for_vim.
