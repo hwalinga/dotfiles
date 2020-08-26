@@ -116,6 +116,9 @@ bindkey '^ ' autosuggest-accept
 bindkey '^o' forward-word
 bindkey '^b' backward-word
 bindkey \^U backward-kill-line
+bindkey "^[r" redo
+# bindkey '^k' accept-line
+bindkey '^[[13;5u' accept-line
 
 # setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter
 

@@ -86,9 +86,6 @@ Plug 'mhinz/vim-grepper'
 Plug 'Houl/repmo-vim'
 Plug 'machakann/vim-swap'
 
-" Only load in Vim (Not NeoVim).
-Plug 'drmikehenry/vim-fixkey', { 'for': [] }
-
 " Language specific stuff.
 
 Plug 'sheerun/vim-polyglot'
@@ -144,6 +141,9 @@ if !has('win32') && has('python3')
     Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
 endif
 
+" Only load in Vim (Not NeoVim).
+Plug 'drmikehenry/vim-fixkey', { 'for': [] }
+
 call plug#end()
 
 if !has('win32') && !has('nvim')
@@ -161,10 +161,18 @@ let g:vim_markdown_conceal = 0
 let g:tex_conceal = "amgs"
 
 let g:grammarous#languagetool_cmd = 'languagetool'
-nmap <buffer><leader>g <Plug>(grammarous-move-to-next-error)
+nmap <buffer><leader>t <Plug>(grammarous-move-to-next-error)
 
 let g:vimtex_view_method = "zathura"
 let g:livepreview_previewer = 'zathura'
+
+let g:vimtex_quickfix_latexlog = {
+      \ 'overfull' : 0,
+      \ 'underfull' : 0,
+      \ 'packages' : {
+      \   'default' : 0,
+      \ },
+      \}
 
 " amsmath.vim
 "   Author: Charles E. Campbell
@@ -358,8 +366,8 @@ let g:livepreview_previewer = 'zathura'
 inoremap <M-Enter> <CR><ESC>O
 
 let g:user_emmet_mode='a'
-imap <C-y>, <esc>$<Plug>(emmet-expand-abbr)
-nmap <C-y>, $<Plug>(emmet-expand-abbr)
+imap , <esc>$<Plug>(emmet-expand-abbr)
+nmap , $<Plug>(emmet-expand-abbr)
 
 au BufRead,StdinReadPost * if getline(1) =~ '<html>' | setlocal ft=html | endif
 au StdinReadPost * if getline(1) =~ '[\|{' | setlocal ft=json | endif
@@ -433,6 +441,7 @@ set cursorline
 map <leader>h :noh<CR>
 set showcmd
 set signcolumn=yes
+set lazyredraw
 
 " TABS {{{1
 set tabstop=8
@@ -472,7 +481,8 @@ set display=truncate
 " for ch in map(range(char2nr('a'), char2nr('z')), 'nr2char(v:val)')
 "     execute printf('inoremap <M-%s> <Esc>%s', ch, ch)
 " endfor
-map , <Plug>(clever-f-repeat-back)
+" map , <Plug>(clever-f-repeat-back)
+map , <Plug>(clever-f-repeat-forward)
 map ; :
 noremap Y y$
 let g:wordmotion_prefix = '<Leader>'
@@ -508,7 +518,12 @@ map <expr> , repmo#LastRevKey(',')|sunmap ,
 " noremap <expr> t repmo#ZapKey('t')|sunmap t
 " noremap <expr> T repmo#ZapKey('T')|sunmap T
 
-" inoremap <CR> <C-G>u<CR>
+imap <C-CR> <CR><C-o><S-o>
+" imap <C-CR> <CR><CR><C-o>k<C-o>cc
+" imap <C-CR> <ESC>:normal akcc
+" imap <C-CR> <ESC>:exec "normal! a<C-V><CR><C-V><CR><C-V><C-O>k<C-V><C-F>"<CR>
+
+inoremap <CR> <C-G>u<CR>
 " Don't reindent #:
 inoremap # X<BS>#
 if !has('nvim')
@@ -530,15 +545,13 @@ set gdefault
 nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
+nnoremap <leader>x :wall<CR>
+
 inoremap <C-U> <C-G>u<C-U>
 
 " R
 inoremap <M--> <-<Space>
 inoremap <NL> %>%<Space>
-
-
-
-
 
 " AutoPairs
 let g:AutoPairsCenterLine = 0
@@ -633,6 +646,10 @@ set isfname-==
 set ttimeout
 set ttimeoutlen=5
 
+autocmd FileType javascript noremap <leader>r :TernRename<CR>
+autocmd FileType javascript noremap <leader>g :TernDef<CR>
+autocmd FileType javascript noremap <leader>n :TernRef<CR>
+
 " ##############
 " LINTING/FIXING {{{1
 " ##############
@@ -652,6 +669,7 @@ let g:ale_fixers = {
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
+let g:ale_python_pylint_options = '--load-plugins pylint_django'
 
 autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s

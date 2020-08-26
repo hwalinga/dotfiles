@@ -64,7 +64,7 @@ st.alpha: 255
 /* URxvt.background: */
 URxvt.font: xft:monospace:size=11
 URxvt.scrollBar: false
-URxvt.letterSpace: -1
+/* URxvt.letterSpace: -1 */
 URxvt*cursorBlink: true
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
@@ -79,8 +79,8 @@ URxvt.matcher.button: 2
 
 
 !! Sending the by vim expected key codes for Shift Enter and control Enter.
-/* URxvt.keysym.S-Return: \033[13;2u */
-/* URxvt.keysym.C-Return: \033[13;5u */
+URxvt.keysym.S-Return: \033[13;2u
+URxvt.keysym.C-Return: \033[13;5u
 /* Now C-M can be used as a mapping, */
 /* make here a change for C-J to be free */
 /* URxvt.keysym.C-Return: \n */
