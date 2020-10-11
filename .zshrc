@@ -1,4 +1,4 @@
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
     exec tmux
 fi
 # zmodload zsh/zprof
@@ -197,7 +197,7 @@ export PATH="$PATH:/home/hielke/node_modules/.bin"
 export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
 
 # After sourcing Python environment, do not modify PATH
-source ~/.venv/py3/bin/activate
+source ~/.venv/py39/bin/activate
 
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright

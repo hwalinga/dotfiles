@@ -159,6 +159,7 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 " This is vim config, not vim_markdown
 let g:tex_conceal = "amgs"
+let g:tex_flavor = 'latex'
 
 let g:grammarous#languagetool_cmd = 'languagetool'
 nmap <buffer><leader>t <Plug>(grammarous-move-to-next-error)
@@ -166,13 +167,10 @@ nmap <buffer><leader>t <Plug>(grammarous-move-to-next-error)
 let g:vimtex_view_method = "zathura"
 let g:livepreview_previewer = 'zathura'
 
-let g:vimtex_quickfix_latexlog = {
-      \ 'overfull' : 0,
-      \ 'underfull' : 0,
-      \ 'packages' : {
-      \   'default' : 0,
-      \ },
-      \}
+let g:vimtex_quickfix_ignore_filter = [
+  \ 'underfull',
+  \ 'overfull',
+  \]
 
 " amsmath.vim
 "   Author: Charles E. Campbell

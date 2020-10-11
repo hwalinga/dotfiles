@@ -1,6 +1,6 @@
 # Compose key is the menu key or right ctrl
 # setxkbmap -option compose:menu
-setxkbmap -option compose:rctrl
+setxkbmap -option compose:paus
 
 # dead_greek key is the right alt
 xmodmap -e 'keycode 108 = dead_greek Meta_R Alt_R Meta_R'
