@@ -13,6 +13,8 @@ endif
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
+let g:polyglot_disabled = ['markdown']
+
 call plug#begin('~/.vim/bundle')
 
 Plug 'junegunn/vim-plug'
@@ -88,7 +90,7 @@ Plug 'machakann/vim-swap'
 
 " Language specific stuff.
 
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " General (linters)
 Plug 'w0rp/ale'
@@ -99,12 +101,15 @@ Plug 'ap/vim-css-color'
 Plug 'adelarsq/vim-matchit'
 
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'vimwiki/vimwiki'
 
-Plug 'drmingdrmer/vim-syntax-markdown'
-Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+" Markdown
+" Plug 'vimwiki/vimwiki'
 
-" More Markdown
+" Simple syntax highlighting:
+" Plug 'drmingdrmer/vim-syntax-markdown' 
+
+" Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-rmarkdown'
 Plug 'vim-pandoc/vim-pandoc-syntax' 
@@ -172,6 +177,10 @@ let g:vimtex_quickfix_ignore_filter = [
   \ 'overfull',
   \]
 
+" https://tex.stackexchange.com/questions/416030/how-do-i-make-vim-highlight-math-properly-in-the-align-environment
+
+" https://github.com/plasticboy/vim-markdown/issues/469
+
 " amsmath.vim
 "   Author: Charles E. Campbell
 "   Date:   Jun 29, 2018 - Apr 01, 2019
@@ -184,6 +193,8 @@ let g:vimtex_quickfix_ignore_filter = [
 " set cpo&vim
 
 " ---------------------------------------------------------------------
+
+
 "  AMS-Math Package Support: {{{1
 " call TexNewMathZone("E","align",1)
 " call TexNewMathZone("F","alignat",1)
@@ -195,6 +206,7 @@ let g:vimtex_quickfix_ignore_filter = [
 " call TexNewMathZone("L","xxalignat",0)
 
 " syn match texBadMath		"\\end\s*{\s*\(align\|alignat\|equation\|flalign\|gather\|multline\|xalignat\|xxalignat\)\*\=\s*}"
+" syn region mkdMath start="\\\@<!\\begin" end="\\end" contains=@tex keepend
 
 " Amsmath [lr][vV]ert  (Holger Mitschke)
 " let s:texMathDelimList=[
@@ -209,6 +221,12 @@ let g:vimtex_quickfix_ignore_filter = [
 
 " ---------------------------------------------------------------------
 " AMS-Math and AMS-Symb Package Support: {{{1
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 " let s:texMathList=[
 "   \ ['backepsilon'        , '∍'] ,
 "   \ ['backsimeq'          , '≃'] ,
@@ -544,6 +562,7 @@ nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
 nnoremap <leader>x :wall<CR>
+nnoremap <leader>m :w\|mak<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
@@ -656,7 +675,8 @@ let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'json': ['jsonlint']
+\   'json': ['jsonlint'],
+\   'python':  ['flake8']
 \}
 let g:ale_fixers = {
 \   'python': ['isort', 'autopep8'],
@@ -668,6 +688,7 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
+let g:ale_lint_on_text_changed = 1
 
 autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
@@ -749,6 +770,9 @@ let g:deoplete#sources#jedi#statement_length = 500
 " let g:deoplete#buffer#require_same_filetype = 0
 call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
 call deoplete#custom#option('auto_complete_delay', 200)
+
+" https://github.com/carlitux/deoplete-ternjs/issues/88
+call deoplete#custom#option('num_processes', 4)
 
 autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
 " call deoplete#custom#source('jedi', 'max_info_width', 40)

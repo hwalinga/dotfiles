@@ -4,7 +4,7 @@ PDF = $(patsubst %.md,%.pdf,$(SRC))
 all: $(PDF)
 
 %.pdf: %.md
-	pandoc -V geometry:margin=.3in -f markdown+tex_math_dollars -o $@ $<
+	pandoc -f markdown+tex_math_dollars -o $@ $<
 
 clean:
 	rm -f $(PDF)

@@ -103,6 +103,7 @@ plugins=(
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
+export DISABLE_MAGIC_FUNCTIONS="true"
 export DISABLE_FZF_KEY_BINDINGS="true"
 
 # Being able to load a lot of files
@@ -197,7 +198,8 @@ export PATH="$PATH:/home/hielke/node_modules/.bin"
 export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
 
 # After sourcing Python environment, do not modify PATH
-source ~/.venv/py39/bin/activate
+# source ~/.venv/py39/bin/activate
+source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activate
 
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright

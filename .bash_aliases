@@ -58,6 +58,9 @@ export PATH="$GEM_HOME/bin:$PATH"
 
 export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
 
+HISTSIZE=10000000
+SAVEHIST=10000000
+
 m() {
     man $1 || help2man $1 | man -l -
 }
