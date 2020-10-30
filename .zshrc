@@ -85,7 +85,7 @@ export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 # export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 plugins=(
-  poetry
+  # poetry  TODO: https://github.com/python-poetry/poetry/issues/1734
   git
   command-not-found
   web-search
@@ -125,8 +125,10 @@ bindkey '^o' forward-word
 bindkey '^b' backward-word
 bindkey \^U backward-kill-line
 bindkey "^[r" redo
-# bindkey '^k' accept-line
 bindkey '^[[13;5u' accept-line
+bindkey '^[[1;2D' insert-cycledleft
+bindkey '^[[1;2C' insert-cycledright
+
 
 # setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter
 
@@ -179,6 +181,7 @@ fi
 
 setopt cdablevars
 
+# Weird fix for strange routers.
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
 alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
@@ -187,8 +190,6 @@ export LESS="-RXFMiX"
 alias rg="rg -N"
 unalias fd
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
-
-cat ~/Important
 
 export PATH="$PATH:/home/hielke/programs/bin"
 
@@ -200,16 +201,12 @@ export PATH="$PATH:/home/hielke/node_modules/.bin"
 # CUSTOM PATHS
 
 # export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
-#export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
-
-export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
+# export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
+# export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
 
 # After sourcing Python environment, do not modify PATH
 # source ~/.venv/py39/bin/activate
 source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activate
-
-bindkey '^[[1;2D' insert-cycledleft
-bindkey '^[[1;2C' insert-cycledright
 
 # export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
 
@@ -223,3 +220,6 @@ export JRE_HOME=$JAVA_HOME
 # export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
 
 # export CATALINA_PID="$CATALINA_BASE/tomcat.pid"
+
+# I keep important notes here.
+cat ~/Important
