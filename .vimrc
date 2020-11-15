@@ -138,7 +138,7 @@ if !has('win32') && has('python3')
   
     " Python
     Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-    Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+    " Plug 'davidhalter/jedi-vim', { 'for': ['python'] } TODO: Why is slow
 
     " Javascript
     Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
@@ -470,6 +470,9 @@ let g:vim_indent_cont = 0
 " no clue what would work best.
 set autoindent
 " set smartindent
+" Disable python indent on : (because type hints)
+autocmd FileType python setlocal indentkeys-=<:>
+autocmd FileType python setlocal indentkeys-=:
 
 set hidden
 
