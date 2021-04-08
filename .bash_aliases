@@ -42,6 +42,7 @@ alias please='sudo $(fc -ln -1)'
 alias f='TF_CMD=$(TF_ALIAS=f PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD && print -s $TF_CMD'
 # eval $(thefuck --alias f)
 # alias f='thefuck $(fc -ln -1)'
+alias py=python
 
 alias r="/usr/bin/r"
 # unalias fd
@@ -57,9 +58,6 @@ export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 
 export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
-
-HISTSIZE=10000000
-SAVEHIST=10000000
 
 m() {
     man $1 || help2man $1 | man -l -

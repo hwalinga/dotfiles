@@ -53,6 +53,9 @@ Plug 'luochen1990/rainbow'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
+" Plug 'vim-scripts/guifontpp.vim'
+" Plug 'RyanMcG/vim-guifontzoom'
+" Plug 'schmich/vim-guifont'
 
 " Text objects:
 Plug 'wellle/targets.vim'
@@ -106,13 +109,13 @@ Plug 'mustache/vim-mustache-handlebars'
 " Plug 'vimwiki/vimwiki'
 
 " Simple syntax highlighting:
-" Plug 'drmingdrmer/vim-syntax-markdown' 
+" Plug 'drmingdrmer/vim-syntax-markdown'
 
 " Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-rmarkdown'
-Plug 'vim-pandoc/vim-pandoc-syntax' 
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " LATEX
 " Plug 'vim-latex/vim-latex'
@@ -135,15 +138,16 @@ if !has('win32') && has('python3')
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
-  
+
     " Python
     Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-    " Plug 'davidhalter/jedi-vim', { 'for': ['python'] } TODO: Why is slow
+    " TODO: Why is slow => pandas
+    Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
 
     " Javascript
     Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
     Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-    Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] } 
+    Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 endif
 
 " Only load in Vim (Not NeoVim).
@@ -697,7 +701,7 @@ autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
 
 " Remove trailing space on safe.
-" autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
+autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
 function TrimEndLines()
     let save_cursor = getpos(".")
     :silent! %s#\($\n\s*\)\+\%$##
@@ -718,7 +722,7 @@ au FileType r set shiftwidth=2
 
 " autosave
 " too distracting with autocompile.
-au FileType autocmd InsertLeave * if &ft != 'tex' | silent! write | endif
+au InsertLeave * if &ft != 'tex' | silent! write | endif
 
 " ##############
 " AUTOCOMPLETION {{{1
@@ -853,5 +857,3 @@ autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
 au BufReadPost  bash-fc* :set filetype=sh | :execute "normal! i#!/bin/bash\<Esc>o\<Cr>"
 "}}}
-
-

@@ -1,6 +1,7 @@
 if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
     exec tmux
 fi
+
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -74,8 +75,6 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-export FZF_DEFAULT_COMMAND='fd --type f'
-
 export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
 export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
 export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
@@ -105,13 +104,12 @@ plugins=(
   zsh-autosuggestions
   tmux
   extract
-  fzf
+  # fzf
   fancy-ctrl-z
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
 export DISABLE_MAGIC_FUNCTIONS="true"
-export DISABLE_FZF_KEY_BINDINGS="true"
 
 # Being able to load a lot of files
 ulimit -n 2048
@@ -128,6 +126,9 @@ bindkey "^[r" redo
 bindkey '^[[13;5u' accept-line
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright
+
+# Disable "safe glob"
+unsetopt nomatch
 
 
 # setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter
@@ -188,7 +189,6 @@ alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N"
-unalias fd
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
 
 export PATH="$PATH:/home/hielke/programs/bin"
@@ -210,7 +210,7 @@ source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activat
 
 # export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 export JRE_HOME=$JAVA_HOME
 
 # CATALINA (TOMCAT)
@@ -223,3 +223,40 @@ export JRE_HOME=$JAVA_HOME
 
 # I keep important notes here.
 cat ~/Important
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# ==== FZF
+
+# export DISABLE_FZF_KEY_BINDINGS="true"
+
+export FZF_DEFAULT_COMMAND='fd --type f'
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+clear_half_screen() {
+    mid=$(( (LINES+1)/2 ))
+    # Insert empty rows
+    for i in {1..$(( LINES-mid-1 ))}; echo
+    # move to middle
+    tput cup $mid 2
+}
+zle -N clear_half_screen
+bindkey '^}' clear_half_screen
+
+HISTSIZE=10000000
+SAVEHIST=10000000
+setopt SHARE_HISTORY

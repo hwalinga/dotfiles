@@ -11,3 +11,5 @@ fi
 if [ -f ${HOME}/.bashrc-user ]; then
     . ${HOME}/.bashrc-user
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
