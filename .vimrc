@@ -686,9 +686,9 @@ let g:ale_linters = {
 \   'python':  ['flake8']
 \}
 let g:ale_fixers = {
-\   'python': ['isort', 'autopep8'],
 \   'javascript': ['prettier'],
-\   'json': ['prettier']
+\   'json': ['prettier'],
+\   'python': ['isort', 'autopep8']
 \}
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],

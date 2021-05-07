@@ -13,15 +13,22 @@ alias mtawk="mawk -F '\t' -v OFS='\t'"
 alias les="less -S -N -#2"
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
+alias blockdistr="sed -i 's/# 0.0.0.0/0.0.0.0/' /etc/hosts"
 
 alias neofetch="neofetch; sleep infinity;"
 # alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
 alias noti="yes FINISHED | head | xargs figlet"
 alias which="type -a"
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+alias open="xdg-open"
 
 alias parallize="xargs -P `nproc` -0 -n1 -I {} bash -c"
 alias freeproc="ps -eo pcpu --no-headers | awk -v P=`nproc` '{S+=\$1}END{print P-S/100}'"
 alias freemem="free --giga | sed -n 2p | awk '{print \$NF}'"
+
+alias rs="./src/manage.py runserver"
+alias dm="./src/manage.py "
+alias dt="DEMAP_TESTING=1 "
 
 alias mountbulk="sshfs -oauto_cache,reconnect,workaround=all hwalinga@sftp.tudelft.nl:/staff-bulk/tnw/BN/SB/Shared/ /data1/bulk/hwalinga/shared"
 alias unmountbulk="fusermount -u /data1/bulk/hwalinga/shared"
@@ -58,6 +65,12 @@ export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 
 export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
+
+# LESSOPEN="|lesspipe.sh %s"; export LESSOPEN
+
+pdfcat() {
+    pdftotext $1 -
+}
 
 m() {
     man $1 || help2man $1 | man -l -

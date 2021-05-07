@@ -285,5 +285,8 @@ TSWLatexianTemp*
 
 *.aux.make
 *.auxtarget.make
-*.bib
 *.d
+
+# Some temps
+*.auxbbl.make
+*.auxbbl.make.temp

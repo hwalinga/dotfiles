@@ -1,0 +1,51 @@
+#!/bin/bash
+
+dest=${1}
+
+if [[ -z "${dest}" ]]; then
+    echo >&2 "You must supply an argument!"
+    exit 1
+elif [[ ! -d "${dest}" ]]; then
+    echo >&2 "${dest} is not a valid directory!"
+    exit 1
+fi
+
+echo "Directory ${dest} was selected"
+
+echo "Please click on the 'sent' window"
+
+pid=$(xdotool selectwindow)
+
+lastfile="/dev/null"
+cfile=""
+
+echo "Found 'sent' window $pid"
+
+id=0
+
+rm -rf "${dest}/*"
+
+cycle () {
+	id=$((++id));
+	cfile="${dest}/slide-$id.png";
+        echo ${dest}
+        echo ${cfile}
+	maim --hidecursor -i "$pid" "$cfile";
+
+	DIFF=$(diff "$lastfile" "$cfile")
+
+	if [ -z "$DIFF" ]
+	then
+		rm "$cfile"
+		echo "Finished Export"
+		exit;
+	fi
+
+	lastfile="$cfile"
+
+	xdotool key --window "$pid" Right
+}
+
+while true; do
+	cycle;
+done
