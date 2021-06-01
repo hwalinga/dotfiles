@@ -13,7 +13,7 @@ endif
 let mapleader = " "
 nmap <expr> <bslash> mapleader
 
-let g:polyglot_disabled = ['markdown']
+let g:polyglot_disabled = ['markdown', 'bib']
 
 call plug#begin('~/.vim/bundle')
 
@@ -93,7 +93,7 @@ Plug 'machakann/vim-swap'
 
 " Language specific stuff.
 
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " General (linters)
 Plug 'w0rp/ale'
@@ -177,8 +177,8 @@ let g:vimtex_view_method = "zathura"
 let g:livepreview_previewer = 'zathura'
 
 let g:vimtex_quickfix_ignore_filter = [
-  \ 'underfull',
-  \ 'overfull',
+  \ 'Underfull',
+  \ 'Overfull',
   \]
 
 " https://tex.stackexchange.com/questions/416030/how-do-i-make-vim-highlight-math-properly-in-the-align-environment
@@ -438,6 +438,7 @@ set scrolloff=5
 
 " autocmd! User GoyoEnter Limelight
 " autocmd! User GoyoLeave Limelight!
+let g:goyo_width=150
 
 " =========== UTILS {{{1
 
@@ -688,7 +689,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'json': ['prettier'],
-\   'python': ['isort', 'autopep8']
+\   'python': ['isort', 'autopep8'],
+\   'rust': ['rustfmt']
 \}
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
@@ -716,6 +718,7 @@ au FileType javascript set shiftwidth=4
 
 au FileType bib set softtabstop=2
 au FileType bib set shiftwidth=2
+autocmd FileType bib set expandtab
 
 au FileType r set softtabstop=2
 au FileType r set shiftwidth=2

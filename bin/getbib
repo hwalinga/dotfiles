@@ -16,4 +16,4 @@ doi=${doi%% *}  # Sometimes there is some crap after DOI, remove.
 >&2 echo "${doi}"
 
 # Check crossref.org for the bib citation.
-curl -fsSL "https://api.crossref.org/works/$doi/transform/application/x-bibtex?mailto=hielkewalinga@gmail.com" -w "\\n"
+curl -fsSL "https://api.crossref.org/works/$doi/transform/application/x-bibtex?mailto=hielkewalinga@gmail.com" -w "\\n" | sed 's/\t/    /'
