@@ -1,7 +1,10 @@
 # export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
-export EDITOR='vim'
+export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
 alias vim="$EDITOR"
+alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
+
+alias pytest="python3 -m pytest"
 
 # tmux panes
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'

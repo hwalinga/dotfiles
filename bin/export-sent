@@ -43,7 +43,9 @@ cycle () {
 
 	lastfile="$cfile"
 
+        echo "Pressed right"
 	xdotool key --window "$pid" Right
+        sleep .1
 }
 
 while true; do

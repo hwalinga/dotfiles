@@ -188,7 +188,7 @@ alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft
 alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
-alias rg="rg -N"
+alias rg="rg -N -i"
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
 
 export PATH="$PATH:/home/hielke/programs/bin"
@@ -225,6 +225,7 @@ export JRE_HOME=$JAVA_HOME
 cat ~/Important
 
 export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/code/film-fountain/bin:$PATH"
 
 # ==== FZF
 

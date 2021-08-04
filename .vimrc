@@ -176,9 +176,10 @@ nmap <buffer><leader>t <Plug>(grammarous-move-to-next-error)
 let g:vimtex_view_method = "zathura"
 let g:livepreview_previewer = 'zathura'
 
-let g:vimtex_quickfix_ignore_filter = [
+let g:vimtex_quickfix_ignore_filters = [
   \ 'Underfull',
   \ 'Overfull',
+  \ 'Missing',
   \]
 
 " https://tex.stackexchange.com/questions/416030/how-do-i-make-vim-highlight-math-properly-in-the-align-environment
