@@ -685,13 +685,13 @@ let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'json': ['jsonlint'],
-\   'python':  ['flake8']
+\   'python':  ['flake8'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'json': ['prettier'],
+\   'rust': ['rustfmt'],
 \   'python': ['isort', 'autopep8'],
-\   'rust': ['rustfmt']
 \}
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],

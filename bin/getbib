@@ -13,6 +13,7 @@ fi
 doi=${doi#* }  # Sometimes DOI is like "DOI: 111111", than just take last part.
 doi=${doi%% *} # Sometimes there is some crap after DOI, remove.
 doi=${doi%%;*} # Removing ";" after doi.
+doi=${doi%%.} # Removing literal "." right after doi
 
 
 >&2 echo "${doi}"
