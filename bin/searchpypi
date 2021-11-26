@@ -1,0 +1,129 @@
+#!/bin/bash
+
+PSS_DIR=~/.local/share/pypi-simple-search
+PKG_DIR="${PSS_DIR}/pkg"
+PSS_CACHE=${PSS_DIR}/simple.txt
+
+curl_pypi() {
+    echo "Updating cache of PyPi packages"
+    curl -s https://pypi.org/simple/ > "${PSS_CACHE}.tmp"
+    # Remove header text
+    tail -n +7 "${PSS_CACHE}.tmp" > "$PSS_CACHE" && rm "${PSS_CACHE}.tmp"
+    # Remove html tags and whitespace
+    perl -pi -e 's/[\t ]+|<.+?>//g' "$PSS_CACHE"
+}
+
+print_help() {
+    echo "pypi-simple-search: a stop-gap replacement for \"pip search\""
+    echo "  Usage:"
+    echo "    $0 [-hum] [query]"
+    echo "  Options:"
+    echo "    -h      show this menu"
+    echo "    -u      update cache of pypi packages"
+    echo "    -m      display package descriptions from metadata"
+    echo "  Arguments:"
+    echo "    query   package name to search"
+    echo "  Environment:"
+    echo "    \$PYPI_SIMPLE_SEARCH   search command to use, defaults to \"grep\""
+}
+
+update=0
+metadata=0
+
+OPTIND=1 # Reset in case getopts has been used previously in the shell
+while getopts "h?um" opt; do
+    case "$opt" in
+    h|\?)
+        print_help
+        exit 0
+        ;;
+    u)
+        # Update the pypi package cache
+        update=1
+        ;;
+    m)
+        # Prepare directory to cache JSON metadata
+        mkdir -p "$PKG_DIR"
+        metadata=1
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+if [ ! -d "$PSS_DIR" ]; then
+    mkdir -p "$PSS_DIR"
+    curl_pypi
+elif [ ! -f "$PSS_CACHE" ]; then
+    curl_pypi
+fi
+
+# Thanks to @lfom for the Linux portability fix
+get_age() {
+    local file="$1"
+    local cache_time=0
+    case "$(uname)" in
+         Darwin* | FreeBSD*)    cache_time=$(stat -f%c "$file");;
+         Linux*  | CYGWIN*)     cache_time=$(stat -c%Y "$file");;
+         *)
+             echo "Sorry, unsuported or unknown system: $(uname)!"
+             echo "Please submit an issue here: https://github.com/jeffmm/pypi-simple-search/issues"
+             exit
+    esac
+    local elapsed_time=$(( $(date +%s) - ${cache_time} ))
+    printf "%d" $elapsed_time
+}
+
+json_pypi() {
+    local pkg=$1
+    local PKG_CACHE="${PKG_DIR}/$pkg.json"
+
+    # Get JSON metadata and cache it
+    # https://warehouse.pypa.io/api-reference/json.html
+    if [ $update -eq 1 ] || [ ! -f "${PKG_CACHE}" ] || [ $(get_age "${PKG_CACHE}") -gt 604800 ]; then
+        (
+            set -eu
+            curl --silent --fail "https://pypi.org/pypi/${pkg}/json" > "${PKG_CACHE}"
+        )
+    fi
+
+    # Get some keys and display as tab-separated-values
+    jq -r '[.info.name, .info.version, .info.summary] | @tsv' "${PKG_CACHE}"
+}
+
+if [ $(get_age "${PSS_CACHE}") -gt 604800 ]; then
+    # Update automatically if the cache is over 1 week old
+    echo "It's been over a week since the package cache was updated"
+    curl_pypi
+fi
+
+
+# Allow just updating the cache ie: $0 -u
+if [ $update -eq 1 ]; then
+    curl_pypi
+fi
+
+# If the user sets their own search preference (e.g. ag, rg, etc), use it
+# Otherwise just use grep, because it's universal
+: "${PYPI_SIMPLE_SEARCH:=grep}"
+
+search_pypi() {
+    "$PYPI_SIMPLE_SEARCH" "$1" "$PSS_CACHE"
+}
+
+if [ -n "$1" ]; then
+    if [ $metadata -eq 0 ]; then
+        search_pypi "$1"
+    else
+        # Loop over packages, get JSON metadata and display as a table
+        for pkg in $(search_pypi "$1"); do
+            json_pypi "$pkg"
+        done | column -t -s $'\t'
+    fi
+elif [ $update -eq 0 ]; then
+    # If no arg given and we are not updating the cache, educate the user
+    print_help
+    exit 1
+fi
