@@ -1,0 +1,8 @@
+#!/bin/bash
+
+NAME=${1%.jpg}
+
+convert ${NAME}.jpg ${NAME}_1.pdf
+# pdftk ${NAME}_1.pdf cat 1-endeast output ${NAME}_2.pdf
+pdfjam --outfile ${NAME}.pdf --paper a4paper ${NAME}_1.pdf
+rm ${NAME}_1.pdf # ${NAME}_2.pdf
