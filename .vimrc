@@ -57,6 +57,9 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'RyanMcG/vim-guifontzoom'
 " Plug 'schmich/vim-guifont'
 
+Plug 'wellle/context.vim'
+" Plug 'zsugabubus/vim-paperplane'
+
 " Text objects:
 Plug 'wellle/targets.vim'
 Plug 'aldantas/vim-custom-surround'
@@ -154,6 +157,9 @@ endif
 Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 
 call plug#end()
+
+let g:context_nvim_no_redraw = 1
+let g:context_highlight_tag = '<hide>'
 
 if !has('win32') && !has('nvim')
     call plug#load('vim-fixkey')
@@ -511,8 +517,14 @@ map , <Plug>(clever-f-repeat-forward)
 map ; :
 noremap Y y$
 let g:wordmotion_prefix = '<Leader>'
+
 call customsurround#map('<leader>b', '\fB', '\fP')
 call customsurround#map('<leader>i', '\fI', '\fP')
+if exists('g:loaded_surround')
+    " vim-surround: q for `foo' and Q for ``foo''
+    let b:surround_{char2nr('q')} = "`\r'"
+    let b:surround_{char2nr('Q')} = "``\r''"
+endif
 
 " fzf.vim
 command F Files
@@ -693,6 +705,7 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt'],
 \   'python': ['isort', 'autopep8'],
 \}
+" \   'python': ['black', 'isort'],
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
 let g:ale_fix_on_save = 1
@@ -771,22 +784,29 @@ let g:jedi#show_call_signatures_delay = 0
 
 " let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
 " py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
-let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
-py3 from pathlib import Path
-py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
+" let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
+" py3 from pathlib import Path
+" py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#statement_length = 500
 " let g:deoplete#buffer#require_same_filetype = 0
+
+
 call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
 call deoplete#custom#option('auto_complete_delay', 200)
 
 " https://github.com/carlitux/deoplete-ternjs/issues/88
 call deoplete#custom#option('num_processes', 4)
 
+
+" not filter by first char.
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#source('_', 'ignore_case', v:true)
+
 autocmd BufNewFile,BufRead * if empty(&filetype) | call deoplete#custom#option('auto_complete', 0) | endif
-" call deoplete#custom#source('jedi', 'max_info_width', 40)
+" call deoplete#custom#source('jedi', 'max_info_width', 40) not needed
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? "\<C-n>" :
 \ <SID>check_back_space() ? "\<TAB>" :

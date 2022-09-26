@@ -8,3 +8,5 @@
 	excludesFile = ~/.gitignore
 [pull]
 	rebase = false
+[branch]
+	autoSetupMerge = always

@@ -85,27 +85,29 @@ export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 plugins=(
   # poetry  TODO: https://github.com/python-poetry/poetry/issues/1734
+
   git
   command-not-found
   web-search
-  # sudo
-  # python
   history
-  # debian
   dircycle
   dirhistory
   common-aliases
   colored-man-pages
   z
-  # apply
   zsh-syntax-highlighting
   history-substring-search
   zsh-completions
   zsh-autosuggestions
   tmux
   extract
-  # fzf
   fancy-ctrl-z
+
+  # sudo
+  # python
+  # debian
+  # fzf
+  # apply
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
@@ -158,6 +160,7 @@ unsetopt nomatch
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 remove-safely () {
         mount_path=${1:0:${#mount_point}-1}
         mount_point=$(mount | grep $mount_path | cut -d" " -f1)
@@ -189,11 +192,12 @@ alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N -i"
+unalias duf
+alias duf="duf --theme light"
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
 
 export PATH="$PATH:/home/hielke/programs/bin"
 
-export PATH="$PATH:/home/hielke/.local/bin"
 export PATH="$PATH:/home/hielke/.cargo/bin"
 
 export PATH="$PATH:/home/hielke/node_modules/.bin"
@@ -206,12 +210,17 @@ export PATH="$PATH:/home/hielke/node_modules/.bin"
 
 # After sourcing Python environment, do not modify PATH
 # source ~/.venv/py39/bin/activate
-source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activate
 
 # export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
 
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
-export JRE_HOME=$JAVA_HOME
+# export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+# export JRE_HOME=$JAVA_HOME
+
+# export JAVA_HOME="/home/hielke/Downloads/jdk1.8.0_202"
+# export JDK_HOME=$JAVA_HOME
+# export JRE_HOME=$JAVA_HOME/jre
+# export PATH="$JAVA_HOME/bin:$PATH"
+# export CLASSPATH=".:$JAVA_HOME/lib:$JRE_HOME/lib"
 
 # CATALINA (TOMCAT)
 # export CATALINA_HOME=/usr/share/tomcat8
@@ -262,6 +271,29 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 setopt SHARE_HISTORY
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export DJANGO_COLORS="light"
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/hielke/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/hielke/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/hielke/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/hielke/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="/home/hielke/.local/bin:$PATH"
+
+export PATH="/home/hielke/n/bin/:$PATH"
+
+source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.10/bin/activate  # commented out by conda initialize

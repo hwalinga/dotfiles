@@ -7,7 +7,9 @@ xmodmap -e 'keycode 108 = dead_greek Meta_R Alt_R Meta_R'
 
 # Remap superkey to alt+f1, and do some xcape like magic that superkey
 # can still be used as a modifier.
-/home/hielke/repos/ksuperkey/ksuperkey
+# if ! pgrep ksuperkey; then
+#     /home/hielke/repos/ksuperkey/ksuperkey
+# fi
 
 # Other keyboard remaps.
 xmodmap /home/hielke/.Xmodmap

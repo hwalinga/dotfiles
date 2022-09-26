@@ -1,5 +1,6 @@
 # export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
-export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
+# export EDITOR='/bin/nvim'
+export EDITOR='/bin/nvim'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
@@ -53,9 +54,12 @@ alias f='TF_CMD=$(TF_ALIAS=f PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) th
 # eval $(thefuck --alias f)
 # alias f='thefuck $(fc -ln -1)'
 alias py=python
+alias cleanlatex='rm -f main.{bcf,d,fls,out.make,run.xml,aux.make,auxtarget.make,0-1.log,0-2.log,1-2.log,ps,pdf,log,aux,out,dvi,bbl,blg}'
 
 alias r="/usr/bin/r"
 # unalias fd
+
+alias lg='lazygit'
 
 export BAT_THEME="GitHub"
 export PATH="$HOME/bin:$PATH"
