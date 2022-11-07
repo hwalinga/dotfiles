@@ -41,6 +41,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-abolish'
 " tbone? (tmux stuff)
 
+Plug 'lambdalisue/suda.vim'
+
 Plug 'romainl/vim-cool'
 Plug 'jiangmiao/auto-pairs'
 
@@ -145,6 +147,7 @@ if !has('win32') && has('python3')
     " Python
     Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
     " TODO: Why is slow => pandas
+    " DISABLED BECAUSE BUG davidhalter/jedi#1891
     Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
 
     " Javascript
@@ -405,6 +408,33 @@ au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
 " VISUALIZATION {{{1
 " #############
 
+" Save current view settings on a per-window, per-buffer basis.
+function! AutoSaveWinView()
+    if !exists("w:SavedBufView")
+        let w:SavedBufView = {}
+    endif
+    let w:SavedBufView[bufnr("%")] = winsaveview()
+endfunction
+
+" Restore current view settings.
+function! AutoRestoreWinView()
+    let buf = bufnr("%")
+    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
+        let v = winsaveview()
+        let atStartOfFile = v.lnum == 1 && v.col == 0
+        if atStartOfFile && !&diff
+            call winrestview(w:SavedBufView[buf])
+        endif
+        unlet w:SavedBufView[buf]
+    endif
+endfunction
+
+" When switching buffers, preserve window view.
+if v:version >= 700
+    autocmd BufLeave * call AutoSaveWinView()
+    autocmd BufEnter * call AutoRestoreWinView()
+endif
+
 " THEME
 set background=light
 colorscheme PaperColor
@@ -423,6 +453,8 @@ let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': [238, 41, 170, 147]}
 map <leader>r :RainbowToggle<enter>
 au BufEnter * if &ft ==# 'html' | exec 'RainbowToggleOff' | endif
+
+" VISUAL
 
 " View indents
 " indentLine uses conceal, disable for markdown and json and tex
@@ -563,6 +595,7 @@ imap <C-CR> <CR><C-o><S-o>
 inoremap <CR> <C-G>u<CR>
 " Don't reindent #:
 inoremap # X<BS>#
+
 if !has('nvim')
     " map End key to end of line in command mode
     cm OF 
@@ -571,9 +604,11 @@ if !has('nvim')
     if has('reltime')
         set incsearch
     endif
+    set splitkeep=screen  " stabilize lines
 else
     set inccommand=nosplit
 endif
+
 set gdefault
 " let g:easyescape_chars = { "j": 1, "k": 1  }
 " let g:easyescape_timeout = 100
@@ -610,6 +645,9 @@ nnoremap <leader>O {ko<CR>
 nnoremap <leader>p `[V`]
 nnoremap <leader>[ `[V`]<
 nnoremap <leader>] `[V`]>
+
+" paste problem vim#1404
+set t_BE=
 
 nnoremap <leader>f :% foldo!<CR>
 nnoremap <Leader>yy ^yg_
@@ -703,8 +741,8 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'json': ['prettier'],
 \   'rust': ['rustfmt'],
-\   'python': ['isort', 'autopep8'],
 \}
+" \   'python': ['isort', 'autopep8'],
 " \   'python': ['black', 'isort'],
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
@@ -766,6 +804,13 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " au VimEnter * inoremap <expr> <C-e> pumvisible() ? "\<C-e>\<C-e>" : "\<C-e>"
 au VimEnter * inoremap <expr> <C-e> "\<End>"
 " inoremap <expr> <C-x> pumvisible() ? "\<C-e>" : "\<C-x>"
+
+" Commentary
+setglobal commentstring=#\ %s
+augroup comments
+  autocmd!
+  autocmd FileType c,cpp,cs,java,arduino setlocal commentstring=//\ %s
+augroup END
 
 " JEDI
 

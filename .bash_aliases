@@ -71,7 +71,7 @@ export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
 export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"
 
-export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
+# export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
 
 # LESSOPEN="|lesspipe.sh %s"; export LESSOPEN
 

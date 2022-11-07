@@ -9,6 +9,7 @@ fi
 # Color stderr red
 export LD_PRELOAD="$HOME/repos/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 # Alternatively: http://www.wikigentoo.ksiezyc.pl/Zsh.htm#Colorize_STDERR
+# !! Cannot load bash after this
 # exec 2>>(while read line; do
 # print '\e[91m'${(q)line}'\e[0m' > /dev/tty; print -n $'\0'; done &)
 
@@ -84,7 +85,7 @@ export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 # export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 plugins=(
-  # poetry  TODO: https://github.com/python-poetry/poetry/issues/1734
+  poetry  # TODO: https://github.com/python-poetry/poetry/issues/1734
 
   git
   command-not-found
@@ -189,6 +190,8 @@ setopt cdablevars
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
 alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
+alias hpc="ssh -t hwalinga@student-linux.tudelft.nl 'ssh -t login3.hpc.tudelft.nl zsh'"
+alias xhpc="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -t -X login3.hpc.tudelft.nl zsh'"
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXFMiX"
 alias rg="rg -N -i"
@@ -279,21 +282,27 @@ export DJANGO_COLORS="light"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/hielke/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/hielke/miniconda3/etc/profile.d/conda.sh" ]; then
-#         . "/home/hielke/miniconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/hielke/miniconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
+__conda_setup="$('/home/hielke/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/hielke/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hielke/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/hielke/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 # <<< conda initialize <<<
+
+alias conda=mamba
 
 export PATH="/home/hielke/.local/bin:$PATH"
 
 export PATH="/home/hielke/n/bin/:$PATH"
 
-source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.10/bin/activate  # commented out by conda initialize
+export PATH="$PATH:/home/hielke/.pyenv/versions/3.11.0/bin/"
+export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
+
+
+source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate
