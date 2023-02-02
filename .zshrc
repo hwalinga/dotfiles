@@ -2,6 +2,10 @@ if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null
     exec tmux
 fi
 
+# if [ -f ~/.zprofile ]; then
+# 	. ~/.zprofile
+# fi
+
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -20,6 +24,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
+SOBOLE_DEFAULT_USER="hpc"
 ZSH_THEME="sobole"
 
 # Set list of themes to pick from when loading at random
@@ -75,37 +80,34 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-export HOMEBREW_PREFIX="/home/hielke/.linuxbrew"
-export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
-export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
-export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
-export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
-# export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
+export CONDA_ENVS_DIRS=/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/.conda/envs
+zstyle ":conda_zsh_completion:*" show-unnamed true
 
 plugins=(
   # poetry  TODO: https://github.com/python-poetry/poetry/issues/1734
-  git
-  command-not-found
-  web-search
+  # git
+  # command-not-found
+  # web-search
   # sudo
   # python
   history
   # debian
-  dircycle
-  dirhistory
-  common-aliases
-  colored-man-pages
-  z
+  # dircycle
+  # dirhistory
+  # common-aliases
+  # colored-man-pages
+  # z
   # apply
-  zsh-syntax-highlighting
-  history-substring-search
-  zsh-completions
-  zsh-autosuggestions
-  tmux
-  extract
+  # zsh-syntax-highlighting
+  # history-substring-search
+  # zsh-completions
+  # zsh-autosuggestions
+  # tmux
+  # extract
   # fzf
-  fancy-ctrl-z
+  # fancy-ctrl-z
+  # zsh-prompt-benchmark
+  # conda-zsh-completion
 )
 # [ -f /etc/zsh_command_not_found ] && . /etc/zsh_command_not_found
 
@@ -114,9 +116,8 @@ export DISABLE_MAGIC_FUNCTIONS="true"
 # Being able to load a lot of files
 ulimit -n 2048
 
-autoload -U compinit && compinit
-
 source $ZSH/oh-my-zsh.sh
+autoload -U compinit && compinit
 
 bindkey '^ ' autosuggest-accept
 bindkey '^o' forward-word
@@ -129,7 +130,10 @@ bindkey '^[[1;2C' insert-cycledright
 
 # Disable "safe glob"
 unsetopt nomatch
+setopt cdablevars
 
+alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
+unalias fd
 
 # setopt NO_HIST_VERIFY # stops zsh from expanding !! notation when you hit enter
 
@@ -158,6 +162,10 @@ unsetopt nomatch
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 remove-safely () {
         mount_path=${1:0:${#mount_point}-1}
         mount_point=$(mount | grep $mount_path | cut -d" " -f1)
@@ -166,87 +174,6 @@ remove-safely () {
         udisksctl unmount -b $mount_point
         udisksctl power-off -b $mount_point
 }
-
-PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
-
-# eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
-export MANPATH=$HOME/perl5/man:$MANPATH
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-setopt cdablevars
-
-# Weird fix for strange routers.
-# alias ssh="ssh -o IPQoS=0"
-alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
-alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
-alias mawk="$HOME/.linuxbrew/bin/mawk"
-export LESS="-RXFMiX"
-alias rg="rg -N -i"
-alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
-
-export PATH="$PATH:/home/hielke/programs/bin"
-
-export PATH="$PATH:/home/hielke/.local/bin"
-export PATH="$PATH:/home/hielke/.cargo/bin"
-
-export PATH="$PATH:/home/hielke/node_modules/.bin"
-
-# CUSTOM PATHS
-
-# export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
-# export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
-# export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
-
-# After sourcing Python environment, do not modify PATH
-# source ~/.venv/py39/bin/activate
-source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activate
-
-# export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
-
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
-export JRE_HOME=$JAVA_HOME
-
-# CATALINA (TOMCAT)
-# export CATALINA_HOME=/usr/share/tomcat8
-# export CATALINA_BASE=/home/hielke/code/genius-web/catalina-home
-
-# export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
-
-# export CATALINA_PID="$CATALINA_BASE/tomcat.pid"
-
-# I keep important notes here.
-cat ~/Important
-
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/code/film-fountain/bin:$PATH"
-
-# ==== FZF
-
-# export DISABLE_FZF_KEY_BINDINGS="true"
-
-export FZF_DEFAULT_COMMAND='fd --type f'
-
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 clear_half_screen() {
     mid=$(( (LINES+1)/2 ))
@@ -262,6 +189,59 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 setopt SHARE_HISTORY
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+# function git_prompt_info() {
+#     ref=$(git-branch-name -q -h 12 -b 64) || return
+#     echo "${ZSH_THEME_GIT_PROMPT_PREFIX}${ref}${ZSH_THEME_GIT_PROMPT_CLEAN}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
+# }
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+# export MAMBA_EXE="/home/nfs/hwalinga/repos/mamba/build/micromamba/micromamba";
+# export MAMBA_ROOT_PREFIX="/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/micromamba";
+# __mamba_setup="$('/home/nfs/hwalinga/repos/mamba/build/micromamba/micromamba' shell hook --shell zsh --prefix '/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/micromamba' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__mamba_setup"
+# else
+#     if [ -f "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/micromamba/etc/profile.d/micromamba.sh" ]; then
+#         . "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/micromamba/etc/profile.d/micromamba.sh"
+#     else
+#         export  PATH="/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+#     fi
+# fi
+# unset __mamba_setup
+# <<< mamba initialize <<<
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/etc/profile.d/mamba.sh" ]; then
+    . "/tudelft.net/staff-groups/ewi/insy/DBL/hwalinga/software/miniconda3/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+
+
+alias conda=mamba

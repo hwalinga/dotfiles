@@ -4,6 +4,8 @@ if !has('win32') && empty(glob('~/.vim/autoload/plug.vim'))"{{{
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:python3_host_prog = '/usr/bin/python3'
+
 if !has('win32') && !has('nvim')
     " set term=screen-256color
     " set t_Co=256
@@ -700,8 +702,10 @@ let g:ale_completion_enabled = 1
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
 let g:ale_lint_on_text_changed = 1
 
+autocmd BufNewFile,BufRead * if &syntax == '' | setlocal commentstring=#\ %s | endif
 autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
+
 
 " Remove trailing space on safe.
 autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
@@ -771,9 +775,9 @@ let g:jedi#show_call_signatures_delay = 0
 
 " let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
 " py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')
-let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
-py3 from pathlib import Path
-py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
+" let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
+" py3 from pathlib import Path
+" py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#show_docstring = 1

@@ -8,13 +8,16 @@ fi
 
 files=(
     ".tmux.conf" ".zshrc" ".bashrc-user" ".vimrc" ".bash_aliases"
-    ".config/nvim/init.vim" ".bashrc" ".Xdefaults" ".gitconfig"
+    ".config/nvim/init.vim" ".gitconfig" ".gitignore"
 )
+# ".bashrc"
+# ".Xdefaults" 
 folders=(
     .vim/{backupfiles,colors,pack,swapfiles,undodir,pack/git-plugins/start}
-     .oh-my-zsh/custom/themes .tmux-panes .urxvt/ext repos old_dotfiles
+     .oh-my-zsh/custom/themes .tmux-panes repos old_dotfiles
      old_bin
 )
+# .urxvt/ext
 zsh_plugins=(
     zsh-completions
     zsh-syntax-highlighting
@@ -58,7 +61,7 @@ fi
 
 if [[ " $@ " =~ " zsh " ]]; then
 
-    check_installed zsh
+    # check_installed zsh
 
     echo "Configure zsh."
 

@@ -1,5 +1,87 @@
+# PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
+
+# eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
+# export MANPATH=$HOME/perl5/man:$MANPATH
+
+
+# Weird fix for strange routers.
+# alias ssh="ssh -o IPQoS=0"
+alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
+alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
+alias mawk="$HOME/.linuxbrew/bin/mawk"
+export LESS="-RXFMiX"
+alias rg="rg -N -i"
+alias lst="ls -trlh"
+
+alias bulk="cd $BULK"
+alias software="cd $SOURCE_SOFTWARE"
+alias stud="cd /tudelft.net/staff-umbrella/abeellabstudents/hwalinga/jan"
+
+export SACCT_FORMAT="jobid,jobname%60,state,start,elapsed,timelimit,MaxRSS,CPUTime,totalcpu,alloccpus,nodelist"
+alias sacct="sacct --units=G"
+export RANDOM_SEED="1234"
+
+export PATH="$HOME/programs/bin:$PATH"
+
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+
+export PATH="$PATH:$HOME/node_modules/.bin"
+
+# CUSTOM PATHS
+
+# export PATH="$PATH:$HOME/programs/CRISPRCasFinder/bin"
+# export MACSY_HOME="/home/hielke/programs/CRISPRCasFinder/macsyfinder-1.0.5/"
+# export PATH="$PATH:/home/hielke/programs/ViennaRNA-2.4.3/src/bin"
+
+# After sourcing Python environment, do not modify PATH
+# source ~/.venv/py39/bin/activate
+# source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.9/bin/activate
+
+# export W3MIMGDISPLAY_PATH="/home/hielke/.linuxbrew/Cellar/w3m/0.5.3_6/libexec/w3m/w3mimgdisplay"
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+export JRE_HOME=$JAVA_HOME
+
+# CATALINA (TOMCAT)
+# export CATALINA_HOME=/usr/share/tomcat8
+# export CATALINA_BASE=/home/hielke/code/genius-web/catalina-home
+
+# export CATALINA_HOME=/home/hielke/code/genius-web/apache-tomcat-8.5.46/
+
+# export CATALINA_PID="$CATALINA_BASE/tomcat.pid"
+
+# I keep important notes here.
+cat ~/Important
+
+export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/code/film-fountain/bin:$PATH"
+
+# ==== FZF
+
+# export DISABLE_FZF_KEY_BINDINGS="true"
+
+export FZF_DEFAULT_COMMAND='fd --type f'
+
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. ~/init/linuxbrew
+
+
+export HOMEBREW_CURL_PATH="/home/nfs/hwalinga/bin/curl"
+# export HOMEBREW_GIT_PATH="/home/nfs/hwalinga/bin/git"
+export HOMEBREW_GIT_PATH=/home/nfs/hwalinga/.linuxbrew/bin/git
+
 # export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
-export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
+export EDITOR='/home/nfs/hwalinga/.linuxbrew/bin/nvim'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
@@ -25,6 +107,9 @@ alias which="type -a"
 alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 alias open="xdg-open"
 
+# Slurm
+# export SNAKEMAKE_PROFILE=simple
+
 alias parallize="xargs -P `nproc` -0 -n1 -I {} bash -c"
 alias freeproc="ps -eo pcpu --no-headers | awk -v P=`nproc` '{S+=\$1}END{print P-S/100}'"
 alias freemem="free --giga | sed -n 2p | awk '{print \$NF}'"
@@ -46,7 +131,7 @@ alias tudmount="localautobulkhome"
 
 alias apt-install="apt-get --yes -t stretch-backports install"
 alias sudo='sudo '
-alias ssh='xdotool key F10; ssh'
+# alias ssh='xdotool key F10; ssh'
 
 alias please='sudo $(fc -ln -1)'
 alias f='TF_CMD=$(TF_ALIAS=f PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD && print -s $TF_CMD'
@@ -55,10 +140,9 @@ alias f='TF_CMD=$(TF_ALIAS=f PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) th
 alias py=python
 
 alias r="/usr/bin/r"
-# unalias fd
 
 export BAT_THEME="GitHub"
-export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/programs:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
@@ -112,7 +196,7 @@ gout() {
 }
 
 xcl() {
-    /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
+    /usr/bin/column -t -s $'\t' $1 | less -S -N -#2
 }
 
 vimpipe() {
