@@ -8,7 +8,6 @@ WriteLog(text) {
 
 $*Esc::
     CapsState := GetKeyState("CapsLock" , "T")
-    WriteLog(CapsState)
     if CapsState
         SetCapsLockState, Off
     else
