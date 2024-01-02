@@ -62,15 +62,16 @@ st.alpha: 255
 *.colorBD:#4d4d4c
 
 /* URxvt.background: */
-URxvt.font: xft:monospace:size=11
+URxvt.font: xft:DejaVuSansMono:size=11
 URxvt.scrollBar: false
-/* URxvt.letterSpace: -1 */
+/* URxvt.letterSpace: 1 */
 URxvt*cursorBlink: true
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt.perl-ext-common: default,matcher,font-size,selection-to-clipboard
+URxvt.perl-ext-common: default,matcher,font-size,selection-to-clipboard,-confirm-paste
+/* URxvt.perl-ext-common:-confirm-paste */
 /* ,fullscreen */
 URxvt.url-launcher: /usr/bin/xdg-open
 !! middle mouse button:

@@ -31,6 +31,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+" Plug 'terrortylor/nvim-comment', { 'branch': 'main' }
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
@@ -58,6 +59,7 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'vim-scripts/guifontpp.vim'
 " Plug 'RyanMcG/vim-guifontzoom'
 " Plug 'schmich/vim-guifont'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'wellle/context.vim'
 " Plug 'zsugabubus/vim-paperplane'
@@ -97,8 +99,10 @@ Plug 'Houl/repmo-vim'
 Plug 'machakann/vim-swap'
 
 " Language specific stuff.
-
+Plug 'snakemake/snakemake', {'rtp': 'misc/vim', 'branch': 'main'}
 Plug 'sheerun/vim-polyglot'
+Plug 'snakemake/snakefmt'
+Plug 'snakemake/snakemake', {'rtp': 'misc/vim', 'branch': 'main'}
 
 " General (linters)
 Plug 'w0rp/ale'
@@ -154,6 +158,10 @@ if !has('win32') && has('python3')
     Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
     Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
     Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+    Plug 'Quramy/vim-js-pretty-template', { 'commit': 'dcdfe453a2ce7de4a315543a4b1802364fa4734e' }
+    Plug 'storyn26383/vim-vue'
+
+    Plug 'zchee/deoplete-clang'
 endif
 
 " Only load in Vim (Not NeoVim).
@@ -179,7 +187,7 @@ let g:vim_markdown_conceal = 0
 let g:tex_conceal = "amgs"
 let g:tex_flavor = 'latex'
 
-let g:grammarous#languagetool_cmd = 'languagetool'
+let g:grammarous#languagetool_cmd = 'java -jar /home/hielke/LanguageTool-5.9-stable/languagetool-commandline.jar'
 nmap <buffer><leader>t <Plug>(grammarous-move-to-next-error)
 
 let g:vimtex_view_method = "zathura"
@@ -479,6 +487,21 @@ set scrolloff=5
 " autocmd! User GoyoLeave Limelight!
 let g:goyo_width=150
 
+function! ProseMode()
+  call goyo#execute(0, [])
+  set spell noci nosi noai nolist noshowmode noshowcmd
+  set complete+=s
+  set bg=light
+  if !has('gui_running')
+    let g:solarized_termcolors=256
+  endif
+  colors solarized
+endfunction
+
+command! ProseMode call ProseMode()
+" nmap \p :ProseMode<CR>
+nmap \p :Goyo<CR>
+
 " =========== UTILS {{{1
 
 if !has('win32')
@@ -505,8 +528,8 @@ set lazyredraw
 
 " TABS {{{1
 set tabstop=8
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set shiftwidth=2
 " set smarttab
 set expandtab
 let g:vim_indent_cont = 0
@@ -537,6 +560,8 @@ set wildmode=list:longest,full
 set dictionary+=/usr/share/dict/words
 set complete=.,w,b,u,t
 set display=truncate
+set mmp=2000
+set wildignore+=*.tu-*,*.tu
 
 
 " MAPPINGS {{{1
@@ -624,6 +649,7 @@ inoremap <C-U> <C-G>u<C-U>
 
 " R
 inoremap <M--> <-<Space>
+inoremap <M-.> ->
 inoremap <NL> %>%<Space>
 
 " AutoPairs
@@ -725,24 +751,50 @@ set ttimeoutlen=5
 autocmd FileType javascript noremap <leader>r :TernRename<CR>
 autocmd FileType javascript noremap <leader>g :TernDef<CR>
 autocmd FileType javascript noremap <leader>n :TernRef<CR>
+autocmd FileType javascript JsPreTmpl html
 
 " ##############
 " LINTING/FIXING {{{1
 " ##############
 
-let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
+let g:ale_cpp_gcc_options = '-std=c++20 -Wall'
+let g:ale_cpp_clangtidy_options='-std=c++20'
+let g:ale_set_balloons=1
+let g:ale_detail_to_floating_preview=1
+let g:ale_hover_to_floating_preview=1
+let g:ale_linters_explicit=1
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'json': ['jsonlint'],
 \   'python':  ['flake8'],
+\   'cpp': ['clangtidy'],
 \}
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
 \   'json': ['prettier'],
 \   'rust': ['rustfmt'],
+\   'javascript': ['prettier'],
+\   'python': ['isort', 'autopep8'],
 \}
-" \   'python': ['isort', 'autopep8'],
+let g:ale_pattern_options = {
+\   '.*active_learning.*\.cpp$': {
+\       'ale_linters': ['clang-format'],
+\       'ale_fixers': ['clang-format'],
+\   },
+\   '.*active_learning.*\.h$': {
+\       'ale_linters': ['clang-format'],
+\       'ale_fixers': ['clang-format'],
+\   },
+\   '.*misc.*\.cpp$': {
+\       'ale_linters': ['clang-format'],
+\       'ale_fixers': ['clang-format'],
+\   },
+\   '.*misc.*\.h$': {
+\       'ale_linters': ['clang-format'],
+\       'ale_fixers': ['clang-format'],
+\   }
+\}
+" \   'cpp': ['clangtidy', 'clang-format'],
 " \   'python': ['black', 'isort'],
 " \   'python': ['isort'],
 " , 'prettier', 'standard', 'prettier_standard', 'prettier_eslint', 'importjs'],
@@ -750,12 +802,16 @@ let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
 let g:ale_lint_on_text_changed = 1
+let g:ale_virtualtext_cursor='current'
+
+au BufNewFile,BufRead Snakefile,*.smk set filetype=snakemake syntax=snakemake commentstring=#\ %s
+au FileType snakemake autocmd BufWritePre <buffer> execute ':Snakefmt'
 
 autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
 
 " Remove trailing space on safe.
-autocmd BufWritePre * if &ft != 'markdown' | %s/\s\+$//e | endif
+autocmd BufWritePre * if &ft != 'cpp' | %s/\s\+$//e | endif
 function TrimEndLines()
     let save_cursor = getpos(".")
     :silent! %s#\($\n\s*\)\+\%$##
@@ -786,7 +842,7 @@ au InsertLeave * if &ft != 'tex' | silent! write | endif
 " GENERAL
 
 " Word boundaries.
-set iskeyword+=-
+" set iskeyword+=-
 
 " How the menu works
 set shortmess+=c
@@ -807,10 +863,11 @@ au VimEnter * inoremap <expr> <C-e> "\<End>"
 
 " Commentary
 setglobal commentstring=#\ %s
-augroup comments
-  autocmd!
-  autocmd FileType c,cpp,cs,java,arduino setlocal commentstring=//\ %s
-augroup END
+autocmd BufNewFile,BufRead * if &syntax == '' | setlocal commentstring=#\ %s | endif
+" augroup comments
+"   autocmd!
+"   autocmd FileType c,cpp,cs,java,arduino setlocal commentstring=//\ %s
+" augroup END
 
 " JEDI
 
@@ -825,7 +882,18 @@ let g:jedi#show_call_signatures = "1"
 let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
 let g:jedi#show_call_signatures_delay = 0
 
+" Auto generate tags file on file write of *.c and *.h files
+" autocmd BufWritePost *.c,*.h,*.cpp silent! !ctags . &
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR
+set suffixes-=.h
+
+
 " DEOPLETE
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-14/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-14/lib/clang/14.0.6/include'
+let g:deoplete#sources#clang#executable = '/usr/bin/clang'
 
 " let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
 " py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')

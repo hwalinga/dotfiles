@@ -8,6 +8,7 @@ fi
 
 # Color stderr red
 export LD_PRELOAD="$HOME/repos/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+export STDERRED_BLACKLIST=clang++
 # Alternatively: http://www.wikigentoo.ksiezyc.pl/Zsh.htm#Colorize_STDERR
 # !! Cannot load bash after this
 # exec 2>>(while read line; do
@@ -186,6 +187,9 @@ fi
 
 setopt cdablevars
 
+# export BROWSER="firefox -allow-downgrade -p default-release"
+export BROWSER="/home/hielke/bin/browser"
+
 # Weird fix for strange routers.
 # alias ssh="ssh -o IPQoS=0"
 alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft.nl'"
@@ -193,7 +197,7 @@ alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.
 alias hpc="ssh -t hwalinga@student-linux.tudelft.nl 'ssh -t login3.hpc.tudelft.nl zsh'"
 alias xhpc="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -t -X login3.hpc.tudelft.nl zsh'"
 alias mawk="$HOME/.linuxbrew/bin/mawk"
-export LESS="-RXFMiX"
+export LESS="-RXMiX"
 alias rg="rg -N -i"
 unalias duf
 alias duf="duf --theme light"
@@ -293,6 +297,10 @@ else
     fi
 fi
 unset __conda_setup
+
+if [ -f "/home/hielke/miniconda3/etc/profile.d/mamba.sh" ]; then
+    . "/home/hielke/miniconda3/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
 
 alias conda=mamba
@@ -305,4 +313,5 @@ export PATH="$PATH:/home/hielke/.pyenv/versions/3.11.0/bin/"
 export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
 
 
-source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate
+# source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate  # commented out by conda initialize
+emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'

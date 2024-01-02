@@ -1,2 +1,2 @@
 #!/bin/bash
-package='$1'; pregex="(${package}[^\)]+\))"; while read -r line; do [[ "$line" =~ ^Start-Date:[[:space:]]([[:digit:]].+) ]] && curdate="${BASH_REMATCH[1]} "; [[ "$line" =~ $pregex ]] && echo "$curdate ${BASH_REMATCH[1]}"; done < <(for i in `ls -tr /var/log/apt/history*`; do zgrep -B3 "$package" $i; done)
+package="$1"; pregex="(${package}[^\)]+\))"; while read -r line; do [[ "$line" =~ ^Start-Date:[[:space:]]([[:digit:]].+) ]] && curdate="${BASH_REMATCH[1]} "; [[ "$line" =~ $pregex ]] && echo "$curdate ${BASH_REMATCH[1]}"; done < <(for i in `ls -tr /var/log/apt/history*`; do zgrep -B3 "$package" $i; done)

@@ -1,0 +1,42 @@
+{
+  // This file follows the JSON schema defined below.
+  // If you use an editor that supports JSON schema (e.g. VS Code),
+  // you should be getting IntelliSense and validation.
+  "$schema": "./config.v1.schema.json",
+  // The default config and schema will be regenerated if they are missing
+  // https://github.com/phiresky/ripgrep-all/blob/master/doc/config.default.jsonc
+
+  // The config options are the same as the command line options,
+  // but with --rga- prefix removed and - and . replaced with _.
+  // e.g. --rga-no-cache becomes `"no_cache": true.
+  // The only exception is the `custom_adapters` option, which can only be set in this file.
+
+  // "custom_adapters": [
+    // See https://github.com/phiresky/ripgrep-all/wiki for more information
+    // to verify if your custom adapters are picked up correctly, run `rga --rga-list-adapters`
+  // ]
+    "custom_adapters": [
+        {
+            "name": "xlsx2csv",
+            "version": 1,
+            "description": "Uses adaption of xlsx2csv (the Python package) to convert XLSX from STDIN to CSV files",
+            "extensions": ["xlsx"],
+            "mimetypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
+            "binary": "xlsx2csv",
+            "args": [ "--all", "-"],
+            "disabled_by_default": false,
+            "match_only_by_mime": false
+        },
+        {
+            "name": "pptx2md",
+            "version": 1,
+            "description": "Uses adaption of pptx2md to convert PPTX from STDIN to Markdown files",
+            "extensions": ["pptx"],
+            "mimetypes": ["application/vnd.openxmlformats-officedocument.presentationml.presentation"],
+            "binary": "pptx2md.sh",
+            "args": ["--disable-image", "--disable-wmf", "-"],
+            "disabled_by_default": false,
+            "match_only_by_mime": false
+        }
+  ]
+}

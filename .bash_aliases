@@ -1,11 +1,21 @@
 # export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
 # export EDITOR='/bin/nvim'
 export EDITOR='/bin/nvim'
+export EDITOR="$HOME/.linuxbrew/bin/nvim"
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
 
 alias pytest="python3 -m pytest"
+alias lst="ls -trlh"
+alias python2="$HOME/.pyenv/versions/2.7.18/bin/python"
+
+alias bulk="cd $BULK"
+alias software="cd $SOURCE_SOFTWARE"
+export SACCT_FORMAT="jobid,jobname%70,state,alloccpus,start,elapsed,timelimit,MaxRSS,CPUTime"
+alias sacct="sacct --units=M"
+export RANDOM_SEED="1234"
+alias curlpost='curl --header "Content-Type: application/json" --request POST --data'
 
 # tmux panes
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'
@@ -61,6 +71,8 @@ alias r="/usr/bin/r"
 
 alias lg='lazygit'
 
+export PGDATABASE=cdatest
+export RANDOM_SEED="937162211"
 export BAT_THEME="GitHub"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/programs:$PATH"
@@ -70,6 +82,12 @@ export PATH="$HOME/npm/bin:$PATH"
 export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
 export GEM_HOME=$HOME/.gem
 export PATH="$GEM_HOME/bin:$PATH"
+
+export GREP_COLORS=${GREP_COLOR}
+unset GREP_COLOR
+
+# export NO_COLOR=1
+
 
 # export PATH="/home/hielke/repos/imgur-screenshot:$PATH"
 
@@ -116,7 +134,7 @@ gout() {
 }
 
 xcl() {
-    /usr/bin/column -n -t -s $'\t' $1 | less -S -N -#2
+    /usr/bin/column -t -s $'\t' $1 | less -S -N -#2
 }
 
 vimpipe() {
