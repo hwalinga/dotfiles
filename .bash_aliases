@@ -93,6 +93,16 @@ unset GREP_COLOR
 
 # LESSOPEN="|lesspipe.sh %s"; export LESSOPEN
 
+cantrans() {
+    curl -H 'accept: application/json' 'http://rest.ensembl.org/lookup/symbol/homo_sapiens/'$1'?expand=1&mane=1' | jq -r '.Transcript[] | select(.is_canonical==1) | .MANE[0].refseq_match'
+}
+cantrans37() {
+    curl -H 'accept: application/json' 'http://grch37.rest.ensembl.org/lookup/symbol/homo_sapiens/'$1'?expand=1&mane=1' | jq -r '.Transcript[] | select(.is_canonical==1) | .MANE[0].refseq_match'
+}
+cantransen37() {
+    curl -H 'accept: application/json' 'http://grch37.rest.ensembl.org/lookup/symbol/homo_sapiens/'$1'?expand=1&mane=1' | jq -r '.Transcript[] | select(.is_canonical==1) | .id'
+}
+
 pdfcat() {
     pdftotext $1 -
 }
