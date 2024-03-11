@@ -17,6 +17,8 @@ alias sacct="sacct --units=M"
 export RANDOM_SEED="1234"
 alias curlpost='curl --header "Content-Type: application/json" --request POST --data'
 
+export NINJA_STATUS="[%p: %f/%t (%es)] "
+
 # tmux panes
 alias ipython3='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/ipython3; ipython3'
 alias matlab='echo $(tmux display -pt ${TMUX_PANE} "#{pane_index}") > $HOME/.tmux-panes/matlab; matlab'

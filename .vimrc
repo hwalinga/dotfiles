@@ -105,7 +105,7 @@ Plug 'snakemake/snakefmt'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim', 'branch': 'main'}
 
 " General (linters)
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'commit': '14350dbb0d265ef87d1c7d420d89fb4165a2b131'} " For ALE look into how virtual text works better. (Current seems ignored in recent).
 
 " WEBSTACK
 Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
@@ -156,7 +156,7 @@ if !has('win32') && has('python3')
 
     " Javascript
     Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
-    Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+    Plug 'hwalinga/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install', 'commit': 'a96cd445ff35e23ddf33b16f07b7f35ca8f89629' }
     Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
     Plug 'Quramy/vim-js-pretty-template', { 'commit': 'dcdfe453a2ce7de4a315543a4b1802364fa4734e' }
     Plug 'storyn26383/vim-vue'
@@ -171,6 +171,8 @@ call plug#end()
 
 let g:context_nvim_no_redraw = 1
 let g:context_highlight_tag = '<hide>'
+
+let g:plug_shallow = 0
 
 if !has('win32') && !has('nvim')
     call plug#load('vim-fixkey')
@@ -759,6 +761,7 @@ autocmd FileType javascript JsPreTmpl html
 
 let g:ale_cpp_gcc_options = '-std=c++20 -Wall'
 let g:ale_cpp_clangtidy_options='-std=c++20'
+let g:ale_c_clangtidy_executable="clang-tidy-16"
 let g:ale_set_balloons=1
 let g:ale_detail_to_floating_preview=1
 let g:ale_hover_to_floating_preview=1
@@ -778,19 +781,19 @@ let g:ale_fixers = {
 \}
 let g:ale_pattern_options = {
 \   '.*active_learning.*\.cpp$': {
-\       'ale_linters': ['clang-format'],
+\       'ale_linters': ['clang-format', 'clangtidy'],
 \       'ale_fixers': ['clang-format'],
 \   },
 \   '.*active_learning.*\.h$': {
-\       'ale_linters': ['clang-format'],
+\       'ale_linters': ['clang-format', 'clangtidy'],
 \       'ale_fixers': ['clang-format'],
 \   },
 \   '.*misc.*\.cpp$': {
-\       'ale_linters': ['clang-format'],
+\       'ale_linters': ['clang-format', 'clangtidy'],
 \       'ale_fixers': ['clang-format'],
 \   },
 \   '.*misc.*\.h$': {
-\       'ale_linters': ['clang-format'],
+\       'ale_linters': ['clang-format', 'clangtidy'],
 \       'ale_fixers': ['clang-format'],
 \   }
 \}
@@ -891,9 +894,9 @@ set suffixes-=.h
 
 " DEOPLETE
 
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-14/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-14/lib/clang/14.0.6/include'
-let g:deoplete#sources#clang#executable = '/usr/bin/clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-16.so.16.0.6'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-16/lib/clang/16/include'
+let g:deoplete#sources#clang#executable = '/usr/bin/clang-16'
 
 " let g:python3_host_prog = '/home/hielke/.venv/py3/bin/python3'
 " py3 sys.path.append('/home/hielke/.venv/py3/lib/python3.7/site-packages/')

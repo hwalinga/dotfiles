@@ -8,7 +8,7 @@ fi
 
 # Color stderr red
 export LD_PRELOAD="$HOME/repos/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
-export STDERRED_BLACKLIST=clang++
+export STDERRED_BLACKLIST="^(clang.*|ccache)$"
 # Alternatively: http://www.wikigentoo.ksiezyc.pl/Zsh.htm#Colorize_STDERR
 # !! Cannot load bash after this
 # exec 2>>(while read line; do
