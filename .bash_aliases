@@ -95,6 +95,12 @@ unset GREP_COLOR
 
 # LESSOPEN="|lesspipe.sh %s"; export LESSOPEN
 
+loadenv() {
+    set -a
+    source "$1"
+    set +a
+}
+
 cantrans() {
     curl -H 'accept: application/json' 'http://rest.ensembl.org/lookup/symbol/homo_sapiens/'$1'?expand=1&mane=1' | jq -r '.Transcript[] | select(.is_canonical==1) | .MANE[0].refseq_match'
 }

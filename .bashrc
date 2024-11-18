@@ -33,3 +33,4 @@ if [ -f "/home/hielke/miniconda3/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 
+. "$HOME/.cargo/env"

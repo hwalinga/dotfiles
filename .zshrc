@@ -1,6 +1,7 @@
-if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
-fi
+# if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#     exec tmux
+# fi
+zstyle ':omz:alpha:lib:git' async-prompt no
 
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
@@ -196,6 +197,11 @@ alias clusterlogin="ssh -t hwalinga@student-linux.tudelft.nl 'ssh sb-ont.tudelft
 alias xclusterlogin="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -X sb-ont.tudelft.nl'"
 alias hpc="ssh -t hwalinga@student-linux.tudelft.nl 'ssh -t login3.hpc.tudelft.nl zsh'"
 alias xhpc="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -t -X login3.hpc.tudelft.nl zsh'"
+
+alias hapta="ssh -t hwalinga@student-linux.tudelft.nl 'ssh -t hielke@apta-pe1.ewi.tudelft.nl bash'"
+alias xhapta="ssh -t -X hwalinga@student-linux.tudelft.nl 'ssh -t -X hielke@apta-pe1.ewi.tudelft.nl bash'"
+alias papta="ssh -t hwalinga@student-linux.tudelft.nl 'ssh postgres@apta-pe1.ewi.tudelft.nl'"
+
 alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXMiX"
 alias rg="rg -N -i"

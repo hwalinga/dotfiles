@@ -105,7 +105,7 @@ Plug 'snakemake/snakefmt'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim', 'branch': 'main'}
 
 " General (linters)
-Plug 'w0rp/ale', {'commit': '14350dbb0d265ef87d1c7d420d89fb4165a2b131'} " For ALE look into how virtual text works better. (Current seems ignored in recent).
+Plug 'w0rp/ale'
 
 " WEBSTACK
 Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
@@ -645,7 +645,7 @@ nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
 nnoremap <leader>x :wall<CR>
-nnoremap <leader>m :w\|mak<CR>
+nnoremap <leader>m :w\|mak main.pdf<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
@@ -759,6 +759,8 @@ autocmd FileType javascript JsPreTmpl html
 " LINTING/FIXING {{{1
 " ##############
 
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 let g:ale_cpp_gcc_options = '-std=c++20 -Wall'
 let g:ale_cpp_clangtidy_options='-std=c++20'
 let g:ale_c_clangtidy_executable="clang-tidy-16"
@@ -766,19 +768,21 @@ let g:ale_set_balloons=1
 let g:ale_detail_to_floating_preview=1
 let g:ale_hover_to_floating_preview=1
 let g:ale_linters_explicit=1
+let g:ale_virtualtext_cursor='disabled'
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'json': ['jsonlint'],
-\   'python':  ['flake8'],
+\   'python':  ['flake8', 'ruff'],
 \   'cpp': ['clangtidy'],
 \}
 let g:ale_fixers = {
 \   'json': ['prettier'],
 \   'rust': ['rustfmt'],
 \   'javascript': ['prettier'],
-\   'python': ['isort', 'autopep8'],
+\   'python': ['isort', 'ruff', 'ruff_format'],
 \}
+" , 'autopep8'
 let g:ale_pattern_options = {
 \   '.*active_learning.*\.cpp$': {
 \       'ale_linters': ['clang-format', 'clangtidy'],
@@ -806,6 +810,7 @@ let g:ale_completion_enabled = 1
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
 let g:ale_lint_on_text_changed = 1
 let g:ale_virtualtext_cursor='current'
+let g:ale_use_neovim_diagnostics_api=0
 
 au BufNewFile,BufRead Snakefile,*.smk set filetype=snakemake syntax=snakemake commentstring=#\ %s
 au FileType snakemake autocmd BufWritePre <buffer> execute ':Snakefmt'
