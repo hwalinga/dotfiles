@@ -30,6 +30,7 @@ alias les="less -S -N -#2"
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
 alias blockdistr="sed -i 's/# 0.0.0.0/0.0.0.0/' /etc/hosts"
+alias pytest-pudb="pytest --pdbcls=pudb.debugger:Debugger --pdb --capture=no"
 
 alias neofetch="neofetch; sleep infinity;"
 # alias crypt="openssl aes-128-cbc -a -A -md md5 -kfile key"
