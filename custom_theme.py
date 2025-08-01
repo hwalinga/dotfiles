@@ -15,20 +15,20 @@ from pudb.themes.utils import add_setting, link
 
 palette_dict = {
 #     # {{{ base styles
-    "background": ("white", "light gray"),
-    "selectable": ("white", "default"),
-    "focused selectable": ("white", "dark green"),
+    "background": ("black", "light gray"),
+    "selectable": ("black", "default"),
+    "focused selectable": ("black", "dark green"),
     "hotkey": (add_setting("black", "underline, italics"), "light gray"),
-    "highlighted": ("white", "dark green"),
+    "highlighted": ("black", "dark green"),
 #     # }}}
 #     # {{{ general ui
-    "input": ("black", "default"),
+    "input": ("default", "default"),
     "focused input": ("light green", "default"),
-    "warning": (add_setting("white", "bold"), "dark red"),
-    "dialog title": (add_setting("white", "bold"), "dark blue"),
+    "warning": (add_setting("black", "bold"), "dark red"),
+    "dialog title": (add_setting("black", "bold"), "dark blue"),
     "group head": (add_setting("dark blue", "bold"), "default"),
-    "button": (add_setting("white", "bold"), "dark blue"),
-    "focused button": ("white", "default"),
+    "button": (add_setting("black", "bold"), "dark blue"),
+    "focused button": ("black", "default"),
     "focused sidebar": ("black", "light gray"),
     "value": (add_setting("yellow", "bold"), "dark blue"),
 #     # }}}
@@ -69,43 +69,43 @@ palette_dict = {
     # "return value": "var value",
     # "focused return label": "focused var label",
     # "focused return value": "focused var value",
-    "return label": ("white", "dark blue"),
+    "return label": ("black", "dark blue"),
     "return value": ("light gray", "dark cyan"),
     "focused return label": ("light gray", "dark blue"),
     "variable separator": ("light gray", "default"),
 #     # }}}
 #     # {{{ stack
-    "current frame name": (add_setting("white", "bold"), "default"),
+    "current frame name": (add_setting("black", "bold"), "default"),
     "current frame class": (add_setting("light blue", "bold"), "default"),
     "current frame location": (add_setting("light cyan", "bold"), "default"),
 
-    "focused current frame name": (add_setting("white", "bold"), "dark green"),
-    "focused current frame class": (add_setting("white", "bold"), "dark green"),
-    "focused current frame location": (add_setting("white", "bold"), "dark green"),
+    "focused current frame name": (add_setting("black", "bold"), "dark green"),
+    "focused current frame class": (add_setting("black", "bold"), "dark green"),
+    "focused current frame location": (add_setting("black", "bold"), "dark green"),
 #     # }}}
 #     # {{{ breakpoints view
-    "breakpoint": ("white", "default"),
+    "breakpoint": ("black", "default"),
     "disabled breakpoint": ("dark gray", "default"),
     "focused disabled breakpoint": ("light gray", "dark blue"),
-    "current breakpoint": (add_setting("white", "bold"), "default"),
+    "current breakpoint": (add_setting("black", "bold"), "default"),
     "disabled current breakpoint": (add_setting("dark gray", "bold"), "default"),
-    "focused current breakpoint": (add_setting("white", "bold"), "dark blue"),
+    "focused current breakpoint": (add_setting("black", "bold"), "dark blue"),
     "focused disabled current breakpoint": (
         add_setting("light gray", "bold"), "dark blue"),
 #     # }}}
 #     # {{{ shell
-    "command line edit": ("white", "default"),
+    "command line edit": ("default", "default"),
     "command line prompt": (add_setting("default", "bold"), "default"),
 
-    "command line input": ("white", "default"),
+    "command line input": ("black", "default"),
     "command line error": (add_setting("light red", "bold"), "default"),
 
-    "command line clear button": (add_setting("white", "bold"), "default"),
-    "command line focused button": ("white", "dark blue"),
+    "command line clear button": (add_setting("black", "bold"), "default"),
+    "command line focused button": ("black", "dark blue"),
 #     # }}}
 #     # {{{ Code syntax
     "keyword": ("dark magenta", "default"),
-    "operator": ("black", "default"),
+    "operator": ("dark gray", "default"),
     "pseudo": ("light magenta", "default"),
     "function": (add_setting("light blue", "bold"), "default"),
     "builtin": ("dark gray", "default"),

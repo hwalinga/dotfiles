@@ -61,7 +61,7 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'schmich/vim-guifont'
 Plug 'altercation/vim-colors-solarized'
 
-Plug 'wellle/context.vim'
+" Plug 'wellle/context.vim'
 " Plug 'zsugabubus/vim-paperplane'
 
 " Text objects:
@@ -125,6 +125,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-rmarkdown'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'LukeGoodsell/nextflow-vim'
 
 " LATEX
 " Plug 'vim-latex/vim-latex'
@@ -169,8 +170,8 @@ Plug 'drmikehenry/vim-fixkey', { 'for': [] }
 
 call plug#end()
 
-let g:context_nvim_no_redraw = 1
-let g:context_highlight_tag = '<hide>'
+" let g:context_nvim_no_redraw = 1
+" let g:context_highlight_tag = '<hide>'
 
 let g:plug_shallow = 0
 
@@ -771,15 +772,17 @@ let g:ale_linters_explicit=1
 let g:ale_virtualtext_cursor='disabled'
 let g:ale_virtualenv_dir_names = []
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'prettier'],
+\   'javascriptreact': ['eslint', 'prettier'],
 \   'json': ['jsonlint'],
-\   'python':  ['flake8', 'ruff'],
 \   'cpp': ['clangtidy'],
+\   'python':  ['flake8', 'ruff'],
 \}
 let g:ale_fixers = {
-\   'json': ['prettier'],
+\   'json': ['jq'],
 \   'rust': ['rustfmt'],
 \   'javascript': ['prettier'],
+\   'javascriptreact': ['prettier'],
 \   'python': ['isort', 'ruff', 'ruff_format'],
 \}
 " , 'autopep8'
@@ -819,7 +822,7 @@ autocmd FileType matlab setl cms=%\ %s
 autocmd FileType json setl cms=//\ %s
 
 " Remove trailing space on safe.
-autocmd BufWritePre * if &ft != 'cpp' | %s/\s\+$//e | endif
+" autocmd BufWritePre * if &ft != 'pandoc' | %s/\s\+$//e | endif
 function TrimEndLines()
     let save_cursor = getpos(".")
     :silent! %s#\($\n\s*\)\+\%$##
@@ -829,8 +832,8 @@ au BufWritePre *.py call TrimEndLines()
 
 " File specific tab size
 
-au FileType javascript set softtabstop=4
-au FileType javascript set shiftwidth=4
+au FileType javascript set softtabstop=2
+au FileType javascript set shiftwidth=2
 
 au FileType bib set softtabstop=2
 au FileType bib set shiftwidth=2

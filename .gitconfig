@@ -6,6 +6,7 @@
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	excludesFile = ~/.gitignore
+	eol = lf
 [pull]
 	rebase = false
 [branch]
@@ -20,3 +21,5 @@
 	hide-status = 0
 [credential]
 	helper = store
+[push]
+	default = matching

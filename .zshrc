@@ -2,6 +2,7 @@ if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null
     exec tmux
 fi
 zstyle ':omz:alpha:lib:git' async-prompt no
+ssh-add ~/.ssh/id_rsa_aumc
 
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
@@ -320,4 +321,6 @@ export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
 
 
 # source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate  # commented out by conda initialize
-emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'
+# emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'
+conda activate minerva-backend
+export PATH="/home/hielke/.pixi/bin:$PATH"
