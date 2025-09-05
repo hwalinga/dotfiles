@@ -3,6 +3,8 @@ if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null
 fi
 zstyle ':omz:alpha:lib:git' async-prompt no
 
+. /etc/profile
+
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -83,7 +85,7 @@ export HOMEBREW_CELLAR="/home/hielke/.linuxbrew/Cellar"
 export HOMEBREW_REPOSITORY="/home/hielke/.linuxbrew/Homebrew"
 export MANPATH="/home/hielke/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/hielke/.linuxbrew/share/info:$INFOPATH"
-export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
+# export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 # export PATH="$PATH:/home/hielke/.linuxbrew/bin:/home/hielke/.linuxbrew/sbin"
 
 plugins=(
@@ -131,6 +133,8 @@ bindkey "^[r" redo
 bindkey '^[[13;5u' accept-line
 bindkey '^[[1;2D' insert-cycledleft
 bindkey '^[[1;2C' insert-cycledright
+bindkey '^[[F' end-of-line
+bindkey '^[[H' beginning-of-line
 
 # Disable "safe glob"
 unsetopt nomatch
@@ -173,14 +177,14 @@ remove-safely () {
         udisksctl power-off -b $mount_point
 }
 
-PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
+# PATH="/home/hielke/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="/home/hielke/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/home/hielke/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/home/hielke/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/home/hielke/perl5"; export PERL_MM_OPT;
 
 # eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
-export MANPATH=$HOME/perl5/man:$MANPATH
+# export MANPATH=$HOME/perl5/man:$MANPATH
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -206,14 +210,16 @@ alias mawk="$HOME/.linuxbrew/bin/mawk"
 export LESS="-RXMiX"
 alias rg="rg -N -i"
 unalias duf
+unalias fd
 alias duf="duf --theme light"
 alias -g latestdownload="\"\$( ls -tr ~/Downloads | tail -n 1 | sed 's:^:$HOME/Downloads/:')\""
+alias sn="screen -s zsh"
 
-export PATH="$PATH:/home/hielke/programs/bin"
+# export PATH="$PATH:/home/hielke/programs/bin"
 
-export PATH="$PATH:/home/hielke/.cargo/bin"
+# export PATH="$PATH:/home/hielke/.cargo/bin"
 
-export PATH="$PATH:/home/hielke/node_modules/.bin"
+# export PATH="$PATH:/home/hielke/node_modules/.bin"
 
 # CUSTOM PATHS
 
@@ -244,10 +250,10 @@ export PATH="$PATH:/home/hielke/node_modules/.bin"
 # export CATALINA_PID="$CATALINA_BASE/tomcat.pid"
 
 # I keep important notes here.
-cat ~/Important
+# cat ~/Important
 
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/code/film-fountain/bin:$PATH"
+# export PATH="$HOME/.poetry/bin:$PATH"
+# export PATH="$HOME/code/film-fountain/bin:$PATH"
 
 # ==== FZF
 
@@ -292,32 +298,33 @@ export DJANGO_COLORS="light"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/hielke/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/hielke/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/hielke/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/hielke/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/home/hielke/miniconda3/etc/profile.d/mamba.sh" ]; then
-    . "/home/hielke/miniconda3/etc/profile.d/mamba.sh"
-fi
+# __conda_setup="$('/trinity/home/hwalinga/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/trinity/home/hwalinga/miniforge3/etc/profile.d/conda.sh" ]; then
+#         . "/trinity/home/hwalinga/miniforge3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/trinity/home/hwalinga/miniforge3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+#
+# if [ -f "/trinity/home/hwalinga/miniforge3/etc/profile.d/mamba.sh" ]; then
+#     . "/trinity/home/hwalinga/miniforge3/etc/profile.d/mamba.sh"
+# fi
 # <<< conda initialize <<<
 
 alias conda=mamba
 
-export PATH="/home/hielke/.local/bin:$PATH"
+# export PATH="/home/hielke/.local/bin:$PATH"
 
-export PATH="/home/hielke/n/bin/:$PATH"
+# export PATH="/home/hielke/n/bin/:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 
-export PATH="$PATH:/home/hielke/.pyenv/versions/3.11.0/bin/"
-export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
+# export PATH="$PATH:/home/hielke/.pyenv/versions/3.11.0/bin/"
+# export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
 
 
 # source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate  # commented out by conda initialize
-emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'
+# emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'

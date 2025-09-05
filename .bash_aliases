@@ -1,10 +1,24 @@
 # export EDITOR='/home/hielke/.linuxbrew/bin/nvim'
 # export EDITOR='/bin/nvim'
-export EDITOR='/bin/nvim'
-export EDITOR="$HOME/.linuxbrew/bin/nvim"
+# export EDITOR='/bin/nvim'
+# export EDITOR="$HOME/.linuxbrew/bin/nvim"
+export EDITOR="$HOME/nvim-linux64/bin/nvim"
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
+
+alias cdhielke='cd /net/beegfs/scratch/hwalinga'
+alias cdbkp='cd /net/nfs/KLG/klg_archive'
+alias cdm='cd /net/cifs/Genoomdiagnostiek'
+alias cdpro='cd /net/beegfs/cfg/rundata/SequencingProjects'
+alias cdseq='cd /net/beegfs/cfg/rundata/CFG/'
+alias cdwes='cd /net/beegfs/hgn/diag/RoDa/pro/WES'
+alias cdshare='cd /net/beegfs/hgn/pub/Datashare'
+alias cdfs='cd /net/beegfs/hgn/pub/07.Filesender'
+alias cdrepo='cd /net/beegfs/hgn/pub/Repositories'
+alias cdref='cd /net/beegfs/hgn/pub/References'
+alias sbatch="/trinity/home/cfg-manager/crontab/01.cronjobs/sbatch_wrapper.sh"
+
 
 alias pytest="python3 -m pytest"
 alias lst="ls -trlh"
@@ -77,14 +91,14 @@ alias lg='lazygit'
 export PGDATABASE=cdatest
 export RANDOM_SEED="937162211"
 export BAT_THEME="GitHub"
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/programs:$PATH"
+# export PATH="$HOME/bin:$PATH"
+# export PATH="$HOME/programs:$PATH"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
-export PATH="$HOME/npm/bin:$PATH"
-export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
-export GEM_HOME=$HOME/.gem
-export PATH="$GEM_HOME/bin:$PATH"
+# export PATH="$HOME/npm/bin:$PATH"
+# export NODE_PATH="NODE_PATH:$HOME/home/npm/lib/node_modules"
+# export GEM_HOME=$HOME/.gem
+# export PATH="$GEM_HOME/bin:$PATH"
 
 export GREP_COLORS=${GREP_COLOR}
 unset GREP_COLOR

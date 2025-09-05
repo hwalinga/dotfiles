@@ -9,6 +9,9 @@ if !has('win32') && !has('nvim')
     " set t_Co=256
     set term=rxvt-unicode-256color
 endif
+" set term=rxvt-unicode-256color
+" set t_Co=256
+set mouse=
 
 let mapleader = " "
 nmap <expr> <bslash> mapleader
@@ -149,10 +152,10 @@ if !has('win32') && has('python3')
     endif
 
     " Python
-    Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+    " Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
     " TODO: Why is slow => pandas
     " DISABLED BECAUSE BUG davidhalter/jedi#1891
-    Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
+    " Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
 
     " Javascript
     Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
@@ -448,6 +451,14 @@ endif
 " THEME
 set background=light
 colorscheme PaperColor
+" highlight Normal ctermbg=NONE
+" highlight nonText ctermbg=NONE
+" hi cursorline ctermbg=NONE
+" hi SignColumn ctermbg=NONE
+" hi LineNr ctermbg=NONE
+" hi cursorlinenr ctermbg=NONE
+" set background=light
+" set t_Co=256
 set guicursor=
 set nocompatible
 let g:PaperColor_Theme_Options = {
@@ -517,7 +528,7 @@ endif
 
 " numbers and such
 set history=1000
-set colorcolumn=80
+" set colorcolumn=80
 set linebreak
 " set showbreak=..
 set number! relativenumber!
@@ -880,15 +891,15 @@ autocmd BufNewFile,BufRead * if &syntax == '' | setlocal commentstring=#\ %s | e
 " JEDI
 
 " Disable Jedi-vim autocompletion and enable call-signatures options
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
-let g:jedi#show_call_signatures_delay = 0
+" let g:jedi#auto_initialization = 0
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#smart_auto_mappings = 0
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#completions_command = ""
+" let g:jedi#show_call_signatures = "1"
+" let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
+" let g:jedi#show_call_signatures_delay = 0
 
 " Auto generate tags file on file write of *.c and *.h files
 " autocmd BufWritePost *.c,*.h,*.cpp silent! !ctags . &
@@ -910,8 +921,8 @@ let g:deoplete#sources#clang#executable = '/usr/bin/clang-16'
 " py3 sys.path.append(str(next(Path('~/.venv/py3/lib').expanduser().glob('python3*/site-packages/'))))
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#statement_length = 500
+" let g:deoplete#sources#jedi#show_docstring = 1
+" let g:deoplete#sources#jedi#statement_length = 500
 " let g:deoplete#buffer#require_same_filetype = 0
 
 

@@ -20,3 +20,6 @@
 	hide-status = 0
 [credential]
 	helper = store
+[safe]
+	directory = /net/beegfs/hgn/pub/Repositories/RoStr/5.4.3
+	directory = /net/beegfs/hgn/pub/Repositories/RoStr/5.4.3/pipelines
