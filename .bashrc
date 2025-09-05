@@ -12,6 +12,13 @@ if [ -f ${HOME}/.bashrc-user ]; then
     . ${HOME}/.bashrc-user
 fi
 
+# insert() {
+#       perl -le 'require "sys/ioctl.ph";
+#                   ioctl(STDIN, &TIOCSTI, $_) for split "", join " ", @ARGV' -- "$@"
+#
+# }
+# insert "zsh"
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # >>> conda initialize >>>
