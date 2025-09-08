@@ -27,7 +27,7 @@ rm -rf "${dest}/*"
 
 cycle () {
 	id=$((++id));
-	cfile="${dest}/slide-$id.png";
+	cfile="${dest}/slide-$(printf "%03d" $id).png";
         echo ${dest}
         echo ${cfile}
 	maim --hidecursor -i "$pid" "$cfile";

@@ -23,3 +23,8 @@
 	helper = store
 [push]
 	default = matching
+
+[includeIf "gitdir:/hg-aumc/genome-analysis/"]
+	[user]
+		email = h.walinga@amsterdamumc.nl
+		name = Hielke Walinga
