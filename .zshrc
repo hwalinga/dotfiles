@@ -1,4 +1,4 @@
-if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]&& [ -t 1 ]; then
     exec tmux
 fi
 zstyle ':omz:alpha:lib:git' async-prompt no
@@ -314,7 +314,6 @@ alias conda=mamba
 
 export PATH="/home/hielke/.local/bin:$PATH"
 
-export PATH="/home/hielke/n/bin/:$PATH"
 
 export PATH="$PATH:/home/hielke/.pyenv/versions/3.11.0/bin/"
 export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
@@ -322,5 +321,8 @@ export PATH="$PATH:/home/hielke/.pyenv/versions/3.8.0/bin/"
 
 # source /home/hielke/.cache/pypoetry/virtualenvs/demap-kqoNszLJ-py3.11/bin/activate  # commented out by conda initialize
 # emulate bash -c '. /home/hielke/repos/demap/.venv/bin/activate'
-conda activate minerva-backend
+# conda activate minerva-backend
 export PATH="/home/hielke/.pixi/bin:$PATH"
+export PATH="/home/hielke/n/bin/:$PATH"
+eval "$(direnv hook zsh)"
+eval "$(mise activate zsh)"

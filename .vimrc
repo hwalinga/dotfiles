@@ -751,7 +751,7 @@ set isfname-==
 set ttimeout
 set ttimeoutlen=5
 
-autocmd FileType javascript noremap <leader>r :TernRename<CR>
+autocmd FileType javascript noremap <leader>cr :TernRename<CR>
 autocmd FileType javascript noremap <leader>g :TernDef<CR>
 autocmd FileType javascript noremap <leader>n :TernRef<CR>
 autocmd FileType javascript JsPreTmpl html

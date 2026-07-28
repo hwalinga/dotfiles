@@ -22,9 +22,11 @@
 [credential]
 	helper = store
 [push]
-	default = matching
+	default = current
 
 [includeIf "gitdir:/hg-aumc/genome-analysis/"]
 	[user]
 		email = h.walinga@amsterdamumc.nl
 		name = Hielke Walinga
+[init]
+	defaultBranch = main

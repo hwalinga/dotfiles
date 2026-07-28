@@ -7,6 +7,7 @@ alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
 
 alias pytest="python3 -m pytest"
+alias pw="npx playwright test --no-deps"
 alias lst="ls -trlh"
 alias python2="$HOME/.pyenv/versions/2.7.18/bin/python"
 
@@ -174,6 +175,15 @@ dgrep() {
     spacer
     END{if (spacer) { print "\n"; } }
     ' $2;
+}
+
+slugify() {
+  echo "$@" | \
+  tr '[:upper:]' '[:lower:]' | \
+  sed 's/[^a-z0-9]/-/g' | \
+  sed 's/--*/-/g' | \
+  sed 's/^-//' | \
+  sed 's/-$//'
 }
 
 revs() {
