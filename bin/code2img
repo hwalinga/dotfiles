@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+import argparse
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name, guess_lexer
+from pygments.formatters import ImageFormatter
+from PIL import Image
+import sys
+import os
+
+def read_input(path):
+    if path:
+        with open(path, "r") as f:
+            return f.read()
+    else:
+        return sys.stdin.read()
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert code text to a syntax-highlighted PNG image."
+    )
+    parser.add_argument("input", nargs="?", help="Input code file (optional). If omitted, reads stdin.")
+    parser.add_argument("-o", "--output", default="code.png", help="Output PNG file.")
+    parser.add_argument("-l", "--language", help="Language for syntax highlighting.")
+    parser.add_argument("-fs", "--fontsize", type=int, default=30, help="Font size.")
+    parser.add_argument("-s", "--style", default="tango", help="Pygments color style.")
+
+    args = parser.parse_args()
+    code = read_input(args.input)
+
+    # Get language lexer
+    if args.language:
+        lexer = get_lexer_by_name(args.language)
+    else:
+        try:
+            lexer = guess_lexer(code)
+        except:
+            lexer = get_lexer_by_name("text")
+
+    formatter = ImageFormatter(
+        font_size=args.fontsize,
+        style=args.style,
+        image_pad=20
+    )
+
+    data = highlight(code, lexer, formatter)
+
+    with open(args.output, "wb") as f:
+        f.write(data)
+
+    print(f"Image generated: {args.output}")
+
+if __name__ == "__main__":
+    main()
