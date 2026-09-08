@@ -3,8 +3,68 @@
 export EDITOR='/bin/nvim'
 export EDITOR="$HOME/.linuxbrew/bin/nvim"
 alias vim="$EDITOR"
-alias vi="$EDITOR"
+# alias vi="$EDITOR"
 alias vimrc="$EDITOR ~/.vimrc"
+
+vi() {
+  local -a args
+  local arg file line col input loc from_stdin=0
+
+  # 1. Pull in piped text (traceback, grep output, linter output, ...)
+  if [[ ! -t 0 ]]; then
+    input=$(cat)
+    from_stdin=1
+  fi
+
+  # 2. A pasted traceback frame as arguments counts as input too
+  if [[ $# -gt 0 && "$*" == *'File "'*'", line '* ]]; then
+    input="$input"$'\n'"$*"
+    set --
+  fi
+
+  # 3. Turn that text into one path:line argument
+  if [[ -n $input ]]; then
+    input=$(printf '%s\n' "$input" | sed $'s/\033\\[[0-9;]*m//g')   # strip color
+
+    loc=$(printf '%s\n' "$input" | grep -oE 'File "[^"]+", line [0-9]+' | tail -1)
+    if [[ -n $loc ]]; then                      # Python frame: innermost wins
+      file=${loc#File \"}; file=${file%%\"*}
+      line=${loc##*line }
+      set -- "$file:$line" "$@"
+    else                                        # grep/ruff/pytest: first hit wins
+      loc=$(printf '%s\n' "$input" | grep -oE '[^[:space:]:]+:[0-9]+(:[0-9]+)?' | head -1)
+      [[ -n $loc ]] && set -- "$loc" "$@"
+    fi
+  fi
+
+  # 4. Argument munging: path:line[:col] -> +cursor
+  for arg in "$@"; do
+    if [[ $arg == -* || -e $arg ]]; then
+      args+=("$arg"); continue
+    fi
+    file=${arg%:}
+    line= col=
+    while [[ $file == *:* && ! -e $file ]]; do
+      local num=${file##*:}
+      [[ $num =~ ^[0-9]+$ ]] || break
+      col=$line; line=$num
+      file=${file%:*}
+      [[ -n $col ]] && break
+    done
+    if [[ -n $line ]]; then
+      args+=(+"call cursor(${line},${col:-1})|normal! zv" "$file")
+    else
+      args+=("$arg")
+    fi
+  done
+
+  # 5. Launch — reattach the terminal if stdin was a pipe
+  if (( from_stdin )); then
+    command $EDITOR "${args[@]}" < /dev/tty
+  else
+    command $EDITOR "${args[@]}"
+  fi
+}
 
 alias pytest="python3 -m pytest"
 alias pw="npx playwright test --no-deps"
@@ -74,6 +134,9 @@ alias r="/usr/bin/r"
 # unalias fd
 
 alias lg='lazygit'
+
+alias fclaude="$HOME/repos/fence/fence -- claude --permission-mode auto"
+alias hnterm="~/repos/hnterm/build/bin/hnterm"
 
 export PGDATABASE=cdatest
 export RANDOM_SEED="937162211"

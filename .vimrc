@@ -646,7 +646,7 @@ nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap <leader>I :exec "normal a".nr2char(getchar())."\e"<CR>
 
 nnoremap <leader>x :wall<CR>
-nnoremap <leader>m :w\|mak main.pdf<CR>
+nnoremap <leader>m :w\|mak<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 

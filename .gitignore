@@ -1,3 +1,6 @@
 .vimrc.bck
 db.json
 .mypy_cache
+bin/allure-pdf
+bin/allure-pdf-1.6.0/
+bin/allure-pdf-1.6.0.zip

@@ -3,6 +3,7 @@ if [ ! -n "$SHH_CLIENT" ] && [ ! -n "$SSH_TTY" ] && command -v tmux &> /dev/null
 fi
 zstyle ':omz:alpha:lib:git' async-prompt no
 ssh-add ~/.ssh/id_rsa_aumc
+# ssh-add ~/.ssh/id_rsa
 
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
@@ -326,3 +327,9 @@ export PATH="/home/hielke/.pixi/bin:$PATH"
 export PATH="/home/hielke/n/bin/:$PATH"
 eval "$(direnv hook zsh)"
 eval "$(mise activate zsh)"
+
+export ANTHROPIC_CUSTOM_MODEL_OPTION="claude-opus-4-6"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_NAME="Opus 4.6"
+export ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION="Opus 4.6"
+
+# source ~/.secrets
